@@ -1,29 +1,31 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Popup from './Popup';
 import { API_URL } from './utils';
+import { useData } from './AppContext';
+import { Alert, EmptyState, Icon, Modal, Spinner } from './ui';
+import { formatDate, taka, num, localizeDigits, stationName } from '../lib/format';
+import { useT } from '../i18n';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '320px',
-    padding: '20px',
-    borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
-    background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-    border: 'none'
-  },
+const HOLD_SECONDS = 300; // seats are held for 5 minutes
+
+const PAYMENT_METHODS = [
+  { id: 'bkash', label: 'bKash', img: 'bkash4.png' },
+  { id: 'nagad', label: 'Nagad', img: 'nagad.png' },
+];
+
+const authHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
 };
 
 const TicketBookingPage = () => {
+  const { t } = useT();
   const location = useLocation();
-  const navigate = useNavigate();
+  const { userId } = useData();
   const ticketId = location.state?.ticketId;
 
   const [ticketData, setTicketData] = useState(null);
@@ -31,735 +33,318 @@ const TicketBookingPage = () => {
   const [loading, setLoading] = useState(false);
 
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [transactionId, setTransactionId] = useState('');
+  const [payModalOpen, setPayModalOpen] = useState(false);
+  const [amount, setAmount] = useState('');
+  const [amountError, setAmountError] = useState('');
 
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
-  const [cancelSuccess, setCancelSuccess] = useState('');
+  const [cancelling, setCancelling] = useState(false);
 
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  // 'pending' | 'paid' | 'cancelled' | 'expired'
+  const [status, setStatus] = useState('pending');
+
+  const [timeLeft, setTimeLeft] = useState(HOLD_SECONDS);
   const timerRef = useRef(null);
   const [popup, setPopup] = useState({ show: false, message: '' });
 
   // Fetch ticket details
   useEffect(() => {
-    const fetchTicketDetails = async () => {
-      if (!ticketId) {
-        setError('No ticket ID provided');
-        return;
-      }
-
+    if (!ticketId) {
+      setError(t('No ticket to show. Start by searching for a train.'));
+      return;
+    }
+    (async () => {
       setLoading(true);
       setError('');
-      setTicketData(null);
-
       try {
-        const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/booking/getTicket`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          },
+          headers: authHeaders(),
           body: JSON.stringify({ ticket_id: ticketId }),
         });
-
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.message || 'Failed to fetch ticket data');
-        }
-
         const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch ticket data');
         setTicketData(data);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchTicketDetails();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticketId]);
 
-  // Timer countdown
+  // Countdown (paused while the payment dialog is open, like before)
   useEffect(() => {
-    if (!ticketData || modalIsOpen) return;
-
-    timerRef.current = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
+    if (!ticketData || payModalOpen || status !== 'pending') return undefined;
+    timerRef.current = setInterval(() => setTimeLeft((t) => t - 1), 1000);
     return () => clearInterval(timerRef.current);
-  }, [ticketData, modalIsOpen]);
+  }, [ticketData, payModalOpen, status]);
 
-  // Auto cancel when time expires
+  const cancelOnServer = useCallback(async () => {
+    const response = await fetch(`${API_URL}/booking/cancelTicket`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ ticket_id: ticketId }),
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.message || 'Cancellation failed');
+    }
+  }, [ticketId]);
+
+  // Auto-cancel when the hold expires
   useEffect(() => {
-    if (timeLeft <= 0) {
-      clearInterval(timerRef.current);
-      autoCancelTicket();
-    }
-  }, [timeLeft]);
-
-  const autoCancelTicket = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/booking/cancelTicket`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify({ ticket_id: ticketId }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Auto cancellation failed');
-      }
-
-      setPopup({ show: true, message: 'Time expired! Ticket was automatically canceled.' });
-      navigate('/');
-    } catch (err) {
-      setPopup({ show: true, message: `Error auto-canceling ticket: ${err.message}` });
-      navigate('/');
-    }
-  };
-
-  const openModal = () => {
-    if (!paymentMethod) {
-      setPopup({ show: true, message: 'Please select a payment method first.' });
-      return;
-    }
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  const handleConfirmPayment = () => {
-    if (!transactionId.trim()) {
-      setPopup({ show: true, message: 'Please enter Amount' });
-      return;
-    }
-    else if (transactionId.trim() !== ticketData.total_cost.toString()) {
-      setPopup({ show: true, message: `Amount must match the total cost of ${ticketData.total_cost} tk.` });
-      return;
-    }
-
+    if (timeLeft > 0 || status !== 'pending') return;
     clearInterval(timerRef.current);
+    setPayModalOpen(false);
+    setStatus('expired');
+    cancelOnServer().catch((err) =>
+      setPopup({ show: true, message: t('Error auto-cancelling ticket: {msg}', { msg: err.message }) }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft, status, cancelOnServer]);
 
-    setPopup({ show: true, message: `Payment confirmed!\nPayment method: ${paymentMethod}\nTransaction Amount: ${transactionId}` });
-    closeModal();
-    navigate('/');
+  const openPayModal = () => {
+    if (!paymentMethod) {
+      setPopup({ show: true, message: t('Please choose a payment method first.') });
+      return;
+    }
+    setAmount('');
+    setAmountError('');
+    setPayModalOpen(true);
+  };
+
+  const handleConfirmPayment = (e) => {
+    e.preventDefault();
+    if (!amount.trim()) {
+      setAmountError(t('Please enter the amount.'));
+      return;
+    }
+    if (amount.trim() !== ticketData.total_cost.toString()) {
+      setAmountError(t('The amount must match the total of {amount}.', { amount: taka(ticketData.total_cost) }));
+      return;
+    }
+    clearInterval(timerRef.current);
+    setPayModalOpen(false);
+    setStatus('paid');
   };
 
   const handleCancelTicket = async () => {
+    setCancelling(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/booking/cancelTicket`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify({ ticket_id: ticketId }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Cancellation failed');
-      }
-
-      setCancelSuccess('Ticket canceled successfully!');
-      setTimeout(() => navigate('/'), 1500);
+      await cancelOnServer();
+      clearInterval(timerRef.current);
+      setCancelModalOpen(false);
+      setStatus('cancelled');
     } catch (err) {
-      setPopup({ show: true, message: `Error: ${err.message}` });
+      setPopup({ show: true, message: t('Error: {msg}', { msg: err.message }) });
+    } finally {
+      setCancelling(false);
     }
   };
 
-  if (loading) return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #0d9488 100%)'
-    }}>
-      <div style={{
-        color: 'white',
-        fontSize: '1.5rem',
-        fontWeight: '600'
-      }}>Loading ticket details...</div>
-    </div>
-  );
-  
-  if (error) return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #0d9488 100%)'
-    }}>
-      <div style={{
-        color: '#ef4444',
-        fontSize: '1.2rem',
-        fontWeight: '500',
-        background: 'white',
-        padding: '2rem',
-        borderRadius: '12px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
-      }}>{error}</div>
-    </div>
-  );
-  
-  if (!ticketData) return null;
+  const minutes = Math.max(0, Math.floor(timeLeft / 60));
+  const seconds = Math.max(0, timeLeft % 60);
+  const formattedTimer = localizeDigits(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+  const method = PAYMENT_METHODS.find((m) => m.id === paymentMethod);
 
-  const journeyDateOnly = new Date(ticketData.Journey_date).toLocaleDateString();
-  const hours = Math.floor(timeLeft / 3600);
-  const minutes = Math.floor((timeLeft % 3600) / 60);
-  const seconds = timeLeft % 60;
-  const formattedTimer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  const header = (title, subtitle) => (
+    <section className="band">
+      <div className="container container-sm">
+        <h1>{t(title)}</h1>
+        {subtitle && <p style={{ marginTop: 6 }}>{t(subtitle)}</p>}
+      </div>
+    </section>
+  );
+
+  if (loading || (!ticketData && !error)) {
+    return (
+      <>
+        {header('Your ticket')}
+        <div className="container container-sm overlap">
+          <div className="skeleton" style={{ height: 420 }} aria-label={t('Loading ticket')} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        {header('Your ticket')}
+        <div className="container container-sm overlap section">
+          <div className="card">
+            <EmptyState
+              icon="ticket"
+              title={t('Ticket not found')}
+              action={<Link to="/booking/train/search" className="btn btn-primary">{t('Search trains')}</Link>}
+            >
+              {error}
+            </EmptyState>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (status !== 'pending') {
+    const outcomes = {
+      paid: {
+        icon: 'check', title: 'Payment confirmed',
+        text: t('Paid {amount} with {method}. Have a good journey!', { amount: taka(ticketData.total_cost), method: method ? t(method.label) : paymentMethod }),
+      },
+      cancelled: { icon: 'close', title: 'Ticket cancelled', text: t('Your reservation was cancelled and the seats were released.') },
+      expired: { icon: 'clock', title: 'Time ran out', text: t('Payment wasn’t completed within 5 minutes, so the ticket was cancelled automatically.') },
+    };
+    const o = outcomes[status];
+    return (
+      <>
+        {header(o.title)}
+        <div className="container container-sm overlap section">
+          <div className="card">
+            <EmptyState
+              icon={o.icon}
+              title={t(o.title)}
+              action={
+                <div className="row" style={{ justifyContent: 'center', marginTop: 8 }}>
+                  {status === 'paid' && userId && <Link to={`/users/${userId}`} className="btn btn-primary">{t('View my tickets')}</Link>}
+                  {status !== 'paid' && <Link to="/booking/train/search" className="btn btn-primary">{t('Search again')}</Link>}
+                  <Link to="/" className="btn btn-ghost">{t('Go home')}</Link>
+                </div>
+              }
+            >
+              {o.text}
+            </EmptyState>
+          </div>
+        </div>
+        {popup.show && <Popup message={popup.message} onClose={() => setPopup({ show: false, message: '' })} />}
+      </>
+    );
+  }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #0d9488 100%)',
-      padding: '2rem',
-      paddingTop: '80px'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        background: 'rgba(255, 255, 255, 0.95)',
-        borderRadius: '24px',
-        boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
-        overflow: 'hidden',
-        animation: 'fadeInUp 0.8s ease-out'
-      }}>
-        {/* Header Section */}
-        <div style={{
-          background: 'linear-gradient(45deg, #10b981, #0d9488)',
-          padding: '2rem',
-          textAlign: 'center',
-          color: 'white',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '-50%',
-            left: '-50%',
-            width: '200%',
-            height: '200%',
-            background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%)',
-            animation: 'rotate 20s linear infinite'
-          }}></div>
-          <h2 style={{ 
-            color: '#ffffff', 
-            fontSize: '2rem',
-            marginBottom: '0.5rem',
-            position: 'relative',
-            zIndex: 1,
-            letterSpacing: '1px'
-          }}>Ticket Details & Payment</h2>
-          <p style={{
-            position: 'relative',
-            zIndex: 1,
-            opacity: 0.9,
-            fontSize: '1.1rem'
-          }}>Complete your booking by making the payment</p>
+    <>
+      {header('Complete your booking', 'Your seats are on hold. Pay before the timer runs out.')}
+
+      <div className="container container-sm overlap section stack-lg">
+        <div className={`timer${timeLeft <= 60 ? ' urgent' : ''}`} role="timer" aria-live="off">
+          <span className="row" style={{ gap: 8 }}>
+            <Icon name="clock" /> <span className="strong">{t('Time left to pay')}</span>
+          </span>
+          <span className="timer-value">{formattedTimer}</span>
         </div>
 
-        <div style={{
-          padding: '3rem 2rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem'
-        }}>
-          {/* Ticket Details */}
-          <div style={{
-            background: 'linear-gradient(120deg, rgba(16, 185, 129, 0.1), rgba(13, 148, 136, 0.1))',
-            padding: '2rem',
-            borderRadius: '16px',
-            borderLeft: '4px solid #10b981'
-          }}>
-            <h3 style={{
-              color: '#047857',
-              fontSize: '1.5rem',
-              fontWeight: '600',
-              marginBottom: '1.5rem',
-              position: 'relative',
-              paddingBottom: '0.5rem'
-            }}>
-              Journey Information
-              <span style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '50px',
-                height: '3px',
-                background: 'linear-gradient(45deg, #10b981, #0d9488)',
-                borderRadius: '2px'
-              }}></span>
-            </h3>
-            
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '1.5rem'
-            }}>
-              <div>
-                <p style={{ color: '#047857', fontWeight: '600', marginBottom: '0.5rem' }}>Train:</p>
-                <p style={{ fontSize: '1.1rem' }}>
-                  {ticketData.train_name} <span style={{ color: '#6b7280' }}>({ticketData.train_code})</span>
-                </p>
-              </div>
-              
-              <div>
-                <p style={{ color: '#047857', fontWeight: '600', marginBottom: '0.5rem' }}>Route:</p>
-                <p style={{ fontSize: '1.1rem' }}>
-                  {ticketData.From} → {ticketData.To}
-                </p>
-              </div>
-              
-              <div>
-                <p style={{ color: '#047857', fontWeight: '600', marginBottom: '0.5rem' }}>Journey Date:</p>
-                <p style={{ fontSize: '1.1rem' }}>{journeyDateOnly}</p>
-              </div>
-              
-              <div>
-                <p style={{ color: '#047857', fontWeight: '600', marginBottom: '0.5rem' }}>Total Cost:</p>
-                <p style={{ fontSize: '1.1rem', fontWeight: '600', color: '#065f46' }}>
-                  {ticketData.total_cost} tk
-                </p>
-              </div>
+        <article className="ticket" aria-label={t('Ticket details')}>
+          <div className="ticket-top row-between">
+            <div>
+              <p className="small muted">{t('Train #{code}', { code: num(ticketData.train_code) })}</p>
+              <h2 className="h2" style={{ color: '#fff' }}>{ticketData.train_name}</h2>
             </div>
-            
-            <div style={{ marginTop: '2rem' }}>
-              <h4 style={{ color: '#047857', fontWeight: '600', marginBottom: '1rem' }}>Seats Booked:</h4>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '1rem'
-              }}>
-                {ticketData.Seat_details.map((cls, idx) => (
-                  <div key={idx} style={{
-                    background: '#ecfdf5',
-                    padding: '0.75rem 1rem',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
-                  }}>
-                    <strong style={{ color: '#065f46' }}>{cls.class_code}:</strong> {cls.seats.join(', ')}
-                  </div>
-                ))}
+            <div style={{ textAlign: 'right' }}>
+              <p className="small muted">{t('Total')}</p>
+              <p className="h2 num" style={{ color: '#fff' }}>{taka(ticketData.total_cost)}</p>
+            </div>
+          </div>
+          <div className="ticket-body">
+            <div className="journey">
+              <div>
+                <div className="eyebrow">{t('From')}</div>
+                <div className="h3">{stationName(ticketData.From)}</div>
+              </div>
+              <div className="journey-line"><span className="bar" /></div>
+              <div style={{ textAlign: 'right' }}>
+                <div className="eyebrow">{t('To')}</div>
+                <div className="h3">{stationName(ticketData.To)}</div>
               </div>
             </div>
           </div>
-
-          {/* Timer */}
-          <div style={{
-            background: timeLeft <= 600 ? 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)' : 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-            padding: '1.5rem',
-            borderRadius: '12px',
-            textAlign: 'center',
-            boxShadow: '0 5px 15px rgba(0,0,0,0.05)',
-            border: timeLeft <= 600 ? '2px solid #ef4444' : '2px solid #10b981'
-          }}>
-            <p style={{
-              fontWeight: 'bold',
-              fontSize: '1.2rem',
-              color: timeLeft <= 600 ? '#b91c1c' : '#065f46',
-              marginBottom: '0.5rem'
-            }}>
-              Time left to confirm payment:
-            </p>
-            <p style={{
-              fontWeight: 'bold',
-              fontSize: '2rem',
-              color: timeLeft <= 600 ? '#dc2626' : '#047857'
-            }}>
-              {formattedTimer}
-            </p>
+          <div className="ticket-tear" aria-hidden="true" />
+          <div className="ticket-body">
+            <dl className="kv">
+              <div><dt>{t('Journey date')}</dt><dd>{formatDate(ticketData.Journey_date)}</dd></div>
+              <div><dt>{t('Ticket ID')}</dt><dd className="num">{num(ticketId)}</dd></div>
+              {(ticketData.Seat_details || []).map((cls, idx) => (
+                <div key={idx}><dt>{t('Seats')} · {cls.class_code}</dt><dd>{num([...cls.seats].sort((a, b) => a - b).join(', '))}</dd></div>
+              ))}
+            </dl>
           </div>
+        </article>
 
-          {/* Payment Methods */}
-          <div>
-            <h3 style={{
-              color: '#047857',
-              fontSize: '1.5rem',
-              fontWeight: '600',
-              marginBottom: '1.5rem',
-              position: 'relative',
-              paddingBottom: '0.5rem'
-            }}>
-              Select Payment Method
-              <span style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '50px',
-                height: '3px',
-                background: 'linear-gradient(45deg, #10b981, #0d9488)',
-                borderRadius: '2px'
-              }}></span>
-            </h3>
-            
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '2rem',
-              flexWrap: 'wrap'
-            }}>
-              {/* Bkash Option */}
-              <div
-                onClick={() => setPaymentMethod('bkash')}
-                style={{
-                  border: paymentMethod === 'bkash' ? '3px solid #10b981' : '1px solid #d1fae5',
-                  padding: '1.5rem',
-                  cursor: 'pointer',
-                  width: '180px',
-                  height: '180px',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  background: paymentMethod === 'bkash' ? '#f0fdf4' : 'white',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 5px 15px rgba(0,0,0,0.05)'
-                }}
-              >
-                <img 
-                  src="../bkash4.png" 
-                  alt="Bkash" 
-                  style={{ 
-                    width: '80%', 
-                    height: 'auto',
-                    filter: paymentMethod === 'bkash' ? 'none' : 'grayscale(20%)'
-                  }} 
+        <section className="card card-pad stack" aria-labelledby="pay-title">
+          <h2 id="pay-title" className="h3">{t('Payment method')}</h2>
+          <div className="pay-options" role="radiogroup" aria-label={t('Payment method')}>
+            {PAYMENT_METHODS.map((m) => (
+              <label key={m.id} className="pay-option">
+                <input
+                  type="radio"
+                  name="payment"
+                  value={m.id}
+                  checked={paymentMethod === m.id}
+                  onChange={() => setPaymentMethod(m.id)}
                 />
-                <span style={{ 
-                  fontWeight: 'bold', 
-                  color: paymentMethod === 'bkash' ? '#e5383b' : '#6b7280', 
-                  fontSize: '1.1rem'
-                }}>
-                  Bkash
-                </span>
-              </div>
-
-              {/* Nagad Option */}
-              <div
-                onClick={() => setPaymentMethod('nagad')}
-                style={{
-                  border: paymentMethod === 'nagad' ? '3px solid #10b981' : '1px solid #d1fae5',
-                  padding: '1.5rem',
-                  cursor: 'pointer',
-                  width: '180px',
-                  height: '180px',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  background: paymentMethod === 'nagad' ? '#f0fdf4' : 'white',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 5px 15px rgba(0,0,0,0.05)'
-                }}
-              >
-                <img 
-                  src="../nagad.png" 
-                  alt="Nagad" 
-                  style={{ 
-                    width: '80%', 
-                    height: 'auto',
-                    filter: paymentMethod === 'nagad' ? 'none' : 'grayscale(20%)'
-                  }} 
-                />
-                <span style={{ 
-                  fontWeight: 'bold', 
-                  color: paymentMethod === 'nagad' ? '#1c47a9' : '#6b7280', 
-                  fontSize: '1.1rem'
-                }}>
-                  Nagad
-                </span>
-              </div>
-            </div>
+                <img src={`${process.env.PUBLIC_URL}/${m.img}`} alt="" />
+                <span>{t(m.label)}</span>
+              </label>
+            ))}
           </div>
-
-          {/* Action Buttons */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '1.5rem',
-            marginTop: '2rem',
-            flexWrap: 'wrap'
-          }}>
-            <button
-              onClick={openModal}
-              style={{
-                padding: '1rem 2rem',
-                fontSize: '1.1rem',
-                fontWeight: '600',
-                background: 'linear-gradient(45deg, #10b981, #0d9488)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 15px rgba(16, 185, 129, 0.3)',
-                minWidth: '200px'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 8px 25px rgba(16, 185, 129, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(16, 185, 129, 0.3)';
-              }}
-            >
-              Confirm Payment
+          <div className="row" style={{ justifyContent: 'space-between', marginTop: 8 }}>
+            <button type="button" className="btn btn-danger-outline" onClick={() => setCancelModalOpen(true)}>
+              {t('Cancel ticket')}
             </button>
-
-            <button
-              onClick={() => setCancelModalOpen(true)}
-              style={{
-                padding: '1rem 2rem',
-                fontSize: '1.1rem',
-                fontWeight: '600',
-                background: 'linear-gradient(45deg, #ef4444, #dc2626)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 15px rgba(239, 68, 68, 0.3)',
-                minWidth: '200px'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 8px 25px rgba(239, 68, 68, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(239, 68, 68, 0.3)';
-              }}
-            >
-              Cancel Ticket
+            <button type="button" className="btn btn-primary btn-lg" onClick={openPayModal}>
+              {t('Pay {amount}', { amount: taka(ticketData.total_cost) })} <Icon name="arrowRight" size={18} />
             </button>
           </div>
-        </div>
+        </section>
       </div>
 
-      {/* Payment Modal */}
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Transaction ID Modal"
-        ariaHideApp={false}
+        open={payModalOpen}
+        onClose={() => setPayModalOpen(false)}
+        title={t('Pay with {method}', { method: method ? t(method.label) : '' })}
+        icon="wallet"
       >
-        <div style={{ marginBottom: '1.5rem', position: 'relative' }}>
-          <h4 style={{ 
-            color: '#047857',
-            fontSize: '1.3rem',
-            fontWeight: '600',
-            marginBottom: '1rem'
-          }}>
-            Add Transaction Amount
-          </h4>
-          <button
-            onClick={closeModal}
-            style={{ 
-              position: 'absolute',
-              top: '-10px',
-              right: '-10px',
-              background: '#ef4444',
-              color: 'white',
-              width: '30px',
-              height: '30px',
-              borderRadius: '50%',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1rem'
-            }}
-            aria-label="Close modal"
-          >
-            ×
-          </button>
-        </div>
-        <input
-          type="text"
-          placeholder={`Enter ${ticketData.total_cost} taka`}
-          value={transactionId}
-          onChange={(e) => setTransactionId(e.target.value)}
-          style={{ 
-            width: '100%', 
-            padding: '12px',
-            marginBottom: '1.5rem',
-            borderRadius: '8px',
-            border: '1px solid #d1fae5',
-            fontSize: '1rem',
-            outline: 'none',
-            transition: 'all 0.3s ease'
-          }}
-        />
-        <button
-          onClick={handleConfirmPayment}
-          style={{
-            padding: '12px 24px',
-            fontSize: '1rem',
-            fontWeight: '600',
-            background: 'linear-gradient(45deg, #10b981, #0d9488)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            width: '100%',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 5px 15px rgba(16, 185, 129, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
-          }}
-        >
-          Confirm Payment
-        </button>
+        <form onSubmit={handleConfirmPayment} className="stack">
+          <p className="muted small">{t('The timer is paused while this window is open.')}</p>
+          <div className="field">
+            <label htmlFor="pay-amount">{t('Amount (taka)')}</label>
+            <input
+              id="pay-amount"
+              className="input"
+              inputMode="decimal"
+              placeholder={t('Enter {amount}', { amount: ticketData.total_cost })}
+              value={amount}
+              aria-invalid={!!amountError}
+              aria-describedby={amountError ? 'pay-amount-error' : undefined}
+              onChange={(e) => { setAmount(e.target.value); setAmountError(''); }}
+              autoFocus
+            />
+            {amountError && <span id="pay-amount-error" className="field-error">{amountError}</span>}
+          </div>
+          <button type="submit" className="btn btn-primary btn-block btn-lg">{t('Confirm payment')}</button>
+        </form>
       </Modal>
 
-      {/* Cancel Modal */}
       <Modal
-        isOpen={cancelModalOpen}
-        onRequestClose={() => setCancelModalOpen(false)}
-        style={{
-          ...customStyles,
-          content: {
-            ...customStyles.content,
-            background: 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)'
-          }
-        }}
-        contentLabel="Cancel Ticket Modal"
-        ariaHideApp={false}
+        open={cancelModalOpen}
+        onClose={() => setCancelModalOpen(false)}
+        title={t('Cancel this ticket?')}
+        icon="alert"
+        tone="danger"
+        footer={
+          <>
+            <button type="button" className="btn btn-ghost" onClick={() => setCancelModalOpen(false)}>{t('Keep ticket')}</button>
+            <button type="button" className="btn btn-danger" onClick={handleCancelTicket} disabled={cancelling}>
+              {cancelling ? <Spinner label={t('Cancelling…')} /> : t('Yes, cancel')}
+            </button>
+          </>
+        }
       >
-        <h4 style={{ 
-          color: '#b91c1c',
-          fontSize: '1.3rem',
-          fontWeight: '600',
-          marginBottom: '1.5rem'
-        }}>
-          Are you sure you want to cancel this ticket?
-        </h4>
-        <div style={{ 
-          marginTop: '1.5rem', 
-          display: 'flex', 
-          justifyContent: 'space-between',
-          gap: '1rem'
-        }}>
-          <button
-            onClick={handleCancelTicket}
-            style={{ 
-              padding: '12px 24px',
-              fontSize: '1rem',
-              fontWeight: '600',
-              background: 'linear-gradient(45deg, #ef4444, #dc2626)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              flex: 1,
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 5px 15px rgba(239, 68, 68, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = 'none';
-            }}
-          >
-            Yes, Cancel
-          </button>
-          <button
-            onClick={() => setCancelModalOpen(false)}
-            style={{ 
-              padding: '12px 24px',
-              fontSize: '1rem',
-              fontWeight: '600',
-              background: 'white',
-              color: '#374151',
-              border: '1px solid #d1d5db',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              flex: 1,
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = 'none';
-            }}
-          >
-            No
-          </button>
-        </div>
-        {cancelSuccess && (
-          <p style={{ 
-            marginTop: '1.5rem', 
-            color: '#047857', 
-            fontWeight: '600',
-            textAlign: 'center'
-          }}>
-            {cancelSuccess}
-          </p>
-        )}
+        <Alert tone="warn">{t('Your reserved seats will be released for other passengers.')}</Alert>
       </Modal>
 
-      {/* Animation Styles */}
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-          .about-section-container {
-            padding-top: 100px !important;
-          }
-          
-          .about-section-container > div {
-            margin: 1rem !important;
-            border-radius: 16px !important;
-          }
-        }
-      `}</style>
       {popup.show && <Popup message={popup.message} onClose={() => setPopup({ show: false, message: '' })} />}
-    </div>
+    </>
   );
 };
 
