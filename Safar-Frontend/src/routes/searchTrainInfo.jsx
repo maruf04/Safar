@@ -1,14 +1,6 @@
-import React from 'react'
-import SearchTrain from '../components/SearchTrain'
-import Header from '../components/Header'
+import React from 'react';
+import SearchTrain from '../components/SearchTrain';
 
-const searchTrainInfo = () => {
-  return (
-    <div>
-        {/* <center><Header/></center> */}
-        <SearchTrain/>
-    </div>
-  )
-}
+const SearchTrainInfo = () => <SearchTrain />;
 
-export default searchTrainInfo;
+export default SearchTrainInfo;

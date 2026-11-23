@@ -1,85 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import HomePage from './routes/homepage';
 import About from './components/About.jsx';
 import LoginPage from './routes/loginPage';
-import UpdateUserInfo from './routes/updateUserInfo';
 import ShowUserInfo from './routes/ShowUserInfo.jsx';
 import AddUserInfo from './routes/addUserInfo';
-import SearchUserInfo from './routes/searchUserInfo';
-import RouteDetails from './routes/routeDetails';
 import SearchTrainInfo from './routes/searchTrainInfo';
-import ReviewPage from './routes/reviewPage';
 import BookTrain from './routes/bookTrain';
 import BookSeat from './routes/bookSeat';
 import TicketBooking from './routes/ticketBooking';
-import TicketHistory from './routes/ticketHistory';
-import AdminPage from './routes/adminPage';
-import TrainInformation from './routes/trainInfo';
+import Unavailable from './routes/Unavailable';
 
 import NavBar from './components/NavBar';
-import './components/App.css';
-//import Footer from './components/Footer.jsx';
+import SiteFooter from './components/SiteFooter';
+import './styles/theme.css';
 import { AppProvider } from './components/AppContext';
+import { LangProvider } from './i18n';
 
-const AppContent = ({ isAuthenticated, name1, id1, setAuth }) => {
-  const location = useLocation();
-
-  return (
-    <>
-      <NavBar isAuthenticated={isAuthenticated} name1={name1} id1={id1} />
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/trainInfo" element={<TrainInformation />} />
-          <Route path="/users/login" element={<LoginPage setAuth={setAuth} />} />
-          <Route path="/users/:id/update" element={<UpdateUserInfo />} />
-          <Route path="/users/:id" element={<ShowUserInfo />} />
-          <Route path="/users/:id/tickets" element={<TicketHistory />} />
-          <Route path="/users" element={<AddUserInfo />} />
-          <Route path="/search" element={<SearchUserInfo />} />
-          <Route path="/trains" element={<SearchTrainInfo />} />
-          <Route path="/train/:id" element={<RouteDetails />} />
-          <Route path="/booking/train/search" element={<BookTrain />} />
-          <Route path="/review" element={<ReviewPage />} />
-          <Route path="/bookseat" element={<BookSeat />} />
-          <Route path="/booking/ticket" element={<TicketBooking />} />
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-      </div>
-      {/* <Footer/> */}
-    </>
-  );
+// Scroll to top on every page change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
 };
 
-const App = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [name1, setName1] = useState(null);
-  const [id1, setId1] = useState(null);
+// Old URLs that now live inside the account page
+const AccountRedirect = () => {
+  const { id } = useParams();
+  return <Navigate to={`/users/${id}`} replace />;
+};
 
-  const setAuth = (boolean) => {
-    setAuthenticated(boolean);
-    setName1(localStorage.getItem("name"));
-    setId1(localStorage.getItem("userId"));
-  };
+const AppContent = ({ setAuth }) => (
+  <div className="app">
+    <ScrollToTop />
+    <NavBar />
+    <main className="app-main">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/users/login" element={<LoginPage setAuth={setAuth} />} />
+        <Route path="/users/:id/update" element={<AccountRedirect />} />
+        <Route path="/users/:id/tickets" element={<AccountRedirect />} />
+        <Route path="/users/:id" element={<ShowUserInfo />} />
+        <Route path="/users" element={<AddUserInfo />} />
+        <Route path="/trains" element={<SearchTrainInfo />} />
+        <Route path="/booking/train/search" element={<BookTrain />} />
+        <Route path="/bookseat" element={<BookSeat />} />
+        <Route path="/booking/ticket" element={<TicketBooking />} />
+
+        {/* These pages relied on the retired EC2 server; the current API has no endpoints for them */}
+        <Route path="/trainInfo" element={<Unavailable title="Train information" />} />
+        <Route path="/train/:id" element={<Unavailable title="Train route" />} />
+        <Route path="/search" element={<Unavailable title="Search" />} />
+        <Route path="/review" element={<Unavailable title="Reviews" />} />
+        <Route path="/admin" element={<Unavailable title="Admin" />} />
+        <Route path="*" element={<Unavailable title="Page not found" />} />
+      </Routes>
+    </main>
+    <SiteFooter />
+  </div>
+);
+
+const App = () => {
+  const [, setAuthenticated] = useState(false);
+
+  const setAuth = (boolean) => setAuthenticated(boolean);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // You can add token expiration check here if you want
-      setAuth(true);
-    } else {
-      setAuth(false);
-    }
+    setAuth(!!localStorage.getItem('token'));
   }, []);
 
   return (
-    <div className="App">
+    <LangProvider>
       <AppProvider>
-        <AppContent isAuthenticated={isAuthenticated} name1={name1} id1={id1} setAuth={setAuth} />
+        <AppContent setAuth={setAuth} />
       </AppProvider>
-    </div>
+    </LangProvider>
   );
 };
 

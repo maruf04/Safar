@@ -1,299 +1,273 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useData } from './AppContext';
-import Modal from 'react-modal';
-import ErrorModal from './ErrorModal';
-import './showuserpg.css';
 import { API_URL } from './utils';
+import { Alert, EmptyState, Icon, Modal, Spinner } from './ui';
+import { formatDate, initials, taka, num, stationName, phoneNumber } from '../lib/format';
+import { useT } from '../i18n';
 
-// Add this helper function somewhere in your component file
-const formatTimeRemaining = (timeString) => {
-  if (!timeString) return 'N/A';
-
-  if (timeString.startsWith('-')) {
-    return 'Journey Completed';
-  }
-
+// "3 days 15:59:33.68" -> "3 days 15 hours 59 minutes"
+const formatTimeRemaining = (timeString, t) => {
+  if (!timeString) return t('N/A');
+  if (timeString.startsWith('-')) return t('Journey completed');
   try {
-    // Example input: "3 days 15:59:33.682728" or "0 days 01:02:03"
     let days = 0;
     let timePart = timeString;
-
-    // Check if string contains 'days'
     const dayMatch = timeString.match(/^(\d+)\s+days?\s+(.*)$/);
     if (dayMatch) {
       days = parseInt(dayMatch[1], 10);
       timePart = dayMatch[2];
     }
-
     const parts = timePart.split(':');
     if (parts.length >= 3) {
-      const hours = Math.abs(parseInt(parts[0]));
-      const minutes = Math.abs(parseInt(parts[1]));
-
-      let result = '';
-      if (days > 0) {
-        result += `${days} day${days !== 1 ? 's' : ''} `;
-      }
-      if (hours > 0) {
-        result += `${hours} hour${hours !== 1 ? 's' : ''} `;
-      }
-      if (minutes > 0) {
-        result += `${minutes} minute${minutes !== 1 ? 's' : ''} `;
-      }
-
-      return result.trim();
+      const hours = Math.abs(parseInt(parts[0], 10));
+      const minutes = Math.abs(parseInt(parts[1], 10));
+      const out = [];
+      if (days > 0) out.push(`${num(days)} ${t(days !== 1 ? 'days' : 'day')}`);
+      if (hours > 0) out.push(`${num(hours)} ${t(hours !== 1 ? 'hours' : 'hour')}`);
+      if (minutes > 0 && days === 0) out.push(`${num(minutes)} ${t('min')}`);
+      return out.join(' ') || t('less than a minute');
     }
-
-    return timeString || 'Invalid time format';
+    return timeString;
   } catch (e) {
-    console.error('Error formatting time:', e);
     return timeString;
   }
 };
 
-
-
-// Modal styles
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    borderRadius: '20px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    background: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(20px)',
-    padding: '2rem',
-    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-    maxWidth: '500px',
-    width: '90%'
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backdropFilter: 'blur(5px)'
-  }
-};
-
-
-// Updated shouldShowCancelButton function
+// Tickets can be cancelled online until 6 hours before departure
 const shouldShowCancelButton = (timeRemaining) => {
-  if (timeRemaining === undefined || timeRemaining === null) {
+  if (timeRemaining === undefined || timeRemaining === null) return false;
+  if (typeof timeRemaining === 'number') return timeRemaining >= 6;
+  if (typeof timeRemaining !== 'string' || timeRemaining.startsWith('-')) return false;
+  try {
+    let days = 0;
+    let timePart = timeRemaining;
+    const dayMatch = timeRemaining.match(/^(\d+)\s+days?\s+(.*)$/);
+    if (dayMatch) {
+      days = parseInt(dayMatch[1], 10);
+      timePart = dayMatch[2];
+    }
+    const t = timePart.split(':');
+    if (t.length < 2) return false;
+    const total = days * 1440 + (parseInt(t[0], 10) || 0) * 60 + (parseInt(t[1], 10) || 0);
+    return total >= 360;
+  } catch (e) {
     return false;
   }
-
-  if (typeof timeRemaining === 'number') {
-    return timeRemaining >= 6; // 6 or more hours remaining
-  }
-
-  if (typeof timeRemaining === 'string') {
-    if (timeRemaining.startsWith('-')) {
-      return false; // time passed
-    }
-
-    try {
-      let days = 0;
-      let timePart = timeRemaining;
-
-      // Extract days if present
-      const dayMatch = timeRemaining.match(/^(\d+)\s+days?\s+(.*)$/);
-      if (dayMatch) {
-        days = parseInt(dayMatch[1], 10);
-        timePart = dayMatch[2];
-      }
-
-      const timeParts = timePart.split(':');
-      if (timeParts.length < 2) return false;
-
-      const hours = parseInt(timeParts[0]) || 0;
-      const minutes = parseInt(timeParts[1]) || 0;
-
-      const totalMinutes = days * 24 * 60 + hours * 60 + minutes;
-      return totalMinutes >= 360; // 6 hours = 360 minutes
-    } catch (e) {
-      console.error('Error parsing time remaining:', e);
-      return false;
-    }
-  }
-
-  return false;
 };
 
+const REFUND_RULES = [
+  ['More than 48 hours before departure', '10% deduction (minimum BDT 40)'],
+  ['24–48 hours before departure', '25% deduction (minimum BDT 40)'],
+  ['12–24 hours before departure', '50% deduction (minimum BDT 40)'],
+  ['6–12 hours before departure', '75% deduction (minimum BDT 40)'],
+  ['Less than 6 hours before departure', 'No refund'],
+];
+
+const TicketGroup = ({ date, seats, onCancel }) => {
+  const { t } = useT();
+  const first = seats[0] || {};
+  const completed = first.time_remaining?.startsWith('-');
+  const canCancel = shouldShowCancelButton(first.time_remaining);
+
+  return (
+    <article className="card" aria-label={t('Ticket for {date}', { date: formatDate(date) })}>
+      <div className="card-head row-between">
+        <div className="stack-sm" style={{ gap: 4 }}>
+          <div className="row" style={{ gap: 8 }}>
+            <Icon name="calendar" size={18} />
+            <span className="h3">{formatDate(date)}</span>
+            {completed
+              ? <span className="badge badge-neutral">{t('Completed')}</span>
+              : <span className="badge">{t('Departs in {time}', { time: formatTimeRemaining(first.time_remaining, t) })}</span>}
+          </div>
+          <span className="small muted">
+            {stationName(first.from_station)} → {stationName(first.to_station)}
+            {first.arrival_time && ` · ${t('arrives {time}', { time: num(first.arrival_time.substring(0, 5)) })}`}
+          </span>
+        </div>
+        <div className="row">
+          {first.total_cost != null && <span className="price" style={{ fontSize: 20 }}>{taka(first.total_cost)}</span>}
+          {canCancel && (
+            <button type="button" className="btn btn-danger-outline btn-sm" onClick={() => onCancel(first.ticket_id, date)}>
+              {t('Cancel ticket')}
+            </button>
+          )}
+        </div>
+      </div>
+      <div style={{ padding: 16 }}>
+        <div className="table-wrap">
+          <table className="table">
+            <thead>
+              <tr><th>{t('Seat')}</th><th>{t('Class')}</th><th>{t('Train')}</th><th>{t('From')}</th><th>{t('To')}</th></tr>
+            </thead>
+            <tbody>
+              {seats.map((seat, idx) => (
+                <tr key={idx}>
+                  <td className="strong num">{num(seat.seat_number)}</td>
+                  <td>{seat.class_code}</td>
+                  <td>{seat.train_code}</td>
+                  <td>{stationName(seat.from_station)}</td>
+                  <td>{stationName(seat.to_station)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+  );
+};
 
 const ShowUser = () => {
+  const { t } = useT();
   const navigate = useNavigate();
-  const { loginState, userId, setUserId, name, setName, setLoginState, logOut } = useData();
+  const { loginState, userId, logOut } = useData();
   const { id } = useParams();
 
-  // User and ticket data states
   const [userData, setUserData] = useState(null);
   const [ticketData, setTicketData] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true);
-  const [loadingTickets, setLoadingTickets] = useState(true);
-  const [error, setError] = useState('');
-  const [showTickets, setShowTickets] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [ticketError, setTicketError] = useState('');
+  const [tab, setTab] = useState('upcoming');
 
-  // Password change states
+  // Password change
+  const [pwOpen, setPwOpen] = useState(false);
   const [password, setPassword] = useState('');
-  const [new_password, setNewPassword] = useState('');
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [errMessage, setErrMessage] = useState('');
-  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [pwError, setPwError] = useState('');
+  const [pwSuccess, setPwSuccess] = useState('');
 
-  // Account deletion states
+  // Account deletion
+  const [delOpen, setDelOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
-  const [delModal, setDelModal] = useState(false);
+  const [delError, setDelError] = useState('');
 
-  // Ticket cancellation states
-  const [cancelConfirmModal, setCancelConfirmModal] = useState(false);
-  const [cancelSuccessModal, setCancelSuccessModal] = useState(false);
+  // Ticket cancellation
+  const [cancelOpen, setCancelOpen] = useState(false);
+  const [cancelError, setCancelError] = useState('');
+  const [cancelling, setCancelling] = useState(false);
+  const [refundOpen, setRefundOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [refundAmount, setRefundAmount] = useState(0);
 
-  // Logout confirmation state
-  const [logoutConfirmModal, setLogoutConfirmModal] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+
+  const loadTickets = async () => {
+    const res = await fetch(`${API_URL}/user/printTicket/${id}`);
+    const json = await res.json();
+    if (json.success) {
+      setTicketData(json.data);
+      setTicketError('');
+    } else {
+      setTicketData(null);
+      setTicketError(json.error || t('No ticket history found'));
+    }
+  };
 
   useEffect(() => {
-    if (!loginState || userId === null || userId.toString() !== id) {
+    // Wait for the stored session to load before deciding
+    const storedId = localStorage.getItem('userId');
+    if (!localStorage.getItem('token') || (storedId && storedId !== id)) {
+      navigate('/');
+      return;
+    }
+    if (!loginState || userId === null) return;
+    if (userId.toString() !== id) {
       navigate('/');
       return;
     }
 
-    const fetchData = async () => {
+    (async () => {
       try {
-        setLoadingUser(true);
-        setLoadingTickets(true);
-        
-        // Fetch user data
+        setLoading(true);
         const userResponse = await fetch(`${API_URL}/user/info/${id}`);
         const userRec = await userResponse.json();
-        setUserData(userRec.data?.result || {
-          first_name: 'NULL',
-          last_name: 'NULL',
-          phone_number: 'NULL',
-        });
-
-        // Fetch tickets
-        const ticketsResponse = await fetch(`${API_URL}/user/printTicket/${id}`);
-        const ticketsJson = await ticketsResponse.json();
-        
-        if (ticketsJson.success) {
-          setTicketData(ticketsJson.data);
-          setError('');
-        } else {
-          setTicketData(null);
-          setError(ticketsJson.error || 'No ticket history found');
-        }
+        setUserData(userRec.data?.result || { first_name: '', last_name: '', phone_number: '' });
+        await loadTickets();
       } catch (error) {
-        console.error(error.message);
-        setError('Failed to fetch data');
+        setTicketError(t('Failed to fetch your account data.'));
       } finally {
-        setLoadingUser(false);
-        setLoadingTickets(false);
+        setLoading(false);
       }
-    };
-
-    fetchData();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, loginState, userId, navigate]);
 
-  const groupedByDate = () => {
-    if (!ticketData || !ticketData.seat_reservations) return {};
-    return ticketData.seat_reservations.reduce((acc, seat) => {
-      const date = seat.date;
-      if (!acc[date]) acc[date] = [];
-      acc[date].push(seat);
-      return acc;
-    }, {});
-  };
+  const grouped = (ticketData?.seat_reservations || []).reduce((acc, seat) => {
+    (acc[seat.date] = acc[seat.date] || []).push(seat);
+    return acc;
+  }, {});
+  const dates = Object.keys(grouped).sort();
+  const upcoming = dates.filter((d) => !grouped[d][0]?.time_remaining?.startsWith('-'));
+  const past = dates.filter((d) => grouped[d][0]?.time_remaining?.startsWith('-')).reverse();
+  const shown = tab === 'upcoming' ? upcoming : past;
 
-  const groupedSeats = groupedByDate();
-
-  // Password change functions
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => {
-    setIsOpen(false);
-    setErrMessage('');
-    setSuccessMessage('');
+  const closePw = () => {
+    setPwOpen(false);
+    setPwError('');
+    setPwSuccess('');
     setPassword('');
     setNewPassword('');
   };
 
-  const closeErrorModal = () => setErrorModalIsOpen(false);
-
-  const UpdateInformation = async (e) => {
+  const updatePassword = async (e) => {
     e.preventDefault();
+    if (!password) {
+      setPwError(t('Please enter your current password to confirm the change.'));
+      return;
+    }
     try {
-      if (!password) {
-        setErrMessage('Please enter your current password to confirm the changes.');
-        setErrorModalIsOpen(true);
-        return;
-      }
-      const body = { password, new_password };
       const res = await fetch(`${API_URL}/user/info/update/${userData.user_id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ password, new_password: newPassword }),
       });
-
       if (res.status === 200) {
-        setSuccessMessage('Password updated successfully!');
-        setTimeout(closeModal, 2000);
+        setPwError('');
+        setPwSuccess(t('Password updated successfully!'));
+        setTimeout(closePw, 1500);
       } else {
-        const errorMessage = await res.json();
-        setErrMessage(errorMessage.error);
-        setErrorModalIsOpen(true);
+        const err = await res.json();
+        setPwError(err.error || t('Could not update password.'));
       }
     } catch (err) {
-      console.error(err.message);
+      setPwError(t('Network error. Please try again.'));
     }
   };
 
-  const resetInfo = () => {
-    setPassword('');
-    setNewPassword('');
-  };
-
-  // Account functions
-  const handleDeleteConfirmation = async () => {
+  const deleteAccount = async () => {
+    if (!deletePassword) {
+      setDelError(t('Please enter your password to delete the account.'));
+      return;
+    }
     try {
-      if (!deletePassword) {
-        setErrMessage('Please enter your password to delete the account.');
-        setErrorModalIsOpen(true);
-        return;
-      }
-
-      const body = { password: deletePassword };
       const response = await fetch(`${API_URL}/user/info/delete/${userData.user_id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ password: deletePassword }),
       });
-
       if (response.status === 200) {
         logOut();
       } else {
-        const errorMessage = await response.json();
-        setErrMessage(errorMessage.error);
-        setErrorModalIsOpen(true);
+        const err = await response.json();
+        setDelError(err.error || t('Could not delete account.'));
       }
     } catch (error) {
-      console.error(error.message);
+      setDelError(t('Network error. Please try again.'));
     }
   };
 
-  // Ticket cancellation functions
-  const openCancelConfirm = (ticketId, date) => {
+  const openCancel = (ticketId, date) => {
+    if (!ticketId) return;
     setSelectedTicket({ ticketId, date });
-    setCancelConfirmModal(true);
+    setCancelError('');
+    setCancelOpen(true);
   };
 
-  const handleCancelTicket = async () => {
+  const cancelTicket = async () => {
     if (!selectedTicket) return;
-
+    setCancelling(true);
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/booking/cancelTicket`, {
@@ -304,963 +278,204 @@ const ShowUser = () => {
         },
         body: JSON.stringify({ ticket_id: selectedTicket.ticketId }),
       });
-
       if (!response.ok) {
-        const errorMessage = await response.json();
-        setErrMessage(errorMessage.error);
-        setErrorModalIsOpen(true);
+        const err = await response.json().catch(() => ({}));
+        setCancelError(err.error || err.message || t('Cancellation failed.'));
         return;
       }
-
-
       const result = await response.json();
-      const refund = result.refund_amount;
-      
-      setRefundAmount(refund);
-      setCancelConfirmModal(false);
-      setCancelSuccessModal(true);
-
-      // Refresh ticket data
-      setLoadingTickets(true);
-      const res = await fetch(`${API_URL}/user/printTicket/${id}`);
-      const json = await res.json();
-
-      if (json.success) {
-        setTicketData(json.data);
-        setError('');
-      } else {
-        setTicketData(null);
-        setError(json.error || 'No ticket history found');
-      }
+      setRefundAmount(result.refund_amount);
+      setCancelOpen(false);
+      setRefundOpen(true);
+      await loadTickets();
     } catch (err) {
-      setErrMessage(`Error: ${err.message}`);
-      setErrorModalIsOpen(true);
+      setCancelError(t('Error: {msg}', { msg: err.message }));
     } finally {
-      setLoadingTickets(false);
+      setCancelling(false);
     }
   };
 
+  const fullName = userData ? `${userData.first_name || ''} ${userData.last_name || ''}`.trim() : '';
+
   return (
-    <Fragment>
-      <div style={{
-        padding: '2rem',
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        paddingTop: '100px'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          animation: 'slideUp 0.6s ease-out'
-        }}>
-          {(loadingUser || loadingTickets) && (
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              borderRadius: '20px',
-              padding: '3rem',
-              textAlign: 'center'
-            }}>
-              <p>Loading...</p>
+    <>
+      <section className="band">
+        <div className="container row-between">
+          <div className="row" style={{ gap: 16 }}>
+            <span className="avatar" aria-hidden="true">{initials(userData?.first_name, userData?.last_name)}</span>
+            <div>
+              <p className="eyebrow">{t('My account')}</p>
+              <h1 style={{ fontSize: 30, marginTop: 4 }}>{loading ? t('Loading…') : fullName || t('Passenger')}</h1>
+              {userData?.phone_number && <p className="small" style={{ marginTop: 2 }}>{phoneNumber(userData.phone_number)}</p>}
             </div>
-          )}
-
-          {!loadingUser && userData && (
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '20px',
-              padding: '3rem',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              marginBottom: '2rem'
-            }}>
-              <h1 style={{
-                fontSize: '2.5rem',
-                fontWeight: '700',
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                marginBottom: '2rem',
-                textAlign: 'center'
-              }}>User Dashboard</h1>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '1rem',
-                marginBottom: '3rem'
-              }}>
-                <div style={{
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))',
-                  padding: '1rem',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(102, 126, 234, 0.2)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <div style={{
-                    fontSize: '0.9rem',
-                    fontWeight: '600',
-                    color: '#667eea',
-                    marginBottom: '0.5rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>First Name</div>
-                  <div style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    color: '#333'
-                  }}>{userData.first_name}</div>
-                </div>
-
-                <div style={{
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))',
-                  padding: '1rem',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(102, 126, 234, 0.2)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <div style={{
-                    fontSize: '0.9rem',
-                    fontWeight: '600',
-                    color: '#667eea',
-                    marginBottom: '0.5rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>Last Name</div>
-                  <div style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    color: '#333'
-                  }}>{userData.last_name}</div>
-                </div>
-
-                <div style={{
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))',
-                  padding: '1rem',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(102, 126, 234, 0.2)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <div style={{
-                    fontSize: '0.9rem',
-                    fontWeight: '600',
-                    color: '#667eea',
-                    marginBottom: '0.5rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>Phone Number</div>
-                  <div style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    color: '#333'
-                  }}>{userData.phone_number}</div>
-                </div>
-              </div>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '1rem',
-                marginBottom: '2rem'
-              }}>
-                <button 
-                  onClick={openModal}
-                  style={{
-                    padding: '1rem 2rem',
-                    border: 'none',
-                    borderRadius: '15px',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    background: 'linear-gradient(135deg, #ffd89b, #19547b)',
-                    color: 'white',
-                    boxShadow: '0 4px 15px rgba(255, 216, 155, 0.4)'
-                  }}
-                >
-                  🔐 Edit Password
-                </button>
-                
-                <button 
-                  onClick={() => setShowTickets(prev => !prev)}
-                  style={{
-                    padding: '1rem 2rem',
-                    border: 'none',
-                    borderRadius: '15px',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                    color: 'white',
-                    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
-                  }}
-                >
-                  {showTickets ? '🎫 Hide Tickets' : '🎫 Show Tickets'}
-                </button>
-              </div>
-
-              <div style={{
-                display: 'flex',
-                gap: '1rem',
-                justifyContent: 'flex-end',
-                marginTop: '2rem'
-              }}>
-                <button 
-                  onClick={() => setDelModal(true)}
-                  style={{
-                    padding: '1rem 2rem',
-                    border: 'none',
-                    borderRadius: '15px',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-                    color: 'white',
-                    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.4)'
-                  }}
-                >
-                  🗑️ Delete Account
-                </button>
-                
-                <button 
-                  onClick={() => setLogoutConfirmModal(true)}
-                  style={{
-                    padding: '1rem 2rem',
-                    border: 'none',
-                    borderRadius: '15px',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    background: 'linear-gradient(135deg, #fd79a8, #e84393)',
-                    color: 'white',
-                    boxShadow: '0 4px 15px rgba(253, 121, 168, 0.4)'
-                  }}
-                >
-                  🚪 Log Out
-                </button>
-              </div>
-            </div>
-          )}
-
-          {showTickets && !loadingTickets && ticketData && (
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '20px',
-              padding: '3rem',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.3)'
-            }}>
-              <h2 style={{
-                fontSize: '2rem',
-                fontWeight: '700',
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                marginBottom: '2rem',
-                textAlign: 'center'
-              }}>Ticket History</h2>
-              
-              {error && <p style={{ color: '#ff6b6b', textAlign: 'center' }}>{error}</p>}
-              
-              {(!ticketData.seat_reservations || ticketData.seat_reservations.length === 0) && (
-                <p style={{ textAlign: 'center' }}>No tickets booked yet.</p>
-              )}
-              
-              {Object.keys(groupedSeats).map((date) => (
-                <div
-                  key={date}
-                  style={{
-                    border: '1px solid rgba(102, 126, 234, 0.2)',
-                    borderRadius: '12px',
-                    padding: '1.5rem',
-                    marginBottom: '1.5rem',
-                    background: 'rgba(255, 255, 255, 0.8)',
-                    boxShadow: '0 5px 15px rgba(0,0,0,0.05)',
-                    position: 'relative',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  <h5 style={{
-                    fontSize: '1.2rem',
-                    fontWeight: '600',
-                    color: '#333',
-                    marginBottom: '1rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-<span>
-  {groupedSeats[date]?.[0] && (() => {
-    const seat = groupedSeats[date][0];
-    return (
-      <>
-        Journey Date: {new Date(date).toLocaleDateString()}
-        {seat.arrival_time && ` | Arrival Time: ${seat.arrival_time.substring(0, 8)}`}
-        {seat.total_cost != null && ` | Total Cost: ৳${seat.total_cost}`}
-        {seat.time_remaining != null && ` | Status: ${
-          seat.time_remaining.startsWith('-')
-            ? 'Journey Completed'
-            : `Departs in ${formatTimeRemaining(seat.time_remaining)}`
-        }`}
-      </>
-    );
-  })()}
-</span>
-
-
-{shouldShowCancelButton(groupedSeats[date][0]?.time_remaining) && (
-  <button
-    style={{
-      padding: '0.5rem 1rem',
-      background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-      color: 'white',
-      border: 'none',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      fontWeight: '600',
-      fontSize: '0.9rem',
-      transition: 'all 0.3s ease'
-    }}
-    onClick={() => {
-      const ticketId = groupedSeats[date][0]?.ticket_id;
-      if (!ticketId) {
-        setErrMessage("Ticket ID not found for this date.");
-        setErrorModalIsOpen(true);
-        return;
-      }
-      openCancelConfirm(ticketId, date);
-    }}
-  >
-    Cancel Ticket
-  </button>
-)}
-                  </h5>
-
-                  <div style={{ overflowX: 'auto' }}>
-                    <table style={{ 
-                      width: '100%', 
-                      borderCollapse: 'collapse',
-                      borderRadius: '8px',
-                      overflow: 'hidden'
-                    }}>
-                      <thead>
-                        <tr style={{ 
-                          background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))'
-                        }}>
-                          <th style={{ 
-                            padding: '12px', 
-                            textAlign: 'left',
-                            fontWeight: '600',
-                            color: '#667eea'
-                          }}>Seat Number</th>
-                          <th style={{ 
-                            padding: '12px', 
-                            textAlign: 'left',
-                            fontWeight: '600',
-                            color: '#667eea'
-                          }}>Class</th>
-                          <th style={{ 
-                            padding: '12px', 
-                            textAlign: 'left',
-                            fontWeight: '600',
-                            color: '#667eea'
-                          }}>Train</th>
-                          <th style={{ 
-                            padding: '12px', 
-                            textAlign: 'left',
-                            fontWeight: '600',
-                            color: '#667eea'
-                          }}>From</th>
-                          <th style={{ 
-                            padding: '12px', 
-                            textAlign: 'left',
-                            fontWeight: '600',
-                            color: '#667eea'
-                          }}>To</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {groupedSeats[date].map((seat, idx) => (
-                          <tr 
-                            key={idx} 
-                            style={{ 
-                              borderBottom: '1px solid rgba(102, 126, 234, 0.1)',
-                              transition: 'all 0.2s ease'
-                            }}
-                          >
-                            <td style={{ 
-                              padding: '12px',
-                              color: '#333'
-                            }}>{seat.seat_number}</td>
-                            <td style={{ 
-                              padding: '12px',
-                              color: '#333'
-                            }}>{seat.class_code}</td>
-                            <td style={{ 
-                              padding: '12px',
-                              color: '#333'
-                            }}>{seat.train_code}</td>
-                            <td style={{ 
-                              padding: '12px',
-                              color: '#333'
-                            }}>{seat.from_station}</td>
-                            <td style={{ 
-                              padding: '12px',
-                              color: '#333'
-                            }}>{seat.to_station}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          </div>
+          <div className="row">
+            <button type="button" className="btn btn-white" onClick={() => setPwOpen(true)} disabled={!userData}>
+              <Icon name="lock" size={18} /> {t('Change password')}
+            </button>
+            <button
+              type="button"
+              className="btn"
+              style={{ color: '#fff', borderColor: 'rgba(255,255,255,.4)' }}
+              onClick={() => setLogoutOpen(true)}
+            >
+              <Icon name="logout" size={18} /> {t('Log out')}
+            </button>
+          </div>
         </div>
+      </section>
+
+      <div className="container overlap section stack-lg">
+        <section className="card card-pad stack" aria-labelledby="tickets-title">
+          <div className="row-between">
+            <h2 id="tickets-title" className="h3">{t('My tickets')}</h2>
+            <Link to="/booking/train/search" className="btn btn-primary btn-sm">
+              <Icon name="search" size={16} /> {t('Book a new trip')}
+            </Link>
+          </div>
+
+          <div className="tabs" role="tablist" aria-label={t('Ticket filter')}>
+            <button type="button" role="tab" className="tab" aria-selected={tab === 'upcoming'} onClick={() => setTab('upcoming')}>
+              {t('Upcoming')}<span className="count">{num(upcoming.length)}</span>
+            </button>
+            <button type="button" role="tab" className="tab" aria-selected={tab === 'past'} onClick={() => setTab('past')}>
+              {t('Past')}<span className="count">{num(past.length)}</span>
+            </button>
+          </div>
+
+          {loading && <div className="stack">{[0, 1].map((i) => <div key={i} className="skeleton" style={{ height: 160 }} />)}</div>}
+
+          {!loading && shown.length === 0 && (
+            <EmptyState
+              icon="ticket"
+              title={tab === 'upcoming' ? t('No upcoming trips') : t('No past trips yet')}
+              action={tab === 'upcoming' && <Link to="/booking/train/search" className="btn btn-outline">{t('Find a train')}</Link>}
+            >
+              {ticketError && tab === 'upcoming' && !ticketData ? ticketError : t('Tickets you book will show up here.')}
+            </EmptyState>
+          )}
+
+          {!loading && shown.map((date) => (
+            <TicketGroup key={date} date={date} seats={grouped[date]} onCancel={openCancel} />
+          ))}
+        </section>
+
+        <section className="card card-pad row-between" aria-labelledby="danger-title">
+          <div className="stack-sm">
+            <h2 id="danger-title" className="h3">{t('Delete account')}</h2>
+            <p className="small muted">{t('Permanently removes your account. All your tickets will be cancelled.')}</p>
+          </div>
+          <button type="button" className="btn btn-danger-outline" onClick={() => { setDelError(''); setDelOpen(true); }} disabled={!userData}>
+            <Icon name="trash" size={18} /> {t('Delete account')}
+          </button>
+        </section>
       </div>
 
-      {/* Password Modal */}
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            background: 'linear-gradient(135deg, #667eea, #764ba2)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            marginBottom: '1rem'
-          }}>Update Password</h2>
-          <button 
-            onClick={closeModal} 
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-              color: '#667eea'
-            }}
-          >
-            &times;
-          </button>
-        </div>
-        <form onSubmit={UpdateInformation}>
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{
-              display: 'block',
-              fontSize: '0.9rem',
-              fontWeight: '600',
-              color: '#667eea',
-              marginBottom: '0.5rem'
-            }}>New Password</label>
-            <input
-              type="password"
-              placeholder="Enter new password"
-              value={new_password || ''}
-              onChange={e => setNewPassword(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid rgba(102, 126, 234, 0.3)',
-                borderRadius: '8px',
-                background: 'rgba(102, 126, 234, 0.05)',
-                marginBottom: '1rem',
-                outline: 'none',
-                transition: 'all 0.3s ease'
-              }}
-            />
-            
-            <label style={{
-              display: 'block',
-              fontSize: '0.9rem',
-              fontWeight: '600',
-              color: '#667eea',
-              marginBottom: '0.5rem'
-            }}>Current Password</label>
-            <input
-              type="password"
-              placeholder="Enter your current password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid rgba(102, 126, 234, 0.3)',
-                borderRadius: '8px',
-                background: 'rgba(102, 126, 234, 0.05)',
-                marginBottom: '1rem',
-                outline: 'none',
-                transition: 'all 0.3s ease'
-              }}
-            />
+      {/* Change password */}
+      <Modal open={pwOpen} onClose={closePw} title={t('Change password')} icon="lock">
+        <form onSubmit={updatePassword} className="stack">
+          {pwError && <Alert tone="danger">{pwError}</Alert>}
+          {pwSuccess && <Alert tone="success">{pwSuccess}</Alert>}
+          <div className="field">
+            <label htmlFor="new-pw">{t('New password')}</label>
+            <input id="new-pw" type="password" className="input" autoComplete="new-password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
           </div>
-          
-          {successMessage && (
-            <div style={{
-              padding: '0.75rem',
-              background: successMessage.includes('Refund') 
-                ? 'rgba(40, 167, 69, 0.2)' 
-                : 'rgba(102, 126, 234, 0.1)',
-              color: successMessage.includes('Refund') 
-                ? '#28a745' 
-                : '#667eea',
-              borderRadius: '8px',
-              marginBottom: '1rem',
-              textAlign: 'center',
-              borderLeft: successMessage.includes('Refund') 
-                ? '4px solid #28a745' 
-                : '4px solid #667eea'
-            }}>
-              {successMessage}
-            </div>
-          )}
-          
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'flex-end'
-          }}>
-            <button 
-              type="button" 
-              onClick={resetInfo}
-              style={{
-                padding: '0.75rem 1.5rem',
-                border: 'none',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-                color: 'white',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              Reset
-            </button>
-            <button 
-              type="submit"
-              style={{
-                padding: '0.75rem 1.5rem',
-                border: 'none',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                color: 'white',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              Confirm
-            </button>
+          <div className="field">
+            <label htmlFor="cur-pw">{t('Current password')}</label>
+            <input id="cur-pw" type="password" className="input" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <button type="button" className="btn btn-ghost" onClick={closePw}>{t('Cancel')}</button>
+            <button type="submit" className="btn btn-primary">{t('Update password')}</button>
           </div>
         </form>
-        <ErrorModal isOpen={errorModalIsOpen} errorMessage={errMessage} closeModal={closeErrorModal} />
       </Modal>
 
-      {/* Delete Account Modal */}
-      <Modal isOpen={delModal} onRequestClose={() => setDelModal(false)} style={customStyles}>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            marginBottom: '1rem'
-          }}>Delete Account</h2>
-          <button 
-            onClick={() => setDelModal(false)} 
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-              color: '#ff6b6b'
-            }}
-          >
-            &times;
-          </button>
-        </div>
-        
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '1rem', color: '#333' }}>
-            Are you sure you want to delete your account?
-          </p>
-          <p style={{ marginBottom: '1.5rem', color: '#ff6b6b', fontWeight: '600' }}>
-            Warning: This action cannot be undone. All your tickets will be canceled.
-          </p>
-          
-          <label style={{
-            display: 'block',
-            fontSize: '0.9rem',
-            fontWeight: '600',
-            color: '#667eea',
-            marginBottom: '0.5rem'
-          }}>Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password to confirm"
-            value={deletePassword}
-            onChange={e => setDeletePassword(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '0.75rem',
-              border: '1px solid rgba(102, 126, 234, 0.3)',
-              borderRadius: '8px',
-              background: 'rgba(102, 126, 234, 0.05)',
-              marginBottom: '1rem',
-              outline: 'none',
-              transition: 'all 0.3s ease'
-            }}
-          />
-        </div>
-        
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'flex-end'
-        }}>
-          <button 
-            onClick={() => setDelModal(false)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #6c757d, #495057)',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            Cancel
-          </button>
-          <button 
-            onClick={handleDeleteConfirmation}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            Delete Account
-          </button>
-        </div>
-        
-        <ErrorModal isOpen={errorModalIsOpen} errorMessage={errMessage} closeModal={closeErrorModal} />
-      </Modal>
-
-      {/* Ticket Cancellation Confirmation Modal */}
-      <Modal 
-        isOpen={cancelConfirmModal} 
-        onRequestClose={() => setCancelConfirmModal(false)} 
-        style={customStyles}
+      {/* Delete account */}
+      <Modal
+        open={delOpen}
+        onClose={() => setDelOpen(false)}
+        title={t('Delete your account?')}
+        icon="trash"
+        tone="danger"
+        footer={
+          <>
+            <button type="button" className="btn btn-ghost" onClick={() => setDelOpen(false)}>{t('Keep account')}</button>
+            <button type="button" className="btn btn-danger" onClick={deleteAccount}>{t('Delete account')}</button>
+          </>
+        }
       >
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            color: '#ee5a24',
-            marginBottom: '1rem',
-            textAlign: 'center'
-          }}>
-            Confirm Cancellation
-          </h2>
-          <button 
-            onClick={() => setCancelConfirmModal(false)} 
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-              color: '#667eea'
-            }}
-          >
-            &times;
-          </button>
-        </div>
-        
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '1rem', color: '#333', textAlign: 'center' }}>
-            Are you sure you want to cancel your ticket for <strong>{selectedTicket && new Date(selectedTicket.date).toLocaleDateString()}</strong>?
-          </p>
-          
-          <div style={{
-            background: 'rgba(255, 107, 107, 0.1)',
-            padding: '1rem',
-            borderRadius: '8px',
-            marginBottom: '1.5rem'
-          }}>
-            <h4 style={{ color: '#ee5a24', marginBottom: '0.5rem' }}>Refund Policy:</h4>
-            <ul style={{ marginLeft: '1rem', paddingLeft: '1rem' }}>
-              <li>More than 48 hours before departure: 10% deduction (minimum BDT 40)</li>
-              <li>24-48 hours before departure: 25% deduction (minimum BDT 40)</li>
-              <li>12-24 hours before departure: 50% deduction (minimum BDT 40)</li>
-              <li>6-12 hours before departure: 75% deduction (minimum BDT 40)</li>
-              <li>Less than 6 hours before departure: No refund</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'center'
-        }}>
-          <button 
-            onClick={() => setCancelConfirmModal(false)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: '#6c757d',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              minWidth: '120px'
-            }}
-          >
-            No, Keep Ticket
-          </button>
-          <button 
-            onClick={handleCancelTicket}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: '#ee5a24',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              minWidth: '120px'
-            }}
-          >
-            Yes, Cancel
-          </button>
+        <Alert tone="warn">{t('This can’t be undone. All your tickets will be cancelled.')}</Alert>
+        {delError && <Alert tone="danger">{delError}</Alert>}
+        <div className="field">
+          <label htmlFor="del-pw">{t('Enter your password to confirm')}</label>
+          <input id="del-pw" type="password" className="input" autoComplete="current-password" value={deletePassword} onChange={(e) => setDeletePassword(e.target.value)} />
         </div>
       </Modal>
 
-      {/* Ticket Cancellation Success Modal */}
-      <Modal 
-        isOpen={cancelSuccessModal} 
-        onRequestClose={() => setCancelSuccessModal(false)} 
-        style={customStyles}
+      {/* Cancel ticket */}
+      <Modal
+        open={cancelOpen}
+        onClose={() => setCancelOpen(false)}
+        title={t('Cancel this ticket?')}
+        icon="refund"
+        tone="danger"
+        size="lg"
+        footer={
+          <>
+            <button type="button" className="btn btn-ghost" onClick={() => setCancelOpen(false)}>{t('Keep ticket')}</button>
+            <button type="button" className="btn btn-danger" onClick={cancelTicket} disabled={cancelling}>
+              {cancelling ? <Spinner label={t('Cancelling…')} /> : t('Yes, cancel')}
+            </button>
+          </>
+        }
       >
-        <div style={{ textAlign: 'center', padding: '1.5rem' }}>
-          <div style={{
-            fontSize: '4rem',
-            color: '#28a745',
-            marginBottom: '1rem'
-          }}>
-            ✓
-          </div>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            color: '#28a745',
-            marginBottom: '1rem'
-          }}>
-            Cancellation Successful!
-          </h2>
-          <p style={{ marginBottom: '1.5rem', color: '#333' }}>
-            Your ticket has been canceled successfully.
-          </p>
-          <p style={{ 
-  fontSize: '1.25rem',
-  fontWeight: '600',
-  color: '#333',
-  marginBottom: '1.5rem'
-}}>
-  Refund Amount: <span style={{ color: '#28a745' }}>
-    ৳{(refundAmount || 0).toFixed(2)}
-  </span>
-</p>
-          <p style={{ 
-            color: '#6c757d',
-            fontStyle: 'italic',
-            marginBottom: '1.5rem'
-          }}>
-            The refund will be processed to your account within 3 working days.
-          </p>
-          <button 
-            onClick={() => setCancelSuccessModal(false)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: '#28a745',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              width: '100%'
-            }}
-          >
-            Done
-          </button>
+        <p>
+          {t('You’re cancelling your trip on {date}. Your refund depends on how long before departure you cancel:', { date: selectedTicket ? formatDate(selectedTicket.date) : '' })}
+        </p>
+        <div className="table-wrap">
+          <table className="table">
+            <tbody>
+              {REFUND_RULES.map(([when, what]) => (
+                <tr key={when}><td>{t(when)}</td><td className="strong">{t(what)}</td></tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        {cancelError && <Alert tone="danger">{cancelError}</Alert>}
       </Modal>
 
-      {/* Logout Confirmation Modal */}
-      <Modal 
-        isOpen={logoutConfirmModal} 
-        onRequestClose={() => setLogoutConfirmModal(false)} 
-        style={customStyles}
+      {/* Refund result */}
+      <Modal
+        open={refundOpen}
+        onClose={() => setRefundOpen(false)}
+        title={t('Ticket cancelled')}
+        icon="check"
+        footer={<button type="button" className="btn btn-primary" onClick={() => setRefundOpen(false)}>{t('Done')}</button>}
       >
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            background: 'linear-gradient(135deg, #fd79a8, #e84393)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            marginBottom: '1rem',
-            textAlign: 'center'
-          }}>Confirm Logout</h2>
-          <button 
-            onClick={() => setLogoutConfirmModal(false)} 
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-              color: '#fd79a8'
-            }}
-          >
-            &times;
-          </button>
+        <div className="row-between card card-pad" style={{ background: 'var(--green-50)', borderColor: 'var(--green-100)' }}>
+          <span className="strong">{t('Refund amount')}</span>
+          <span className="price" style={{ fontSize: 24 }}>{taka(refundAmount || 0)}</span>
         </div>
-        
-        <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
-          <p style={{ marginBottom: '1.5rem', color: '#333' }}>
-            Are you sure you want to log out?
-          </p>
-        </div>
-        
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'center'
-        }}>
-          <button 
-            onClick={() => setLogoutConfirmModal(false)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: '#6c757d',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              minWidth: '120px'
-            }}
-          >
-            Cancel
-          </button>
-          <button 
-            onClick={() => {
-              setLogoutConfirmModal(false);
-              logOut();
-            }}
-            style={{
-              padding: '0.75rem 1.5rem',
-              border: 'none',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #fd79a8, #e84393)',
-              color: 'white',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              minWidth: '120px'
-            }}
-          >
-            Log Out
-          </button>
-        </div>
+        <p className="small muted">{t('The refund will reach your account within 3 working days.')}</p>
       </Modal>
 
-      <style>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+      {/* Log out */}
+      <Modal
+        open={logoutOpen}
+        onClose={() => setLogoutOpen(false)}
+        title={t('Log out of Safar?')}
+        icon="logout"
+        footer={
+          <>
+            <button type="button" className="btn btn-ghost" onClick={() => setLogoutOpen(false)}>{t('Stay signed in')}</button>
+            <button type="button" className="btn btn-primary" onClick={() => { setLogoutOpen(false); logOut(); }}>{t('Log out')}</button>
+          </>
         }
-        
-        button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
-        }
-        
-        input:focus {
-          border-color: #667eea !important;
-          box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
-        }
-        
-        @media (max-width: 768px) {
-          .dashboard-card {
-            padding: 2rem 1rem !important;
-          }
-          
-          .dashboard-title {
-            font-size: 2rem !important;
-          }
-          
-          .user-info {
-            grid-template-columns: 1fr !important;
-          }
-          
-          .actions-container {
-            grid-template-columns: 1fr !important;
-          }
-          
-          .danger-actions {
-            flex-direction: column !important;
-          }
-        }
-      `}</style>
-    </Fragment>
+      >
+        <p className="muted">{t('You’ll need to sign in again to book or manage tickets.')}</p>
+      </Modal>
+    </>
   );
 };
 

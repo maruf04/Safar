@@ -1,445 +1,279 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useData } from './AppContext';
 import { fetchWithAuth, API_URL } from './utils';
-import './comp.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import SearchForm from './SearchForm';
+import { Alert, EmptyState, Icon } from './ui';
+import { formatDate, formatDuration, formatTime, durationMinutes, hourOf, taka, num, stationName } from '../lib/format';
+import { useT } from '../i18n';
 
-const SearchTravel = () => {
-  const { setDates, setFromStationSearch, setToStationSearch } = useData();
-  const navigate = useNavigate();
+const TIME_FILTERS = [
+  { id: 'all', label: 'Any time' },
+  { id: 'morning', label: 'Morning', test: (h) => h >= 4 && h < 12 },
+  { id: 'afternoon', label: 'Afternoon', test: (h) => h >= 12 && h < 18 },
+  { id: 'night', label: 'Evening & night', test: (h) => h >= 18 || h < 4 },
+];
 
-  const [inputValueFrom, setInputValueFrom] = useState('');
-  const [inputValueTo, setInputValueTo] = useState('');
-  const [stationOptions, setStationOptions] = useState([]);
-  const [dateSearched, setDate] = useState(null);
-  const [trains, setTrains] = useState([]);
-  const [searchClicked, setSearchClicked] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [expandedTrain, setExpandedTrain] = useState(null);
+const seatsLeft = (cls) => {
+  const booked = Array.isArray(cls.Booked_Seats) ? cls.Booked_Seats.length : 0;
+  return Math.max(0, (cls.total_seat || 0) - booked);
+};
 
-  useEffect(() => {
-    const stored = localStorage.getItem('stationNames');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setStationOptions(parsed);
-        }
-      } catch (e) {
-        console.error('Error parsing stationNames from localStorage:', e);
-      }
-    }
-  }, []);
+const cheapestFare = (train) => {
+  const fares = (train.classes || [])
+    .map((c) => parseFloat(c.seat_cost))
+    .filter((n) => !Number.isNaN(n));
+  return fares.length ? Math.min(...fares) : null;
+};
 
-  const formatDate = (date) => {
-    if (!date) return '';
-    const d = new Date(date);
-    const month = `${d.getMonth() + 1}`.padStart(2, '0');
-    const day = `${d.getDate()}`.padStart(2, '0');
-    const year = d.getFullYear();
-    return `${year}-${month}-${day}`;
-  };
-
-  const formatTime = (timeString) => {
-    if (!timeString) return '';
-    const timeParts = timeString.split(':');
-    const hours = parseInt(timeParts[0]);
-    const minutes = timeParts[1];
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12;
-    return `${formattedHours}:${minutes} ${ampm}`;
-  };
-
-  const toggleTrainDetails = (trainCode) => {
-    setExpandedTrain(expandedTrain === trainCode ? null : trainCode);
-  };
-
-  const onSearchFunc = async () => {
-    if (!inputValueFrom || !inputValueTo || !dateSearched) {
-      alert('Please fill From, To and Date fields.');
-      return;
-    }
-
-    try {
-      setDates(dateSearched);
-      setFromStationSearch(inputValueFrom);
-      setToStationSearch(inputValueTo);
-      setSearchClicked(true);
-      setExpandedTrain(null);
-      setLoading(true);
-
-      const body = {
-        fromcity: inputValueFrom,
-        tocity: inputValueTo,
-        doj: formatDate(dateSearched),
-      };
-
-      const response = await fetchWithAuth(`${API_URL}/booking/search`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      }, navigate);
-
-      const res = await response.json();
-
-      if (response.ok) {
-        setTrains(res.data || []);
-      } else {
-        alert(res.message || 'Search failed');
-        setTrains([]);
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Something went wrong with the search.');
-      setTrains([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+const TrainCard = ({ train, from, to, date }) => {
+  const { t } = useT();
+  const dep = train.from_station_departure;
+  const arr = train.to_station_arrival;
+  const fare = cheapestFare(train);
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      height: 'auto',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      padding: '2rem',
-      paddingTop: '5rem', // Added more padding at the top
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      backgroundRepeat: 'no-repeat',
-      overflowY: 'auto',
-      margin: '0'
-    }}>
-      {/* Left Side - Search Card */}
-      <div style={{
-        position: 'sticky',
-        top: '6rem', // Adjusted to account for navbar
-        marginRight: '2rem',
-        flex: '0 0 auto'
-      }}>
-        <div className="search-card" style={{
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          borderRadius: '24px',
-          padding: '2.5rem',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-          transition: 'all 0.3s ease',
-          width: '400px'
-        }}>
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label" style={{
-              display: 'block',
-              marginBottom: '0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>From:</label>
-            <select
-              className="form-control"
-              style={{
-                width: '100%',
-                padding: '1rem 1.25rem',
-                background: 'rgba(83, 69, 143, 0.9)',
-                border: '2px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '16px',
-                color: 'white',
-                fontSize: '1rem',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(10px)'
-              }}
-              value={inputValueFrom}
-              onChange={(e) => setInputValueFrom(e.target.value)}
-            >
-              <option value="">-- Select From Station --</option>
-              {stationOptions.map((station, idx) => (
-                <option key={idx} value={station}>{station}</option>
-              ))}
-            </select>
+    <article className="card train-card" aria-label={t('{name}, departs {time}', { name: train.train_name, time: formatTime(dep) })}>
+      <div className="train-head">
+        <div className="stack-sm" style={{ gap: 2 }}>
+          <span className="train-name">{train.train_name}</span>
+          <span className="tiny muted">{t('Train #{code}', { code: num(train.train_code) })}</span>
+        </div>
+        {fare !== null && (
+          <div style={{ textAlign: 'right' }}>
+            <span className="tiny muted">{t('from')}</span>
+            <div className="price" style={{ fontSize: 22 }}>{taka(fare)}</div>
           </div>
+        )}
+      </div>
 
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label" style={{
-              display: 'block',
-              marginBottom: '0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>To:</label>
-            <select
-              className="form-control"
-              style={{
-                width: '100%',
-                padding: '1rem 1.25rem',
-                background: 'rgba(83, 69, 143, 0.9)',
-                border: '2px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '16px',
-                color: 'white',
-                fontSize: '1rem',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(10px)'
-              }}
-              value={inputValueTo}
-              onChange={(e) => setInputValueTo(e.target.value)}
-            >
-              <option value="">-- Select To Station --</option>
-              {stationOptions.map((station, idx) => (
-                <option key={idx} value={station}>{station}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label" style={{
-              display: 'block',
-              marginBottom: '0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>Pick Date:</label>
-            <div style={{
-              width: '100%',
-              borderRadius: '16px',
-              overflow: 'hidden'
-            }}>
-              <DatePicker
-                wrapperClassName="datePicker"
-                placeholderText="Date of Journey"
-                selected={dateSearched}
-                onChange={setDate}
-                dateFormat="yyyy-MM-dd"
-                minDate={new Date()}
-                maxDate={new Date(new Date().setDate(new Date().getDate() + 9))}
-                className="form-control"
-                style={{
-                  width: '100%',
-                  padding: '1rem 1.25rem',
-                  background: 'rgba(83, 69, 143, 0.9)',
-                  border: '2px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '16px',
-                  color: 'white',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  backdropFilter: 'blur(10px)'
-                }}
-              />
-            </div>
-          </div>
-
-          <button 
-            onClick={onSearchFunc} 
-            className="search-btn"
-            style={{
-              width: '100%',
-              padding: '1.25rem',
-              background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-              border: 'none',
-              borderRadius: '16px',
-              color: 'white',
-              fontSize: '1.1rem',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginTop: '1rem',
-              boxShadow: '0 10px 30px rgba(79, 70, 229, 0.35)'
-            }}
-          >
-            Search Trains
-          </button>
+      <div className="journey">
+        <div>
+          <div className="journey-time">{formatTime(dep)}</div>
+          <div className="journey-station">{stationName(from)}</div>
+        </div>
+        <div className="journey-line">
+          <span>{formatDuration(dep, arr)}</span>
+          <span className="bar" />
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div className="journey-time">{formatTime(arr)}</div>
+          <div className="journey-station">{stationName(to)}</div>
         </div>
       </div>
 
-      {/* Right Side - Results */}
-      <div style={{
-        flex: '1',
-        maxWidth: '800px',
-        minWidth: '600px',
-        marginTop: '1rem' // Added margin to align with search card
-      }}>
-        {loading && (
-          <div style={{ marginTop: '2rem', color: 'white', textAlign: 'center', padding: '2rem' }}>
-            <h5>Searching trains...</h5>
-          </div>
-        )}
-
-        {searchClicked && !loading && trains.length === 0 && (
-          <div className="not-found" style={{ 
-            marginTop: '2rem', 
-            color: 'white',
-            textAlign: 'center',
-            padding: '2rem',
-            background: 'rgba(255, 255, 255, 0.1)',
-            borderRadius: '16px',
-            backdropFilter: 'blur(10px)'
-          }}>
-            <h5>No trains found!</h5>
-          </div>
-        )}
-
-        <div className="train-container" style={{ 
-          width: '100%'
-        }}>
-          {trains.map((train, idx) => (
-            <div
-              key={idx}
-              className="train-card"
-              style={{
-                marginBottom: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '16px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                color: 'white',
-                overflow: 'hidden',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              <div 
-                style={{ 
-                  padding: '20px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: expandedTrain === train.train_code ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                  transition: 'background-color 0.3s ease'
-                }}
-                onClick={() => toggleTrainDetails(train.train_code)}
-              >
-                <h4 style={{ margin: 0 }}>{train.train_code} - {train.train_name}</h4>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{inputValueFrom}</div>
-                    <div style={{ fontWeight: '600' }}>{formatTime(train.from_station_departure)}</div>
-                  </div>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 5px' }}>
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{inputValueTo}</div>
-                    <div style={{ fontWeight: '600' }}>{formatTime(train.to_station_arrival)}</div>
-                  </div>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                      transform: expandedTrain === train.train_code ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                      marginLeft: '10px'
-                    }}
-                  >
-                    <path d="M19 9L12 16L5 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+      <div className="class-grid">
+        {(train.classes || []).map((cls) => {
+          const left = seatsLeft(cls);
+          const cost = parseFloat(cls.seat_cost);
+          const params = new URLSearchParams({
+            trainCode: train.train_code,
+            className: cls.class_name,
+            classCode: cls.class_code,
+            date,
+            from,
+            to,
+            seat_cost: cls.seat_cost,
+          });
+          return (
+            <div key={cls.class_code ?? cls.class_name} className={`class-tile${left === 0 ? ' soldout' : ''}`}>
+              <div className="ct-row">
+                <span className="ct-name">{cls.class_name}</span>
+                {!Number.isNaN(cost) && <span className="price">{taka(cost)}</span>}
               </div>
-
-              {expandedTrain === train.train_code && (
-                <div
-                  style={{
-                    padding: '0 20px 20px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.1)'
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                      gap: '16px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    {train.classes.map((cls, i) => {
-                      const bookedSeatsCount = Array.isArray(cls.Booked_Seats) ? cls.Booked_Seats.length : 0;
-                      const availableSeats = cls.total_seat - bookedSeatsCount;
-
-                      return (
-                        <div
-                          key={i}
-                          className="class-card"
-                          style={{
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            borderRadius: '12px',
-                            padding: '15px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                            color: 'white'
-                          }}
-                        >
-                          <div style={{ marginBottom: '8px' }}><strong>Class:</strong> {cls.class_name}</div>
-                          <div style={{ marginBottom: '8px' }}><strong>Total Seats:</strong> {cls.total_seat}</div>
-                          <div style={{ marginBottom: '8px' }}><strong>Available Seats:</strong> {availableSeats}</div>
-                          {cls.seat_cost !== undefined && !isNaN(parseFloat(cls.seat_cost)) && (
-                            <div style={{ 
-                              marginBottom: '8px',
-                              color: '#ffffffff',
-                              fontWeight: '600'
-                            }}>
-                              <strong>Price:</strong> ৳{parseFloat(cls.seat_cost).toFixed(2)}
-                            </div>
-                          )}
-                          <div style={{ marginTop: '15px' }}>
-                            {availableSeats > 0 ? (
-                              <Link
-                                to={`/bookseat?trainCode=${train.train_code}&className=${cls.class_name}&classCode=${cls.class_code}&date=${formatDate(dateSearched)}&from=${inputValueFrom}&to=${inputValueTo}&seat_cost=${cls.seat_cost}`}
-                                style={{
-                                  display: 'block',
-                                  width: '100%',
-                                  padding: '10px',
-                                  background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-                                  color: 'white',
-                                  textAlign: 'center',
-                                  borderRadius: '8px',
-                                  textDecoration: 'none',
-                                  fontWeight: '500',
-                                  transition: 'all 0.3s ease'
-                                }}
-                              >
-                                Book Now
-                              </Link>
-                            ) : (
-                              <div
-                                style={{
-                                  display: 'block',
-                                  width: '100%',
-                                  padding: '10px',
-                                  background: 'rgba(255, 0, 0, 0.3)',
-                                  color: 'white',
-                                  textAlign: 'center',
-                                  borderRadius: '8px',
-                                  fontWeight: '500'
-                                }}
-                              >
-                                Unavailable!
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+              <div className="ct-row">
+                {left === 0 ? (
+                  <span className="badge badge-danger">{t('Sold out')}</span>
+                ) : (
+                  <span className={`badge ${left <= 10 ? 'badge-warn' : ''}`}>
+                    {t('{left} of {total} seats left', { left, total: cls.total_seat })}
+                  </span>
+                )}
+              </div>
+              {left > 0 ? (
+                <Link to={`/bookseat?${params.toString()}`} className="btn btn-outline btn-sm btn-block">
+                  {t('Choose seats')}
+                </Link>
+              ) : (
+                <button type="button" className="btn btn-ghost btn-sm btn-block" disabled>{t('Unavailable')}</button>
               )}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </div>
+    </article>
+  );
+};
+
+const SearchTravel = () => {
+  const { t } = useT();
+  const { setDates, setFromStationSearch, setToStationSearch } = useData();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const from = searchParams.get('from') || '';
+  const to = searchParams.get('to') || '';
+  const date = searchParams.get('date') || '';
+
+  const [trains, setTrains] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [searched, setSearched] = useState(false);
+  const [timeFilter, setTimeFilter] = useState('all');
+  const [sort, setSort] = useState('departure');
+
+  // Run the search whenever the URL has a complete query
+  useEffect(() => {
+    if (!from || !to || !date) return;
+    let cancelled = false;
+
+    (async () => {
+      setDates(new Date(`${date}T00:00:00`));
+      setFromStationSearch(from);
+      setToStationSearch(to);
+      setLoading(true);
+      setError('');
+      setSearched(true);
+      try {
+        const response = await fetchWithAuth(`${API_URL}/booking/search`, {
+          method: 'POST',
+          body: JSON.stringify({ fromcity: from, tocity: to, doj: date }),
+        }, navigate);
+        const res = await response.json();
+        if (cancelled) return;
+        if (response.ok) {
+          setTrains(res.data || []);
+        } else {
+          setTrains([]);
+          setError(res.message || t('Search failed. Please try again.'));
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setTrains([]);
+          setError(t('Something went wrong with the search. Is the server running?'));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [from, to, date]);
+
+  const visible = useMemo(() => {
+    const f = TIME_FILTERS.find((x) => x.id === timeFilter);
+    const list = trains.filter((t) => !f?.test || f.test(hourOf(t.from_station_departure)));
+    const sorted = [...list];
+    if (sort === 'departure') {
+      sorted.sort((a, b) => (a.from_station_departure || '').localeCompare(b.from_station_departure || ''));
+    } else if (sort === 'duration') {
+      sorted.sort((a, b) =>
+        durationMinutes(a.from_station_departure, a.to_station_arrival) -
+        durationMinutes(b.from_station_departure, b.to_station_arrival));
+    } else if (sort === 'price') {
+      sorted.sort((a, b) => (cheapestFare(a) ?? Infinity) - (cheapestFare(b) ?? Infinity));
+    }
+    return sorted;
+  }, [trains, timeFilter, sort]);
+
+  const handleSearch = (q) => setSearchParams(q);
+
+  return (
+    <>
+      <section className="band">
+        <div className="container">
+          {from && to ? (
+            <>
+              <p className="eyebrow">{date ? formatDate(date) : t('Search')}</p>
+              <h1 style={{ marginTop: 6 }}>{stationName(from)} <span aria-hidden="true">→</span><span className="sr-only">{t('to')}</span> {stationName(to)}</h1>
+            </>
+          ) : (
+            <h1>{t('Where are you headed?')}</h1>
+          )}
+        </div>
+      </section>
+
+      <div className="container overlap">
+        <SearchForm initial={{ from, to, date }} onSubmit={handleSearch} submitLabel="Search" />
+      </div>
+
+      <section className="container section stack" aria-live="polite">
+        {searched && !loading && trains.length > 0 && (
+          <div className="row-between">
+            <div className="row" role="group" aria-label={t('Filter by departure time')}>
+              {TIME_FILTERS.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  className="chip"
+                  aria-pressed={timeFilter === f.id}
+                  onClick={() => setTimeFilter(f.id)}
+                >
+                  {t(f.label)}
+                </button>
+              ))}
+            </div>
+            <div className="row" style={{ gap: 8 }}>
+              <label htmlFor="sort" className="small muted">{t('Sort by')}</label>
+              <select id="sort" className="select" style={{ width: 'auto', minHeight: 40 }} value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="departure">{t('Departure time')}</option>
+                <option value="duration">{t('Shortest journey')}</option>
+                <option value="price">{t('Lowest fare')}</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {loading && (
+          <div className="stack" aria-label={t('Loading trains')}>
+            {[0, 1, 2].map((i) => <div key={i} className="skeleton" style={{ height: 190 }} />)}
+          </div>
+        )}
+
+        {error && !loading && <Alert tone="danger">{error}</Alert>}
+
+        {!searched && !loading && (
+          <div className="card">
+            <EmptyState icon="train" title={t('Search for a train')}>
+              {t('Choose your stations and journey date above to see available trains and seats.')}
+            </EmptyState>
+          </div>
+        )}
+
+        {searched && !loading && !error && trains.length === 0 && (
+          <div className="card">
+            <EmptyState icon="calendar" title={t('No trains on this date')}>
+              {t('No trains run from {from} to {to} on {date}. Try another date or swap the stations.', { from: stationName(from), to: stationName(to), date: formatDate(date) })}
+            </EmptyState>
+          </div>
+        )}
+
+        {!loading && trains.length > 0 && (
+          <>
+            <p className="small muted">
+              {t('Showing {shown} of {total} trains', { shown: visible.length, total: trains.length })}
+            </p>
+            {visible.length === 0 && (
+              <div className="card">
+                <EmptyState icon="clock" title={t('No trains at this time of day')}>
+                  {t('Try another time filter.')}
+                </EmptyState>
+              </div>
+            )}
+            {visible.map((train) => (
+              <TrainCard key={train.train_code} train={train} from={from} to={to} date={date} />
+            ))}
+          </>
+        )}
+
+        {searched && !loading && trains.length > 0 && (
+          <p className="tiny muted row" style={{ gap: 6 }}>
+            <Icon name="info" size={14} /> {t('You need to be signed in to reserve seats.')}
+          </p>
+        )}
+      </section>
+    </>
   );
 };
 

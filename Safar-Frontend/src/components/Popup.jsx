@@ -1,14 +1,20 @@
 import React from 'react';
-import './Popup.css';
+import { Modal } from './ui';
+import { useT } from '../i18n';
 
-const Popup = ({ message, onClose }) => {
+// Same API as before ({ message, onClose }), rendered with the shared Modal.
+const Popup = ({ message, onClose, title }) => {
+  const { t } = useT();
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <p>{message}</p>
-        <button onClick={onClose}>Close</button>
-      </div>
-    </div>
+    <Modal
+      open
+      onClose={onClose}
+      title={title || t('Notice')}
+      icon="info"
+      footer={<button type="button" className="btn btn-primary" onClick={onClose}>{t('OK')}</button>}
+    >
+      <p style={{ whiteSpace: 'pre-line' }}>{message}</p>
+    </Modal>
   );
 };
 

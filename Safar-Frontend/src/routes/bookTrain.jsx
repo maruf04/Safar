@@ -1,19 +1,6 @@
-//done
+import React from 'react';
+import SearchTravel from '../components/SearchTravel';
 
-import React from 'react'
-import SearchTravel from '../components/SearchTravel'
-import '../components/App.css'
-const bookTrain = () => {
-  return (
-    <div>
-      {/* <center><h1 className="header-title">
-        Seach for a train
-      </h1></center> */}
-      
-      <SearchTravel />
-    </div>
-  )
-}
+const BookTrain = () => <SearchTravel />;
 
-
-export default bookTrain
+export default BookTrain;

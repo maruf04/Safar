@@ -1,13 +1,6 @@
-//done
-import React from 'react'
-import BookAvailableSeat from '../components/BookAvailableSeat'
-import TicketBookingPage from '../components/TicketBookingPage'
+import React from 'react';
+import BookAvailableSeat from '../components/BookAvailableSeat';
 
-const bookSeat = () => {
-  return (
-    
-    <div><BookAvailableSeat/></div>
-  )
-}
+const BookSeat = () => <BookAvailableSeat />;
 
-export default bookSeat
+export default BookSeat;
