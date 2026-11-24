@@ -4,7 +4,7 @@ import Popup from './Popup';
 import { API_URL } from './utils';
 import { useData } from './AppContext';
 import { Alert, EmptyState, Icon, Modal, Spinner } from './ui';
-import { formatDate, taka, num, localizeDigits, stationName } from '../lib/format';
+import { formatDate, taka, num, localizeDigits, stationName, trainLabel } from '../lib/format';
 import { useT } from '../i18n';
 
 const HOLD_SECONDS = 300; // seats are held for 5 minutes
@@ -238,7 +238,7 @@ const TicketBookingPage = () => {
           <div className="ticket-top row-between">
             <div>
               <p className="small muted">{t('Train #{code}', { code: num(ticketData.train_code) })}</p>
-              <h2 className="h2" style={{ color: '#fff' }}>{ticketData.train_name}</h2>
+              <h2 className="h2" style={{ color: '#fff' }}>{trainLabel(ticketData.train_name)}</h2>
             </div>
             <div style={{ textAlign: 'right' }}>
               <p className="small muted">{t('Total')}</p>

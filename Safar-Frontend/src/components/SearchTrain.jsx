@@ -3,11 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchWithAuth, API_URL } from './utils';
 import { Alert, EmptyState, Icon } from './ui';
 import RoutePanel, { useTrainDetails } from './RoutePanel';
-import { num } from '../lib/format';
+import { num, trainLabel, findTrainName } from '../lib/format';
 import { useT } from '../i18n';
 
 const SearchTrain = () => {
-  const { t } = useT();
+  const { t, lang } = useT();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [trainName, setTrainName] = useState(searchParams.get('train') || '');
@@ -40,6 +40,11 @@ const SearchTrain = () => {
 
   const selected = searchParams.get('train') || '';
 
+  // Show the chosen train in the search box in the current language
+  useEffect(() => {
+    if (selected) setTrainName(trainLabel(selected));
+  }, [selected, lang]);
+
   // Fetch the timetable whenever the selected train in the URL changes
   const { data: trainData, loading: isLoading, error } = useTrainDetails(selected);
 
@@ -47,8 +52,7 @@ const SearchTrain = () => {
     e.preventDefault();
     const trimmed = trainName.trim();
     if (!trimmed) return;
-    const match = trainOptions.find((n) => n.toLowerCase() === trimmed.toLowerCase());
-    setSearchParams({ train: match || trimmed });
+    setSearchParams({ train: findTrainName(trimmed, trainOptions) || trimmed });
   };
 
   const leg = trainData ? (trainData.UP || trainData.DOWN) : null;
@@ -58,7 +62,7 @@ const SearchTrain = () => {
       <section className="band">
         <div className="container">
           <p className="eyebrow">{t('Timetable')}</p>
-          <h1 style={{ marginTop: 6 }}>{leg ? leg.train_name : t('Find a train’s schedule')}</h1>
+          <h1 style={{ marginTop: 6 }}>{leg ? trainLabel(leg.train_name) : t('Find a train’s schedule')}</h1>
           {leg && <p style={{ marginTop: 6 }}>{t('Train #{code}', { code: num(leg.train_code) })} · {leg.route_name}</p>}
         </div>
       </section>
@@ -81,7 +85,7 @@ const SearchTrain = () => {
             <Icon name="search" size={18} /> <span>{t('Show')}</span>
           </button>
           <datalist id="train-list">
-            {trainOptions.map((n) => <option key={n} value={n} />)}
+            {trainOptions.map((n) => <option key={n} value={trainLabel(n)} />)}
           </datalist>
         </form>
       </div>

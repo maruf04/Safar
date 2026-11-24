@@ -6,7 +6,9 @@ so the stop-by-stop times were transcribed by hand into `trains.json` and checke
 official start/end times in the same PDFs.
 
 - `trains.json`: 120 intercity trains, every stop with arrival/departure (HHMM).
-- `coords.json`: station coordinates from OpenStreetMap (© OpenStreetMap contributors, ODbL).
+- `coords.json`: station coordinates, mostly from OpenStreetMap (© OpenStreetMap contributors, ODbL).
+  Estimated by hand, not from OSM: Brahmanbaria, Chapainawabganj, Rajbari, Talora, Ullapara, Mobarakganj,
+  Boral Bridge, Chandradighalia, Khatra, Manikkhali, Biddyaganj, Jafarshahi, Kendua Bazar.
 - `build_sql.py`: turns the two files into `official_timetable.sql` (+ the frontend's stationCoords.js).
 - `official_timetable.sql`: replaces stations, routes, trains, timetable and fare distances.
 
@@ -14,4 +16,5 @@ Not included: mail/commuter/local trains (the PDFs only list their end points), 
 international trains (Maitree, Bandhan, Mitali) and trains marked "to be introduced in phases".
 Fares are approximate: distance units are 40 km of estimated rail distance.
 
-Re-run: `psql -d safar -v ON_ERROR_STOP=1 -f official_timetable.sql`
+`../../schema.sql` already includes this import; a fresh install only needs `schema.sql`.
+To apply it to a database created from the older schema: `psql -d safar -v ON_ERROR_STOP=1 -f official_timetable.sql`

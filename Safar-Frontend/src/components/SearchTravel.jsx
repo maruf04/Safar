@@ -5,7 +5,7 @@ import { fetchWithAuth, API_URL } from './utils';
 import SearchForm from './SearchForm';
 import { Alert, EmptyState, Icon, Modal } from './ui';
 import RoutePanel, { useTrainDetails } from './RoutePanel';
-import { formatDate, formatDuration, formatTime, durationMinutes, hourOf, taka, num, stationName } from '../lib/format';
+import { formatDate, formatDuration, formatTime, durationMinutes, hourOf, taka, num, stationName, trainLabel } from '../lib/format';
 import { useT } from '../i18n';
 
 const TIME_FILTERS = [
@@ -39,7 +39,7 @@ const RouteModal = ({ train, from, to, onClose }) => {
       open={!!train}
       onClose={onClose}
       size="xl"
-      title={train ? `${train.train_name} · ${t('Route & stops')}` : ''}
+      title={train ? `${trainLabel(train.train_name)} · ${t('Route & stops')}` : ''}
       footer={<button type="button" className="btn btn-ghost" onClick={onClose}>{t('Cancel')}</button>}
     >
       {train && (
@@ -61,10 +61,10 @@ const TrainCard = ({ train, from, to, date, onShowRoute }) => {
   const fare = cheapestFare(train);
 
   return (
-    <article className="card train-card" aria-label={t('{name}, departs {time}', { name: train.train_name, time: formatTime(dep) })}>
+    <article className="card train-card" aria-label={t('{name}, departs {time}', { name: trainLabel(train.train_name), time: formatTime(dep) })}>
       <div className="train-head">
         <div className="stack-sm" style={{ gap: 2 }}>
-          <span className="train-name">{train.train_name}</span>
+          <span className="train-name">{trainLabel(train.train_name)}</span>
           <span className="tiny muted">{t('Train #{code}', { code: num(train.train_code) })}</span>
         </div>
         {fare !== null && (

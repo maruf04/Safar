@@ -12,7 +12,7 @@ export const stopsOf = (leg) => {
   const rows = leg?.timetable || [];
   if (!rows.length) return [];
   const stops = rows.map((r) => ({ name: r.from_station, arrival: r.arrival_time, departure: r.departure_time }));
-  stops.push({ name: rows[rows.length - 1].to_station, arrival: null, departure: null });
+  stops.push({ name: rows[rows.length - 1].to_station, arrival: rows[rows.length - 1].to_arrival_time || null, departure: null });
   return stops;
 };
 
@@ -86,7 +86,7 @@ export const Timetable = ({ leg, highlight }) => {
       ))}
       {last && (
         <li className={cls(rows.length)}>
-          <span className="tl-time" />
+          <span className="tl-time">{formatTime(last.to_arrival_time)}</span>
           <span className="tl-rail" aria-hidden="true"><span className="tl-dot" /><span className="tl-line" /></span>
           <div className="tl-body">
             <div className="tl-station">

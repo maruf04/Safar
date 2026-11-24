@@ -1901,7 +1901,7 @@ INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, ro
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 132, '09:14:00', '09:17:00', 754);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 265, '09:36:00', '09:39:00', 754);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 169, '09:51:00', '09:53:00', 754);
-INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 244, '10:01:00', '10:08:00', 754);
+INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 244, '10:01:00', '10:04:00', 754);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 163, '10:20:00', '10:22:00', 754);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 41, '10:42:00', '10:44:00', 754);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (754, 203, '11:08:00', '11:10:00', 754);
@@ -2978,7 +2978,7 @@ INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, ro
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 1, '12:35:00', '12:40:00', 785);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 4, '13:15:00', '13:20:00', 785);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 239, '13:52:00', '13:54:00', 785);
-INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 26, '14:28:00', '14:30:00', 785);
+INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 26, '14:28:00', '14:33:00', 785);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 108, '15:05:00', '15:07:00', 785);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 154, '15:35:00', '15:55:00', 785);
 INSERT INTO time_table (train_code, station_id, arrival_time, departure_time, route_id) VALUES (785, 30, '16:23:00', '16:28:00', 785);

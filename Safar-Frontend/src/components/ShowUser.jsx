@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useData } from './AppContext';
 import { API_URL } from './utils';
 import { Alert, EmptyState, Icon, Modal, Spinner } from './ui';
-import { formatDate, initials, taka, num, stationName, phoneNumber } from '../lib/format';
+import { formatDate, initials, taka, num, stationName, phoneNumber, trainLabel } from '../lib/format';
 import { useT } from '../i18n';
 
 // "3 days 15:59:33.68" -> "3 days 15 hours 59 minutes"
@@ -106,7 +106,7 @@ const TicketGroup = ({ date, seats, onCancel }) => {
                 <tr key={idx}>
                   <td className="strong num">{num(seat.seat_number)}</td>
                   <td>{seat.class_code}</td>
-                  <td>{seat.train_code}</td>
+                  <td>{trainLabel(seat.train_code)}</td>
                   <td>{stationName(seat.from_station)}</td>
                   <td>{stationName(seat.to_station)}</td>
                 </tr>

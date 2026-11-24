@@ -79,6 +79,7 @@ router.post('/', async (req, res) => {
         departure_time: from.departure_time,
         to_station: to.station_name,
         arrival_time: from.arrival_time,
+        to_arrival_time: to.arrival_time,
         duration: calculateDuration(from.departure_time, to.arrival_time)
       });
     }

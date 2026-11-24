@@ -91,7 +91,7 @@ I collected the data from the **official Bangladesh Railway website** with Pytho
 - `insert_to_updatee.py`: converts `INSERT` statements into `UPDATE`s, for patching existing rows
 - `a.py`: builds the station-by-station timetables
 
-The database holds **46 stations** and **89 trains**, with routes, timetables, classes, fares and distances.
+The database now holds **206 stations** and **120 intercity trains** from the official Time Table No. 54 (see `Safar-Backend/Backendd/data/official-timetable/`), with routes, timetables and classes. Fares are estimated from distance.
 
 ---
 

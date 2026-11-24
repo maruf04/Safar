@@ -1,6 +1,8 @@
 // Formatting helpers shared across pages. They follow the current UI language,
 // which the LangProvider sets via setFormatLang().
 
+import TRAIN_NAMES_BN from '../data/trainNamesBn';
+
 let LANG = 'en';
 export const setFormatLang = (lang) => { LANG = lang === 'bn' ? 'bn' : 'en'; };
 
@@ -84,6 +86,16 @@ export const taka = (amount) => {
 
 // Database station names use underscores ("Dhaka_Airport") -> "Dhaka Airport"
 export const stationName = (name) => (name ? String(name).replace(/_/g, ' ') : '');
+
+// Train name in the current language: "Subarna Express" -> "সুবর্ণ এক্সপ্রেস" (English if no Bengali name is known)
+export const trainLabel = (name) => (name && LANG === 'bn' && TRAIN_NAMES_BN[name]) || name || '';
+
+// What the user typed (English or Bengali, any case) -> the English name in the database, or null
+export const findTrainName = (typed, names) => {
+  const norm = (s) => String(s || '').normalize('NFC').trim().toLowerCase();
+  const q = norm(typed);
+  return names.find((n) => norm(n) === q || norm(TRAIN_NAMES_BN[n]) === q) || null;
+};
 
 // Phone numbers are stored as integers, so the leading 0 is lost (1700000000 -> 01700000000)
 export const phoneNumber = (value) => {

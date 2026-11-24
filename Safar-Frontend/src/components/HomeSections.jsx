@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from './ui';
 import RouteMap from './RouteMap';
 import { useNetwork, useRoutes, dhakaNow, runsOn, toMinutes, trainsBetween } from '../lib/network';
-import { formatDuration, formatTime, num, stationName, toISODate, durationMinutes } from '../lib/format';
+import { formatDuration, formatTime, num, stationName, toISODate, durationMinutes, trainLabel } from '../lib/format';
 import { useT } from '../i18n';
 
 const searchLink = (from, to) =>
@@ -124,7 +124,7 @@ export const DepartureBoard = () => {
           <Link key={r.train.train_code} to={searchLink(station, r.dest)} className="board-row">
             <span className="board-time">{formatTime(r.dep)}</span>
             <span className="board-train">
-              {r.train.name}
+              {trainLabel(r.train.name)}
               <small>#{num(r.train.train_code)}</small>
             </span>
             <span className="board-dest">{stationName(r.dest)}</span>

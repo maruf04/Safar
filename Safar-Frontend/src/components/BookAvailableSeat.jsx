@@ -4,7 +4,7 @@ import { fetchWithAuth, API_URL } from './utils';
 import { useData } from './AppContext';
 import Popup from './Popup';
 import { Alert, Icon, Spinner } from './ui';
-import { formatDate, taka, num, stationName } from '../lib/format';
+import { formatDate, taka, num, stationName, trainLabel } from '../lib/format';
 import { useT } from '../i18n';
 
 const MAX_SEATS = 4;
@@ -186,7 +186,7 @@ const BookAvailableSeat = () => {
             <Icon name="arrowLeft" size={16} /> {t('Back to results')}
           </Link>
           <p className="eyebrow">{t('{cls} class', { cls: className })} · {formatDate(date)}</p>
-          <h1 style={{ marginTop: 6 }}>{trainName || t('Choose your seats')}</h1>
+          <h1 style={{ marginTop: 6 }}>{trainLabel(trainName) || t('Choose your seats')}</h1>
           <p style={{ marginTop: 6 }}>{stationName(from)} → {stationName(to)}</p>
         </div>
       </section>
@@ -229,7 +229,7 @@ const BookAvailableSeat = () => {
           <aside className="card card-pad stack" aria-label={t('Journey summary')}>
             <h2 className="h3">{t('Your journey')}</h2>
             <dl className="kv" style={{ gridTemplateColumns: '1fr' }}>
-              <div><dt>{t('Train')}</dt><dd>{trainName || '—'} <span className="muted">#{num(trainCode)}</span></dd></div>
+              <div><dt>{t('Train')}</dt><dd>{trainLabel(trainName) || '—'} <span className="muted">#{num(trainCode)}</span></dd></div>
               <div><dt>{t('Route')}</dt><dd>{stationName(from)} → {stationName(to)}</dd></div>
               <div><dt>{t('Date')}</dt><dd>{formatDate(date)}</dd></div>
               <div><dt>{t('Class')}</dt><dd>{className} · {t('{price} per seat', { price: taka(seatCost) })}</dd></div>
