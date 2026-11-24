@@ -35,7 +35,8 @@ router.post('/', async (req, res) => {
 
   const response = {};
 
-  for(var i=0;i<2;i++)
+  // Some trains run in only one direction, so there may be 1 or 2 rows
+  for(var i=0;i<Math.min(2, trainInfoResult.rows.length);i++)
   {
     const {
       train_code,

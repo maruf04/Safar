@@ -72,6 +72,7 @@ function AddUser() {
 
   return (
     <AuthLayout
+      image="train-street.jpg"
       title={t('Create your account')}
       subtitle={t('It takes less than a minute.')}
       footer={<>{t('Already have an account?')} <Link to="/users/login" state={location.state}>{t('Sign in')}</Link></>}

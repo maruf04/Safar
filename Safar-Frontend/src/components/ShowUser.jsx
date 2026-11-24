@@ -315,8 +315,7 @@ const ShowUser = () => {
             </button>
             <button
               type="button"
-              className="btn"
-              style={{ color: '#fff', borderColor: 'rgba(255,255,255,.4)' }}
+              className="btn btn-on-band"
               onClick={() => setLogoutOpen(true)}
             >
               <Icon name="logout" size={18} /> {t('Log out')}

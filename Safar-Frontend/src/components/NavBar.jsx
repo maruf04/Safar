@@ -35,8 +35,11 @@ const NavBar = () => {
     <header className="nav">
       <div className="container nav-inner">
         <Link to="/" className="brand" aria-label={t('Safar home')}>
-          <img src={`${process.env.PUBLIC_URL}/safar-mark-light.svg`} alt="" className="brand-mark" width="40" height="40" />
-          <span className="brand-word">SAFAR<span className="brand-dot">.</span></span>
+          <img src={`${process.env.PUBLIC_URL}/safar-clock.svg`} alt="" className="brand-mark" width="44" height="44" />
+          <span className="brand-text">
+            <span className="brand-word">SAFAR<span className="brand-dot">.</span></span>
+            <span className="brand-sub">{t('Railway ticket booking')}</span>
+          </span>
         </Link>
 
         <div className="nav-right">

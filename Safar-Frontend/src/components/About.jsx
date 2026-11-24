@@ -26,7 +26,7 @@ const About = () => {
 
   return (
     <>
-      <section className="band">
+      <section className="band band-photo" style={{ '--band-img': `url(${process.env.PUBLIC_URL}/images/steam-locomotive.jpg)` }}>
         <div className="container">
           <p className="eyebrow">{t('About')}</p>
           <h1 style={{ marginTop: 6, maxWidth: 640 }}>{t('Every journey is part of the story.')}</h1>

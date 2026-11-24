@@ -13,9 +13,12 @@ const decodeToken = (token) => {
   }
 };
 
-export const AuthLayout = ({ title, subtitle, children, footer }) => (
+export const AuthLayout = ({ title, subtitle, children, footer, image }) => (
   <>
-    <section className="band" style={{ paddingBottom: 120 }}>
+    <section
+      className={`band${image ? ' band-photo' : ''}`}
+      style={{ paddingBottom: 120, ...(image ? { '--band-img': `url(${process.env.PUBLIC_URL}/images/${image})` } : {}) }}
+    >
       <div className="container container-xs" style={{ textAlign: 'center' }}>
         <h1>{title}</h1>
         {subtitle && <p style={{ marginTop: 8 }}>{subtitle}</p>}
@@ -78,6 +81,7 @@ const Login = ({ setAuth }) => {
 
   return (
     <AuthLayout
+      image="viaduct-steam.jpg"
       title={t('Welcome back')}
       subtitle={t('Sign in to book seats and manage your tickets.')}
       footer={<>{t('New to Safar?')} <Link to="/users" state={location.state}>{t('Create an account')}</Link></>}
