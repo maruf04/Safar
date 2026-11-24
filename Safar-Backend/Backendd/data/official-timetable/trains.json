@@ -1,0 +1,9082 @@
+{
+ "701": {
+  "code": 701,
+  "name": "Subarna Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "0700"
+   ],
+   [
+    "Dhaka Airport",
+    "1124",
+    "1127"
+   ],
+   [
+    "Dhaka",
+    "1155",
+    null
+   ]
+  ],
+  "minutes": 295
+ },
+ "702": {
+  "code": 702,
+  "name": "Subarna Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1630"
+   ],
+   [
+    "Dhaka Airport",
+    "1653",
+    "1658"
+   ],
+   [
+    "Chattogram",
+    "2125",
+    null
+   ]
+  ],
+  "minutes": 295
+ },
+ "703": {
+  "code": 703,
+  "name": "Mohanagar Godhuli",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "1500"
+   ],
+   [
+    "Feni",
+    "1620",
+    "1622"
+   ],
+   [
+    "Gunaboti",
+    "1636",
+    "1638"
+   ],
+   [
+    "Laksam",
+    "1704",
+    "1706"
+   ],
+   [
+    "Cumilla",
+    "1727",
+    "1729"
+   ],
+   [
+    "Akhaura",
+    "1820",
+    "1823"
+   ],
+   [
+    "Brahmanbaria",
+    "1841",
+    "1845"
+   ],
+   [
+    "Bhairab Bazar",
+    "1905",
+    "1908"
+   ],
+   [
+    "Dhaka Airport",
+    "2015",
+    "2018"
+   ],
+   [
+    "Dhaka",
+    "2045",
+    null
+   ]
+  ],
+  "minutes": 345
+ },
+ "704": {
+  "code": 704,
+  "name": "Mohanagar Provati",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0745"
+   ],
+   [
+    "Dhaka Airport",
+    "0807",
+    "0812"
+   ],
+   [
+    "Bhairab Bazar",
+    "0916",
+    "0919"
+   ],
+   [
+    "Brahmanbaria",
+    "0939",
+    "0943"
+   ],
+   [
+    "Akhaura",
+    "1005",
+    "1008"
+   ],
+   [
+    "Cumilla",
+    "1051",
+    "1053"
+   ],
+   [
+    "Laksam",
+    "1115",
+    "1117"
+   ],
+   [
+    "Gunaboti",
+    "1143",
+    "1145"
+   ],
+   [
+    "Feni",
+    "1200",
+    "1202"
+   ],
+   [
+    "Chattogram",
+    "1335",
+    null
+   ]
+  ],
+  "minutes": 350
+ },
+ "707": {
+  "code": 707,
+  "name": "Tista Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0730"
+   ],
+   [
+    "Dhaka Airport",
+    "0753",
+    "0758"
+   ],
+   [
+    "Joydebpur",
+    "0823",
+    "0826"
+   ],
+   [
+    "Gafargaon",
+    "0944",
+    "0947"
+   ],
+   [
+    "Mymensingh",
+    "1032",
+    "1035"
+   ],
+   [
+    "Piyarpur",
+    "1103",
+    "1105"
+   ],
+   [
+    "Jamalpur",
+    "1136",
+    "1140"
+   ],
+   [
+    "Melandah Bazar",
+    "1156",
+    "1158"
+   ],
+   [
+    "Islampur Bazar",
+    "1216",
+    "1218"
+   ],
+   [
+    "Dewanganj Bazar",
+    "1250",
+    null
+   ]
+  ],
+  "minutes": 320
+ },
+ "708": {
+  "code": 708,
+  "name": "Tista Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dewanganj Bazar",
+    null,
+    "1500"
+   ],
+   [
+    "Islampur Bazar",
+    "1514",
+    "1516"
+   ],
+   [
+    "Melandah Bazar",
+    "1531",
+    "1533"
+   ],
+   [
+    "Jamalpur",
+    "1551",
+    "1556"
+   ],
+   [
+    "Piyarpur",
+    "1626",
+    "1628"
+   ],
+   [
+    "Mymensingh",
+    "1703",
+    "1706"
+   ],
+   [
+    "Gafargaon",
+    "1752",
+    "1754"
+   ],
+   [
+    "Joydebpur",
+    "1916",
+    "1918"
+   ],
+   [
+    "Dhaka Airport",
+    "1947",
+    "1950"
+   ],
+   [
+    "Dhaka",
+    "2030",
+    null
+   ]
+  ],
+  "minutes": 330
+ },
+ "709": {
+  "code": 709,
+  "name": "Parabat Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0630"
+   ],
+   [
+    "Dhaka Airport",
+    "0653",
+    "0658"
+   ],
+   [
+    "Bhairab Bazar",
+    "0803",
+    "0806"
+   ],
+   [
+    "Brahmanbaria",
+    "0826",
+    "0829"
+   ],
+   [
+    "Azampur",
+    "0850",
+    "0852"
+   ],
+   [
+    "Noapara",
+    "0930",
+    "0932"
+   ],
+   [
+    "Shaistaganj",
+    "0952",
+    "0955"
+   ],
+   [
+    "Srimangal",
+    "1032",
+    "1035"
+   ],
+   [
+    "Bhanugach",
+    "1054",
+    "1056"
+   ],
+   [
+    "Kulaura",
+    "1125",
+    "1128"
+   ],
+   [
+    "Maijgaon",
+    "1155",
+    "1157"
+   ],
+   [
+    "Sylhet",
+    "1300",
+    null
+   ]
+  ],
+  "minutes": 390
+ },
+ "710": {
+  "code": 710,
+  "name": "Parabat Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "1600"
+   ],
+   [
+    "Maijgaon",
+    "1639",
+    "1641"
+   ],
+   [
+    "Kulaura",
+    "1706",
+    "1709"
+   ],
+   [
+    "Bhanugach",
+    "1739",
+    "1741"
+   ],
+   [
+    "Srimangal",
+    "1759",
+    "1802"
+   ],
+   [
+    "Shaistaganj",
+    "1846",
+    "1849"
+   ],
+   [
+    "Noapara",
+    "1910",
+    "1912"
+   ],
+   [
+    "Azampur",
+    "2005",
+    "2007"
+   ],
+   [
+    "Brahmanbaria",
+    "2030",
+    "2034"
+   ],
+   [
+    "Bhairab Bazar",
+    "2055",
+    "2058"
+   ],
+   [
+    "Dhaka Airport",
+    "2212",
+    "2215"
+   ],
+   [
+    "Dhaka",
+    "2240",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "711": {
+  "code": 711,
+  "name": "Upakul Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Noakhali",
+    null,
+    "0600"
+   ],
+   [
+    "Maijdi Court",
+    "0607",
+    "0609"
+   ],
+   [
+    "Chowmuhani",
+    "0623",
+    "0625"
+   ],
+   [
+    "Bazra",
+    "0634",
+    "0636"
+   ],
+   [
+    "Sonaimuri",
+    "0645",
+    "0647"
+   ],
+   [
+    "Natherpetua",
+    "0700",
+    "0702"
+   ],
+   [
+    "Laksam",
+    "0725",
+    "0730"
+   ],
+   [
+    "Cumilla",
+    "0752",
+    "0754"
+   ],
+   [
+    "Kasba",
+    "0824",
+    "0826"
+   ],
+   [
+    "Akhaura",
+    "0850",
+    "0853"
+   ],
+   [
+    "Brahmanbaria",
+    "0911",
+    "0915"
+   ],
+   [
+    "Ashuganj",
+    "0930",
+    "0932"
+   ],
+   [
+    "Narsingdi",
+    "1005",
+    "1007"
+   ],
+   [
+    "Dhaka Airport",
+    "1047",
+    "1050"
+   ],
+   [
+    "Dhaka",
+    "1120",
+    null
+   ]
+  ],
+  "minutes": 320
+ },
+ "712": {
+  "code": 712,
+  "name": "Upakul Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1510"
+   ],
+   [
+    "Dhaka Airport",
+    "1533",
+    "1538"
+   ],
+   [
+    "Narsingdi",
+    "1617",
+    "1620"
+   ],
+   [
+    "Bhairab Bazar",
+    "1650",
+    "1653"
+   ],
+   [
+    "Ashuganj",
+    "1700",
+    "1703"
+   ],
+   [
+    "Brahmanbaria",
+    "1717",
+    "1721"
+   ],
+   [
+    "Akhaura",
+    "1747",
+    "1750"
+   ],
+   [
+    "Kasba",
+    "1806",
+    "1808"
+   ],
+   [
+    "Cumilla",
+    "1838",
+    "1840"
+   ],
+   [
+    "Laksam",
+    "1903",
+    "1906"
+   ],
+   [
+    "Natherpetua",
+    "1928",
+    "1930"
+   ],
+   [
+    "Sonaimuri",
+    "1942",
+    "1944"
+   ],
+   [
+    "Bazra",
+    "1953",
+    "1955"
+   ],
+   [
+    "Chowmuhani",
+    "2004",
+    "2006"
+   ],
+   [
+    "Maijdi Court",
+    "2020",
+    "2022"
+   ],
+   [
+    "Noakhali",
+    "2040",
+    null
+   ]
+  ],
+  "minutes": 330
+ },
+ "717": {
+  "code": 717,
+  "name": "Jayantika Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1115"
+   ],
+   [
+    "Dhaka Airport",
+    "1138",
+    "1143"
+   ],
+   [
+    "Ashuganj",
+    "1255",
+    "1257"
+   ],
+   [
+    "Brahmanbaria",
+    "1311",
+    "1315"
+   ],
+   [
+    "Azampur",
+    "1337",
+    "1339"
+   ],
+   [
+    "Mukundapur",
+    "1352",
+    "1354"
+   ],
+   [
+    "Harashpur",
+    "1404",
+    "1406"
+   ],
+   [
+    "Montala",
+    "1430",
+    "1433"
+   ],
+   [
+    "Noapara",
+    "1447",
+    "1449"
+   ],
+   [
+    "Shahjibazar",
+    "1500",
+    "1502"
+   ],
+   [
+    "Shaistaganj",
+    "1521",
+    "1524"
+   ],
+   [
+    "Srimangal",
+    "1601",
+    "1604"
+   ],
+   [
+    "Bhanugach",
+    "1623",
+    "1625"
+   ],
+   [
+    "Kulaura",
+    "1705",
+    "1709"
+   ],
+   [
+    "Maijgaon",
+    "1733",
+    "1735"
+   ],
+   [
+    "Sylhet",
+    "1900",
+    null
+   ]
+  ],
+  "minutes": 465
+ },
+ "718": {
+  "code": 718,
+  "name": "Jayantika Express",
+  "off_day": "Thursday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "1200"
+   ],
+   [
+    "Maijgaon",
+    "1248",
+    "1250"
+   ],
+   [
+    "Kulaura",
+    "1317",
+    "1320"
+   ],
+   [
+    "Bhanugach",
+    "1419",
+    "1421"
+   ],
+   [
+    "Srimangal",
+    "1440",
+    "1445"
+   ],
+   [
+    "Shaistaganj",
+    "1522",
+    "1525"
+   ],
+   [
+    "Shahjibazar",
+    "1537",
+    "1539"
+   ],
+   [
+    "Noapara",
+    "1550",
+    "1552"
+   ],
+   [
+    "Montala",
+    "1607",
+    "1609"
+   ],
+   [
+    "Harashpur",
+    "1618",
+    "1620"
+   ],
+   [
+    "Mukundapur",
+    "1630",
+    "1632"
+   ],
+   [
+    "Azampur",
+    "1646",
+    "1648"
+   ],
+   [
+    "Brahmanbaria",
+    "1709",
+    "1713"
+   ],
+   [
+    "Ashuganj",
+    "1728",
+    "1730"
+   ],
+   [
+    "Dhaka Airport",
+    "1840",
+    "1843"
+   ],
+   [
+    "Dhaka",
+    "1915",
+    null
+   ]
+  ],
+  "minutes": 435
+ },
+ "719": {
+  "code": 719,
+  "name": "Paharika Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "0750"
+   ],
+   [
+    "Feni",
+    "0914",
+    "0916"
+   ],
+   [
+    "Nangalkot",
+    "0943",
+    "0945"
+   ],
+   [
+    "Laksam",
+    "1000",
+    "1003"
+   ],
+   [
+    "Cumilla",
+    "1026",
+    "1028"
+   ],
+   [
+    "Kasba",
+    "1058",
+    "1100"
+   ],
+   [
+    "Akhaura",
+    "1130",
+    "1135"
+   ],
+   [
+    "Harashpur",
+    "1205",
+    "1207"
+   ],
+   [
+    "Noapara",
+    "1228",
+    "1230"
+   ],
+   [
+    "Shaistaganj",
+    "1250",
+    "1253"
+   ],
+   [
+    "Srimangal",
+    "1330",
+    "1335"
+   ],
+   [
+    "Bhanugach",
+    "1355",
+    "1357"
+   ],
+   [
+    "Shamshernagar",
+    "1406",
+    "1408"
+   ],
+   [
+    "Kulaura",
+    "1432",
+    "1435"
+   ],
+   [
+    "Baramchal",
+    "1448",
+    "1450"
+   ],
+   [
+    "Maijgaon",
+    "1504",
+    "1506"
+   ],
+   [
+    "Sylhet",
+    "1555",
+    null
+   ]
+  ],
+  "minutes": 485
+ },
+ "720": {
+  "code": 720,
+  "name": "Paharika Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "1030"
+   ],
+   [
+    "Maijgaon",
+    "1109",
+    "1111"
+   ],
+   [
+    "Kulaura",
+    "1155",
+    "1158"
+   ],
+   [
+    "Shamshernagar",
+    "1221",
+    "1223"
+   ],
+   [
+    "Bhanugach",
+    "1232",
+    "1234"
+   ],
+   [
+    "Srimangal",
+    "1257",
+    "1302"
+   ],
+   [
+    "Shaistaganj",
+    "1354",
+    "1357"
+   ],
+   [
+    "Noapara",
+    "1417",
+    "1419"
+   ],
+   [
+    "Harashpur",
+    "1439",
+    "1441"
+   ],
+   [
+    "Akhaura",
+    "1520",
+    "1525"
+   ],
+   [
+    "Kasba",
+    "1541",
+    "1543"
+   ],
+   [
+    "Cumilla",
+    "1613",
+    "1615"
+   ],
+   [
+    "Laksam",
+    "1638",
+    "1640"
+   ],
+   [
+    "Nangalkot",
+    "1655",
+    "1657"
+   ],
+   [
+    "Feni",
+    "1724",
+    "1726"
+   ],
+   [
+    "Chattogram",
+    "1855",
+    null
+   ]
+  ],
+  "minutes": 505
+ },
+ "721": {
+  "code": 721,
+  "name": "Mohanagar Express",
+  "off_day": "Sunday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "1230"
+   ],
+   [
+    "Kumira",
+    "1256",
+    "1258"
+   ],
+   [
+    "Feni",
+    "1357",
+    "1359"
+   ],
+   [
+    "Nangalkot",
+    "1424",
+    "1426"
+   ],
+   [
+    "Laksam",
+    "1442",
+    "1444"
+   ],
+   [
+    "Cumilla",
+    "1506",
+    "1508"
+   ],
+   [
+    "Kasba",
+    "1538",
+    "1540"
+   ],
+   [
+    "Akhaura",
+    "1605",
+    "1608"
+   ],
+   [
+    "Brahmanbaria",
+    "1626",
+    "1630"
+   ],
+   [
+    "Ashuganj",
+    "1645",
+    "1647"
+   ],
+   [
+    "Bhairab Bazar",
+    "1655",
+    "1657"
+   ],
+   [
+    "Narsingdi",
+    "1727",
+    "1729"
+   ],
+   [
+    "Dhaka Airport",
+    "1807",
+    "1810"
+   ],
+   [
+    "Dhaka",
+    "1840",
+    null
+   ]
+  ],
+  "minutes": 370
+ },
+ "722": {
+  "code": 722,
+  "name": "Mohanagar Express",
+  "off_day": "Sunday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2120"
+   ],
+   [
+    "Dhaka Airport",
+    "2143",
+    "2148"
+   ],
+   [
+    "Narsingdi",
+    "2227",
+    "2230"
+   ],
+   [
+    "Bhairab Bazar",
+    "2300",
+    "2303"
+   ],
+   [
+    "Ashuganj",
+    "2311",
+    "2313"
+   ],
+   [
+    "Brahmanbaria",
+    "2328",
+    "2331"
+   ],
+   [
+    "Akhaura",
+    "2355",
+    "2358"
+   ],
+   [
+    "Kasba",
+    "0014",
+    "0016"
+   ],
+   [
+    "Cumilla",
+    "0046",
+    "0048"
+   ],
+   [
+    "Laksam",
+    "0110",
+    "0112"
+   ],
+   [
+    "Nangalkot",
+    "0126",
+    "0128"
+   ],
+   [
+    "Feni",
+    "0153",
+    "0155"
+   ],
+   [
+    "Kumira",
+    "0255",
+    "0257"
+   ],
+   [
+    "Chattogram",
+    "0330",
+    null
+   ]
+  ],
+  "minutes": 370
+ },
+ "723": {
+  "code": 723,
+  "name": "Udayan Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "2145"
+   ],
+   [
+    "Feni",
+    "2304",
+    "2307"
+   ],
+   [
+    "Laksam",
+    "2345",
+    "2347"
+   ],
+   [
+    "Cumilla",
+    "0009",
+    "0012"
+   ],
+   [
+    "Akhaura",
+    "0105",
+    "0110"
+   ],
+   [
+    "Shaistaganj",
+    "0229",
+    "0232"
+   ],
+   [
+    "Srimangal",
+    "0310",
+    "0313"
+   ],
+   [
+    "Shamshernagar",
+    "0338",
+    "0340"
+   ],
+   [
+    "Kulaura",
+    "0404",
+    "0407"
+   ],
+   [
+    "Maijgaon",
+    "0435",
+    "0437"
+   ],
+   [
+    "Sylhet",
+    "0545",
+    null
+   ]
+  ],
+  "minutes": 480
+ },
+ "724": {
+  "code": 724,
+  "name": "Udayan Express",
+  "off_day": "Sunday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "2200"
+   ],
+   [
+    "Maijgaon",
+    "2239",
+    "2241"
+   ],
+   [
+    "Baramchal",
+    "2258",
+    "2300"
+   ],
+   [
+    "Kulaura",
+    "2313",
+    "2316"
+   ],
+   [
+    "Shamshernagar",
+    "2340",
+    "2342"
+   ],
+   [
+    "Srimangal",
+    "0008",
+    "0013"
+   ],
+   [
+    "Shaistaganj",
+    "0050",
+    "0053"
+   ],
+   [
+    "Akhaura",
+    "0215",
+    "0220"
+   ],
+   [
+    "Cumilla",
+    "0303",
+    "0305"
+   ],
+   [
+    "Laksam",
+    "0327",
+    "0329"
+   ],
+   [
+    "Feni",
+    "0407",
+    "0409"
+   ],
+   [
+    "Chattogram",
+    "0535",
+    null
+   ]
+  ],
+  "minutes": 455
+ },
+ "729": {
+  "code": 729,
+  "name": "Meghna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "1715"
+   ],
+   [
+    "Kumira",
+    "1740",
+    "1742"
+   ],
+   [
+    "Feni",
+    "1840",
+    "1843"
+   ],
+   [
+    "Hasanpur",
+    "1905",
+    "1907"
+   ],
+   [
+    "Nangalkot",
+    "1915",
+    "1917"
+   ],
+   [
+    "Laksam",
+    "1935",
+    "1955"
+   ],
+   [
+    "Chitosi Road",
+    "2010",
+    "2012"
+   ],
+   [
+    "Meher",
+    "2021",
+    "2023"
+   ],
+   [
+    "Hajiganj",
+    "2037",
+    "2039"
+   ],
+   [
+    "Modhu Road",
+    "2052",
+    "2054"
+   ],
+   [
+    "Chandpur Court",
+    "2108",
+    "2110"
+   ],
+   [
+    "Chandpur",
+    "2125",
+    null
+   ]
+  ],
+  "minutes": 250
+ },
+ "730": {
+  "code": 730,
+  "name": "Meghna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Chandpur",
+    null,
+    "0500"
+   ],
+   [
+    "Chandpur Court",
+    "0505",
+    "0507"
+   ],
+   [
+    "Modhu Road",
+    "0522",
+    "0524"
+   ],
+   [
+    "Hajiganj",
+    "0535",
+    "0537"
+   ],
+   [
+    "Meher",
+    "0550",
+    "0552"
+   ],
+   [
+    "Chitosi Road",
+    "0604",
+    "0606"
+   ],
+   [
+    "Laksam",
+    "0620",
+    "0640"
+   ],
+   [
+    "Nangalkot",
+    "0654",
+    "0656"
+   ],
+   [
+    "Hasanpur",
+    "0703",
+    "0705"
+   ],
+   [
+    "Feni",
+    "0727",
+    "0730"
+   ],
+   [
+    "Kumira",
+    "0830",
+    "0832"
+   ],
+   [
+    "Chattogram",
+    "0900",
+    null
+   ]
+  ],
+  "minutes": 240
+ },
+ "735": {
+  "code": 735,
+  "name": "Agnibina Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1130"
+   ],
+   [
+    "Dhaka Airport",
+    "1153",
+    "1158"
+   ],
+   [
+    "Gafargaon",
+    "1345",
+    "1347"
+   ],
+   [
+    "Mymensingh",
+    "1435",
+    "1438"
+   ],
+   [
+    "Nurundi",
+    "1516",
+    "1518"
+   ],
+   [
+    "Jamalpur",
+    "1538",
+    "1542"
+   ],
+   [
+    "Kendua Bazar",
+    "1600",
+    "1602"
+   ],
+   [
+    "Sarishabari",
+    "1633",
+    "1635"
+   ],
+   [
+    "Tarakandi",
+    "1700",
+    null
+   ]
+  ],
+  "minutes": 330
+ },
+ "736": {
+  "code": 736,
+  "name": "Agnibina Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Tarakandi",
+    null,
+    "1730"
+   ],
+   [
+    "Sarishabari",
+    "1745",
+    "1747"
+   ],
+   [
+    "Kendua Bazar",
+    "1817",
+    "1819"
+   ],
+   [
+    "Jamalpur",
+    "1838",
+    "1841"
+   ],
+   [
+    "Nurundi",
+    "1903",
+    "1905"
+   ],
+   [
+    "Mymensingh",
+    "1945",
+    "1948"
+   ],
+   [
+    "Gafargaon",
+    "2034",
+    "2037"
+   ],
+   [
+    "Dhaka Airport",
+    "2222",
+    "2225"
+   ],
+   [
+    "Dhaka",
+    "2255",
+    null
+   ]
+  ],
+  "minutes": 325
+ },
+ "737": {
+  "code": 737,
+  "name": "Egarosindhur Provati",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0715"
+   ],
+   [
+    "Dhaka Airport",
+    "0738",
+    "0743"
+   ],
+   [
+    "Narsingdi",
+    "0822",
+    "0824"
+   ],
+   [
+    "Bhairab Bazar",
+    "0853",
+    "0913"
+   ],
+   [
+    "Kuliarchar",
+    "0932",
+    "0934"
+   ],
+   [
+    "Bajitpur",
+    "0942",
+    "0944"
+   ],
+   [
+    "Sararchar",
+    "0952",
+    "0954"
+   ],
+   [
+    "Manikkhali",
+    "1010",
+    "1012"
+   ],
+   [
+    "Gachihata",
+    "1022",
+    "1024"
+   ],
+   [
+    "Kishoreganj",
+    "1110",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "738": {
+  "code": 738,
+  "name": "Egarosindhur Provati",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Kishoreganj",
+    null,
+    "0630"
+   ],
+   [
+    "Gachihata",
+    "0645",
+    "0647"
+   ],
+   [
+    "Manikkhali",
+    "0657",
+    "0659"
+   ],
+   [
+    "Sararchar",
+    "0715",
+    "0717"
+   ],
+   [
+    "Bajitpur",
+    "0725",
+    "0727"
+   ],
+   [
+    "Kuliarchar",
+    "0735",
+    "0737"
+   ],
+   [
+    "Bhairab Bazar",
+    "0800",
+    "0820"
+   ],
+   [
+    "Methikanda",
+    "0838",
+    "0840"
+   ],
+   [
+    "Narsingdi",
+    "0902",
+    "0904"
+   ],
+   [
+    "Dhaka Airport",
+    "0953",
+    "0956"
+   ],
+   [
+    "Dhaka",
+    "1035",
+    null
+   ]
+  ],
+  "minutes": 245
+ },
+ "739": {
+  "code": 739,
+  "name": "Upaban Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2200"
+   ],
+   [
+    "Dhaka Airport",
+    "2223",
+    "2228"
+   ],
+   [
+    "Narsingdi",
+    "2309",
+    "2311"
+   ],
+   [
+    "Bhairab Bazar",
+    "2340",
+    "2343"
+   ],
+   [
+    "Shaistaganj",
+    "0122",
+    "0125"
+   ],
+   [
+    "Srimangal",
+    "0209",
+    "0211"
+   ],
+   [
+    "Bhanugach",
+    "0230",
+    "0232"
+   ],
+   [
+    "Shamshernagar",
+    "0241",
+    "0243"
+   ],
+   [
+    "Kulaura",
+    "0308",
+    "0311"
+   ],
+   [
+    "Baramchal",
+    "0325",
+    "0327"
+   ],
+   [
+    "Maijgaon",
+    "0343",
+    "0345"
+   ],
+   [
+    "Sylhet",
+    "0500",
+    null
+   ]
+  ],
+  "minutes": 420
+ },
+ "740": {
+  "code": 740,
+  "name": "Upaban Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "2330"
+   ],
+   [
+    "Maijgaon",
+    "0009",
+    "0011"
+   ],
+   [
+    "Baramchal",
+    "0028",
+    "0030"
+   ],
+   [
+    "Kulaura",
+    "0043",
+    "0046"
+   ],
+   [
+    "Shamshernagar",
+    "0109",
+    "0111"
+   ],
+   [
+    "Bhanugach",
+    "0120",
+    "0122"
+   ],
+   [
+    "Srimangal",
+    "0141",
+    "0144"
+   ],
+   [
+    "Shaistaganj",
+    "0230",
+    "0233"
+   ],
+   [
+    "Bhairab Bazar",
+    "0403",
+    "0406"
+   ],
+   [
+    "Dhaka Airport",
+    "0512",
+    "0515"
+   ],
+   [
+    "Dhaka",
+    "0540",
+    null
+   ]
+  ],
+  "minutes": 370
+ },
+ "741": {
+  "code": 741,
+  "name": "Turna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "2330"
+   ],
+   [
+    "Feni",
+    "0050",
+    "0052"
+   ],
+   [
+    "Laksam",
+    "0130",
+    "0132"
+   ],
+   [
+    "Cumilla",
+    "0155",
+    "0157"
+   ],
+   [
+    "Akhaura",
+    "0247",
+    "0250"
+   ],
+   [
+    "Brahmanbaria",
+    "0307",
+    "0310"
+   ],
+   [
+    "Bhairab Bazar",
+    "0330",
+    "0333"
+   ],
+   [
+    "Dhaka Airport",
+    "0435",
+    "0438"
+   ],
+   [
+    "Dhaka",
+    "0510",
+    null
+   ]
+  ],
+  "minutes": 340
+ },
+ "742": {
+  "code": 742,
+  "name": "Turna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2315"
+   ],
+   [
+    "Dhaka Airport",
+    "2338",
+    "2343"
+   ],
+   [
+    "Bhairab Bazar",
+    "0049",
+    "0052"
+   ],
+   [
+    "Brahmanbaria",
+    "0112",
+    "0116"
+   ],
+   [
+    "Akhaura",
+    "0147",
+    "0150"
+   ],
+   [
+    "Cumilla",
+    "0233",
+    "0235"
+   ],
+   [
+    "Laksam",
+    "0258",
+    "0300"
+   ],
+   [
+    "Feni",
+    "0340",
+    "0342"
+   ],
+   [
+    "Chattogram",
+    "0515",
+    null
+   ]
+  ],
+  "minutes": 360
+ },
+ "743": {
+  "code": 743,
+  "name": "Brahmaputra Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1815"
+   ],
+   [
+    "Dhaka Airport",
+    "1838",
+    "1843"
+   ],
+   [
+    "Joydebpur",
+    "1914",
+    "1918"
+   ],
+   [
+    "Gafargaon",
+    "2035",
+    "2037"
+   ],
+   [
+    "Mymensingh",
+    "2123",
+    "2128"
+   ],
+   [
+    "Piyarpur",
+    "2158",
+    "2200"
+   ],
+   [
+    "Nandina",
+    "2222",
+    "2224"
+   ],
+   [
+    "Jamalpur",
+    "2239",
+    "2242"
+   ],
+   [
+    "Melandah Bazar",
+    "2258",
+    "2300"
+   ],
+   [
+    "Islampur Bazar",
+    "2316",
+    "2318"
+   ],
+   [
+    "Dewanganj Bazar",
+    "2350",
+    null
+   ]
+  ],
+  "minutes": 335
+ },
+ "744": {
+  "code": 744,
+  "name": "Brahmaputra Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dewanganj Bazar",
+    null,
+    "0640"
+   ],
+   [
+    "Islampur Bazar",
+    "0654",
+    "0659"
+   ],
+   [
+    "Melandah Bazar",
+    "0715",
+    "0720"
+   ],
+   [
+    "Jamalpur",
+    "0736",
+    "0741"
+   ],
+   [
+    "Nandina",
+    "0754",
+    "0756"
+   ],
+   [
+    "Piyarpur",
+    "0816",
+    "0818"
+   ],
+   [
+    "Mymensingh",
+    "0850",
+    "0855"
+   ],
+   [
+    "Gafargaon",
+    "0945",
+    "0947"
+   ],
+   [
+    "Dhaka Airport",
+    "1140",
+    "1143"
+   ],
+   [
+    "Dhaka",
+    "1215",
+    null
+   ]
+  ],
+  "minutes": 335
+ },
+ "745": {
+  "code": 745,
+  "name": "Jamuna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1645"
+   ],
+   [
+    "Dhaka Airport",
+    "1708",
+    "1713"
+   ],
+   [
+    "Joydebpur",
+    "1738",
+    "1741"
+   ],
+   [
+    "Sreepur",
+    "1817",
+    "1819"
+   ],
+   [
+    "Kaoraid",
+    "1856",
+    "1858"
+   ],
+   [
+    "Gafargaon",
+    "1922",
+    "1925"
+   ],
+   [
+    "Mymensingh",
+    "2032",
+    "2037"
+   ],
+   [
+    "Biddyaganj",
+    "2113",
+    "2115"
+   ],
+   [
+    "Piyarpur",
+    "2128",
+    "2130"
+   ],
+   [
+    "Nurundi",
+    "2141",
+    "2143"
+   ],
+   [
+    "Jamalpur",
+    "2205",
+    "2209"
+   ],
+   [
+    "Sarishabari",
+    "2258",
+    "2301"
+   ],
+   [
+    "Tarakandi",
+    "2330",
+    null
+   ]
+  ],
+  "minutes": 405
+ },
+ "746": {
+  "code": 746,
+  "name": "Jamuna Express",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Tarakandi",
+    null,
+    "0200"
+   ],
+   [
+    "Sarishabari",
+    "0215",
+    "0218"
+   ],
+   [
+    "Jamalpur",
+    "0306",
+    "0311"
+   ],
+   [
+    "Nurundi",
+    "0333",
+    "0335"
+   ],
+   [
+    "Piyarpur",
+    "0346",
+    "0348"
+   ],
+   [
+    "Biddyaganj",
+    "0401",
+    "0403"
+   ],
+   [
+    "Mymensingh",
+    "0425",
+    "0430"
+   ],
+   [
+    "Gafargaon",
+    "0516",
+    "0518"
+   ],
+   [
+    "Kaoraid",
+    "0542",
+    "0544"
+   ],
+   [
+    "Sreepur",
+    "0615",
+    "0618"
+   ],
+   [
+    "Joydebpur",
+    "0655",
+    "0657"
+   ],
+   [
+    "Dhaka Airport",
+    "0723",
+    "0726"
+   ],
+   [
+    "Dhaka",
+    "0800",
+    null
+   ]
+  ],
+  "minutes": 360
+ },
+ "749": {
+  "code": 749,
+  "name": "Egarosindhur Godhuli",
+  "off_day": null,
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1845"
+   ],
+   [
+    "Dhaka Airport",
+    "1908",
+    "1913"
+   ],
+   [
+    "Narsingdi",
+    "1953",
+    "1955"
+   ],
+   [
+    "Methikanda",
+    "2012",
+    "2014"
+   ],
+   [
+    "Bhairab Bazar",
+    "2030",
+    "2050"
+   ],
+   [
+    "Kuliarchar",
+    "2109",
+    "2111"
+   ],
+   [
+    "Bajitpur",
+    "2120",
+    "2122"
+   ],
+   [
+    "Sararchar",
+    "2130",
+    "2132"
+   ],
+   [
+    "Manikkhali",
+    "2148",
+    "2150"
+   ],
+   [
+    "Gachihata",
+    "2200",
+    "2202"
+   ],
+   [
+    "Kishoreganj",
+    "2240",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "750": {
+  "code": 750,
+  "name": "Egarosindhur Godhuli",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Kishoreganj",
+    null,
+    "1250"
+   ],
+   [
+    "Gachihata",
+    "1306",
+    "1308"
+   ],
+   [
+    "Manikkhali",
+    "1331",
+    "1333"
+   ],
+   [
+    "Sararchar",
+    "1352",
+    "1354"
+   ],
+   [
+    "Bajitpur",
+    "1403",
+    "1405"
+   ],
+   [
+    "Kuliarchar",
+    "1413",
+    "1415"
+   ],
+   [
+    "Bhairab Bazar",
+    "1440",
+    "1500"
+   ],
+   [
+    "Narsingdi",
+    "1529",
+    "1531"
+   ],
+   [
+    "Dhaka Airport",
+    "1612",
+    "1615"
+   ],
+   [
+    "Dhaka",
+    "1645",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "773": {
+  "code": 773,
+  "name": "Kalni Express",
+  "off_day": "Friday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1455"
+   ],
+   [
+    "Dhaka Airport",
+    "1517",
+    "1522"
+   ],
+   [
+    "Brahmanbaria",
+    "1646",
+    "1649"
+   ],
+   [
+    "Azampur",
+    "1712",
+    "1714"
+   ],
+   [
+    "Harashpur",
+    "1734",
+    "1736"
+   ],
+   [
+    "Shaistaganj",
+    "1812",
+    "1815"
+   ],
+   [
+    "Srimangal",
+    "1852",
+    "1855"
+   ],
+   [
+    "Shamshernagar",
+    "1922",
+    "1926"
+   ],
+   [
+    "Kulaura",
+    "1949",
+    "1951"
+   ],
+   [
+    "Maijgaon",
+    "2020",
+    "2023"
+   ],
+   [
+    "Sylhet",
+    "2130",
+    null
+   ]
+  ],
+  "minutes": 395
+ },
+ "774": {
+  "code": 774,
+  "name": "Kalni Express",
+  "off_day": "Friday",
+  "zone": "east",
+  "stops": [
+   [
+    "Sylhet",
+    null,
+    "0615"
+   ],
+   [
+    "Maijgaon",
+    "0655",
+    "0657"
+   ],
+   [
+    "Kulaura",
+    "0723",
+    "0726"
+   ],
+   [
+    "Shamshernagar",
+    "0750",
+    "0752"
+   ],
+   [
+    "Srimangal",
+    "0817",
+    "0820"
+   ],
+   [
+    "Shaistaganj",
+    "0857",
+    "0900"
+   ],
+   [
+    "Harashpur",
+    "0952",
+    "0954"
+   ],
+   [
+    "Azampur",
+    "1020",
+    "1022"
+   ],
+   [
+    "Brahmanbaria",
+    "1048",
+    "1051"
+   ],
+   [
+    "Bhairab Bazar",
+    "1110",
+    "1113"
+   ],
+   [
+    "Narsingdi",
+    "1143",
+    "1146"
+   ],
+   [
+    "Dhaka Airport",
+    "1224",
+    "1227"
+   ],
+   [
+    "Dhaka",
+    "1255",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "777": {
+  "code": 777,
+  "name": "Haor Express",
+  "off_day": "Friday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2215"
+   ],
+   [
+    "Dhaka Airport",
+    "2238",
+    "2243"
+   ],
+   [
+    "Joydebpur",
+    "2308",
+    "2310"
+   ],
+   [
+    "Gafargaon",
+    "0027",
+    "0029"
+   ],
+   [
+    "Mymensingh",
+    "0115",
+    "0135"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "0200",
+    "0205"
+   ],
+   [
+    "Shyamganj",
+    "0218",
+    "0221"
+   ],
+   [
+    "Netrokona",
+    "0240",
+    "0243"
+   ],
+   [
+    "Thakurakona",
+    "0257",
+    "0300"
+   ],
+   [
+    "Barhatta",
+    "0310",
+    "0313"
+   ],
+   [
+    "Mohanganj",
+    "0410",
+    null
+   ]
+  ],
+  "minutes": 355
+ },
+ "778": {
+  "code": 778,
+  "name": "Haor Express",
+  "off_day": "Saturday",
+  "zone": "east",
+  "stops": [
+   [
+    "Mohanganj",
+    null,
+    "0800"
+   ],
+   [
+    "Barhatta",
+    "0814",
+    "0816"
+   ],
+   [
+    "Thakurakona",
+    "0826",
+    "0828"
+   ],
+   [
+    "Netrokona",
+    "0847",
+    "0852"
+   ],
+   [
+    "Shyamganj",
+    "0915",
+    "0918"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "0931",
+    "0934"
+   ],
+   [
+    "Mymensingh",
+    "1014",
+    "1034"
+   ],
+   [
+    "Gafargaon",
+    "1119",
+    "1122"
+   ],
+   [
+    "Joydebpur",
+    "1253",
+    "1255"
+   ],
+   [
+    "Dhaka Airport",
+    "1322",
+    "1325"
+   ],
+   [
+    "Dhaka",
+    "1355",
+    null
+   ]
+  ],
+  "minutes": 355
+ },
+ "781": {
+  "code": 781,
+  "name": "Kishoreganj Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1030"
+   ],
+   [
+    "Dhaka Airport",
+    "1052",
+    "1057"
+   ],
+   [
+    "Narsingdi",
+    "1136",
+    "1139"
+   ],
+   [
+    "Methikanda",
+    "1157",
+    "1159"
+   ],
+   [
+    "Bhairab Bazar",
+    "1215",
+    "1235"
+   ],
+   [
+    "Kuliarchar",
+    "1254",
+    "1256"
+   ],
+   [
+    "Bajitpur",
+    "1304",
+    "1306"
+   ],
+   [
+    "Sararchar",
+    "1314",
+    "1316"
+   ],
+   [
+    "Manikkhali",
+    "1331",
+    "1333"
+   ],
+   [
+    "Gachihata",
+    "1340",
+    "1342"
+   ],
+   [
+    "Kishoreganj",
+    "1410",
+    null
+   ]
+  ],
+  "minutes": 220
+ },
+ "782": {
+  "code": 782,
+  "name": "Kishoreganj Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Kishoreganj",
+    null,
+    "1600"
+   ],
+   [
+    "Gachihata",
+    "1615",
+    "1617"
+   ],
+   [
+    "Manikkhali",
+    "1627",
+    "1629"
+   ],
+   [
+    "Sararchar",
+    "1645",
+    "1647"
+   ],
+   [
+    "Bajitpur",
+    "1655",
+    "1657"
+   ],
+   [
+    "Kuliarchar",
+    "1705",
+    "1707"
+   ],
+   [
+    "Bhairab Bazar",
+    "1728",
+    "1748"
+   ],
+   [
+    "Methikanda",
+    "1804",
+    "1806"
+   ],
+   [
+    "Narsingdi",
+    "1827",
+    "1830"
+   ],
+   [
+    "Dhaka Airport",
+    "1920",
+    "1923"
+   ],
+   [
+    "Dhaka",
+    "2000",
+    null
+   ]
+  ],
+  "minutes": 240
+ },
+ "785": {
+  "code": 785,
+  "name": "Bijoy Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "0915"
+   ],
+   [
+    "Bhatiary",
+    "0931",
+    "0933"
+   ],
+   [
+    "Feni",
+    "1039",
+    "1041"
+   ],
+   [
+    "Laksam",
+    "1118",
+    "1120"
+   ],
+   [
+    "Cumilla",
+    "1142",
+    "1144"
+   ],
+   [
+    "Akhaura",
+    "1235",
+    "1240"
+   ],
+   [
+    "Bhairab Bazar",
+    "1315",
+    "1320"
+   ],
+   [
+    "Sararchar",
+    "1352",
+    "1354"
+   ],
+   [
+    "Kishoreganj",
+    "1428",
+    "1430"
+   ],
+   [
+    "Atharobari",
+    "1505",
+    "1507"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "1535",
+    "1555"
+   ],
+   [
+    "Mymensingh",
+    "1623",
+    "1628"
+   ],
+   [
+    "Piyarpur",
+    "1706",
+    "1708"
+   ],
+   [
+    "Jamalpur",
+    "1800",
+    null
+   ]
+  ],
+  "minutes": 525
+ },
+ "786": {
+  "code": 786,
+  "name": "Bijoy Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Jamalpur",
+    null,
+    "2000"
+   ],
+   [
+    "Piyarpur",
+    "2030",
+    "2032"
+   ],
+   [
+    "Mymensingh",
+    "2105",
+    "2135"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "2200",
+    "2220"
+   ],
+   [
+    "Atharobari",
+    "2247",
+    "2249"
+   ],
+   [
+    "Kishoreganj",
+    "2321",
+    "2326"
+   ],
+   [
+    "Sararchar",
+    "2359",
+    "0001"
+   ],
+   [
+    "Bhairab Bazar",
+    "0030",
+    "0035"
+   ],
+   [
+    "Akhaura",
+    "0120",
+    "0125"
+   ],
+   [
+    "Cumilla",
+    "0208",
+    "0210"
+   ],
+   [
+    "Laksam",
+    "0232",
+    "0235"
+   ],
+   [
+    "Feni",
+    "0315",
+    "0317"
+   ],
+   [
+    "Bhatiary",
+    "0425",
+    "0427"
+   ],
+   [
+    "Chattogram",
+    "0500",
+    null
+   ]
+  ],
+  "minutes": 540
+ },
+ "787": {
+  "code": 787,
+  "name": "Sonar Bangla Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "1700"
+   ],
+   [
+    "Dhaka Airport",
+    "2126",
+    "2129"
+   ],
+   [
+    "Dhaka",
+    "2155",
+    null
+   ]
+  ],
+  "minutes": 295
+ },
+ "788": {
+  "code": 788,
+  "name": "Sonar Bangla Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0700"
+   ],
+   [
+    "Dhaka Airport",
+    "0722",
+    "0727"
+   ],
+   [
+    "Chattogram",
+    "1155",
+    null
+   ]
+  ],
+  "minutes": 295
+ },
+ "789": {
+  "code": 789,
+  "name": "Mohanganj Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1315"
+   ],
+   [
+    "Dhaka Airport",
+    "1337",
+    "1342"
+   ],
+   [
+    "Gafargaon",
+    "1521",
+    "1524"
+   ],
+   [
+    "Mymensingh",
+    "1610",
+    "1630"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "1654",
+    "1657"
+   ],
+   [
+    "Shyamganj",
+    "1711",
+    "1714"
+   ],
+   [
+    "Netrokona",
+    "1733",
+    "1736"
+   ],
+   [
+    "Thakurakona",
+    "1750",
+    "1753"
+   ],
+   [
+    "Barhatta",
+    "1801",
+    "1804"
+   ],
+   [
+    "Mohanganj",
+    "1840",
+    null
+   ]
+  ],
+  "minutes": 325
+ },
+ "790": {
+  "code": 790,
+  "name": "Mohanganj Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Mohanganj",
+    null,
+    "2300"
+   ],
+   [
+    "Barhatta",
+    "2316",
+    "2319"
+   ],
+   [
+    "Thakurakona",
+    "2329",
+    "2332"
+   ],
+   [
+    "Netrokona",
+    "2350",
+    "2353"
+   ],
+   [
+    "Shyamganj",
+    "0015",
+    "0018"
+   ],
+   [
+    "Gouripur Mymensingh",
+    "0032",
+    "0035"
+   ],
+   [
+    "Mymensingh",
+    "0110",
+    "0130"
+   ],
+   [
+    "Gafargaon",
+    "0218",
+    "0221"
+   ],
+   [
+    "Dhaka Airport",
+    "0414",
+    "0417"
+   ],
+   [
+    "Dhaka",
+    "0455",
+    null
+   ]
+  ],
+  "minutes": 355
+ },
+ "799": {
+  "code": 799,
+  "name": "Jamalpur Express",
+  "off_day": "Sunday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1000"
+   ],
+   [
+    "Dhaka Airport",
+    "1022",
+    "1027"
+   ],
+   [
+    "Joydebpur",
+    "1053",
+    "1056"
+   ],
+   [
+    "Gafargaon",
+    "1214",
+    "1217"
+   ],
+   [
+    "Mymensingh",
+    "1305",
+    "1310"
+   ],
+   [
+    "Biddyaganj",
+    "1332",
+    "1334"
+   ],
+   [
+    "Nandina",
+    "1408",
+    "1412"
+   ],
+   [
+    "Jamalpur",
+    "1425",
+    "1428"
+   ],
+   [
+    "Jafarshahi",
+    "1459",
+    "1501"
+   ],
+   [
+    "Sarishabari",
+    "1521",
+    "1524"
+   ],
+   [
+    "Tarakandi",
+    "1542",
+    "1545"
+   ],
+   [
+    "Jagannathganj Ghat",
+    "1556",
+    "1558"
+   ],
+   [
+    "Hemnagar",
+    "1616",
+    "1618"
+   ],
+   [
+    "Bhuapur",
+    "1645",
+    null
+   ]
+  ],
+  "minutes": 405
+ },
+ "800": {
+  "code": 800,
+  "name": "Jamalpur Express",
+  "off_day": "Sunday",
+  "zone": "east",
+  "stops": [
+   [
+    "Bhuapur",
+    null,
+    "1715"
+   ],
+   [
+    "Hemnagar",
+    "1732",
+    "1734"
+   ],
+   [
+    "Jagannathganj Ghat",
+    "1751",
+    "1753"
+   ],
+   [
+    "Tarakandi",
+    "1806",
+    "1811"
+   ],
+   [
+    "Sarishabari",
+    "1827",
+    "1830"
+   ],
+   [
+    "Jafarshahi",
+    "1850",
+    "1852"
+   ],
+   [
+    "Jamalpur",
+    "1922",
+    "1925"
+   ],
+   [
+    "Nandina",
+    "1938",
+    "1940"
+   ],
+   [
+    "Biddyaganj",
+    "2011",
+    "2013"
+   ],
+   [
+    "Mymensingh",
+    "2035",
+    "2040"
+   ],
+   [
+    "Gafargaon",
+    "2137",
+    "2139"
+   ],
+   [
+    "Joydebpur",
+    "2256",
+    "2258"
+   ],
+   [
+    "Dhaka Airport",
+    "2325",
+    "2328"
+   ],
+   [
+    "Dhaka",
+    "2355",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "801": {
+  "code": 801,
+  "name": "Chattala Express",
+  "off_day": "Friday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "0600"
+   ],
+   [
+    "Kumira",
+    "0626",
+    "0628"
+   ],
+   [
+    "Feni",
+    "0728",
+    "0731"
+   ],
+   [
+    "Hasanpur",
+    "0752",
+    "0754"
+   ],
+   [
+    "Nangalkot",
+    "0802",
+    "0804"
+   ],
+   [
+    "Laksam",
+    "0817",
+    "0820"
+   ],
+   [
+    "Cumilla",
+    "0841",
+    "0844"
+   ],
+   [
+    "Shashidal",
+    "0905",
+    "0907"
+   ],
+   [
+    "Kasba",
+    "0939",
+    "0941"
+   ],
+   [
+    "Akhaura",
+    "1005",
+    "1008"
+   ],
+   [
+    "Brahmanbaria",
+    "1026",
+    "1029"
+   ],
+   [
+    "Bhairab Bazar",
+    "1050",
+    "1053"
+   ],
+   [
+    "Methikanda",
+    "1108",
+    "1110"
+   ],
+   [
+    "Narsingdi",
+    "1127",
+    "1130"
+   ],
+   [
+    "Dhaka Airport",
+    "1210",
+    "1213"
+   ],
+   [
+    "Dhaka",
+    "1240",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "802": {
+  "code": 802,
+  "name": "Chattala Express",
+  "off_day": "Friday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1415"
+   ],
+   [
+    "Dhaka Airport",
+    "1438",
+    "1443"
+   ],
+   [
+    "Narsingdi",
+    "1520",
+    "1523"
+   ],
+   [
+    "Methikanda",
+    "1541",
+    "1543"
+   ],
+   [
+    "Bhairab Bazar",
+    "1557",
+    "1600"
+   ],
+   [
+    "Brahmanbaria",
+    "1619",
+    "1623"
+   ],
+   [
+    "Akhaura",
+    "1642",
+    "1645"
+   ],
+   [
+    "Kasba",
+    "1701",
+    "1703"
+   ],
+   [
+    "Shashidal",
+    "1716",
+    "1718"
+   ],
+   [
+    "Cumilla",
+    "1740",
+    "1742"
+   ],
+   [
+    "Laksam",
+    "1804",
+    "1807"
+   ],
+   [
+    "Nangalkot",
+    "1821",
+    "1823"
+   ],
+   [
+    "Hasanpur",
+    "1830",
+    "1832"
+   ],
+   [
+    "Feni",
+    "1853",
+    "1855"
+   ],
+   [
+    "Kumira",
+    "1956",
+    "1958"
+   ],
+   [
+    "Chattogram",
+    "2030",
+    null
+   ]
+  ],
+  "minutes": 375
+ },
+ "813": {
+  "code": 813,
+  "name": "Cox's Bazar Express",
+  "off_day": "Tuesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Cox's Bazar",
+    null,
+    "1230"
+   ],
+   [
+    "Chattogram",
+    "1540",
+    "1600"
+   ],
+   [
+    "Dhaka Airport",
+    "2032",
+    "2035"
+   ],
+   [
+    "Dhaka",
+    "2100",
+    null
+   ]
+  ],
+  "minutes": 510
+ },
+ "814": {
+  "code": 814,
+  "name": "Cox's Bazar Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2300"
+   ],
+   [
+    "Dhaka Airport",
+    "2323",
+    "2328"
+   ],
+   [
+    "Chattogram",
+    "0400",
+    "0420"
+   ],
+   [
+    "Cox's Bazar",
+    "0720",
+    null
+   ]
+  ],
+  "minutes": 500
+ },
+ "815": {
+  "code": 815,
+  "name": "Parjotak Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Cox's Bazar",
+    null,
+    "1945"
+   ],
+   [
+    "Chattogram",
+    "2245",
+    "2315"
+   ],
+   [
+    "Dhaka Airport",
+    "0351",
+    "0354"
+   ],
+   [
+    "Dhaka",
+    "0420",
+    null
+   ]
+  ],
+  "minutes": 515
+ },
+ "816": {
+  "code": 816,
+  "name": "Parjotak Express",
+  "off_day": "Wednesday",
+  "zone": "east",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0615"
+   ],
+   [
+    "Dhaka Airport",
+    "0638",
+    "0643"
+   ],
+   [
+    "Chattogram",
+    "1120",
+    "1140"
+   ],
+   [
+    "Cox's Bazar",
+    "1440",
+    null
+   ]
+  ],
+  "minutes": 505
+ },
+ "821": {
+  "code": 821,
+  "name": "Saikat Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "0615"
+   ],
+   [
+    "Cox's Bazar",
+    "0950",
+    null
+   ]
+  ],
+  "minutes": 215
+ },
+ "822": {
+  "code": 822,
+  "name": "Prabal Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Cox's Bazar",
+    null,
+    "1020"
+   ],
+   [
+    "Chattogram",
+    "1410",
+    null
+   ]
+  ],
+  "minutes": 230
+ },
+ "823": {
+  "code": 823,
+  "name": "Prabal Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Chattogram",
+    null,
+    "1510"
+   ],
+   [
+    "Cox's Bazar",
+    "1900",
+    null
+   ]
+  ],
+  "minutes": 230
+ },
+ "824": {
+  "code": 824,
+  "name": "Saikat Express",
+  "off_day": "Monday",
+  "zone": "east",
+  "stops": [
+   [
+    "Cox's Bazar",
+    null,
+    "2000"
+   ],
+   [
+    "Chattogram",
+    "2350",
+    null
+   ]
+  ],
+  "minutes": 230
+ },
+ "705": {
+  "code": 705,
+  "name": "Ekota Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1015"
+   ],
+   [
+    "Dhaka Airport",
+    "1038",
+    "1043"
+   ],
+   [
+    "Joydebpur",
+    "1106",
+    "1109"
+   ],
+   [
+    "Tangail",
+    "1203",
+    "1205"
+   ],
+   [
+    "Ibrahimabad",
+    "1225",
+    "1227"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1243",
+    "1245"
+   ],
+   [
+    "Ullapara",
+    "1301",
+    "1304"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1409",
+    "1411"
+   ],
+   [
+    "Natore",
+    "1453",
+    "1457"
+   ],
+   [
+    "Santahar",
+    "1600",
+    "1605"
+   ],
+   [
+    "Akkelpur",
+    "1625",
+    "1627"
+   ],
+   [
+    "Joypurhat",
+    "1650",
+    "1653"
+   ],
+   [
+    "Panchbibi",
+    "1712",
+    "1714"
+   ],
+   [
+    "Birampur",
+    "1734",
+    "1737"
+   ],
+   [
+    "Phulbari",
+    "1748",
+    "1751"
+   ],
+   [
+    "Parbatipur",
+    "1815",
+    "1825"
+   ],
+   [
+    "Chirirbandar",
+    "1840",
+    "1842"
+   ],
+   [
+    "Dinajpur",
+    "1900",
+    "1905"
+   ],
+   [
+    "Setabganj",
+    "1935",
+    "1937"
+   ],
+   [
+    "Pirganj",
+    "1951",
+    "1953"
+   ],
+   [
+    "Thakurgaon Road",
+    "2015",
+    "2018"
+   ],
+   [
+    "Ruhia",
+    "2033",
+    "2035"
+   ],
+   [
+    "Kismat",
+    "2042",
+    "2044"
+   ],
+   [
+    "Panchagarh",
+    "2100",
+    null
+   ]
+  ],
+  "minutes": 645
+ },
+ "706": {
+  "code": 706,
+  "name": "Ekota Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Panchagarh",
+    null,
+    "2110"
+   ],
+   [
+    "Kismat",
+    "2125",
+    "2127"
+   ],
+   [
+    "Ruhia",
+    "2134",
+    "2136"
+   ],
+   [
+    "Thakurgaon Road",
+    "2151",
+    "2154"
+   ],
+   [
+    "Pirganj",
+    "2216",
+    "2218"
+   ],
+   [
+    "Setabganj",
+    "2232",
+    "2234"
+   ],
+   [
+    "Dinajpur",
+    "2305",
+    "2313"
+   ],
+   [
+    "Chirirbandar",
+    "2330",
+    "2332"
+   ],
+   [
+    "Parbatipur",
+    "2350",
+    "2355"
+   ],
+   [
+    "Phulbari",
+    "0028",
+    "0031"
+   ],
+   [
+    "Birampur",
+    "0042",
+    "0045"
+   ],
+   [
+    "Panchbibi",
+    "0105",
+    "0107"
+   ],
+   [
+    "Joypurhat",
+    "0118",
+    "0121"
+   ],
+   [
+    "Akkelpur",
+    "0135",
+    "0137"
+   ],
+   [
+    "Santahar",
+    "0155",
+    "0200"
+   ],
+   [
+    "Natore",
+    "0241",
+    "0244"
+   ],
+   [
+    "Ullapara",
+    "0412",
+    "0415"
+   ],
+   [
+    "Ibrahimabad",
+    "0450",
+    "0452"
+   ],
+   [
+    "Tangail",
+    "0512",
+    "0514"
+   ],
+   [
+    "Joydebpur",
+    "0618",
+    "0621"
+   ],
+   [
+    "Dhaka Airport",
+    "0647",
+    "0650"
+   ],
+   [
+    "Dhaka",
+    "0720",
+    null
+   ]
+  ],
+  "minutes": 610
+ },
+ "713": {
+  "code": 713,
+  "name": "Karatoya Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Santahar",
+    null,
+    "0925"
+   ],
+   [
+    "Bogura",
+    "1009",
+    "1019"
+   ],
+   [
+    "Sonatala",
+    "1051",
+    "1053"
+   ],
+   [
+    "Mohimaganj",
+    "1103",
+    "1105"
+   ],
+   [
+    "Bonarpara",
+    "1115",
+    "1120"
+   ],
+   [
+    "Gaibandha",
+    "1159",
+    "1204"
+   ],
+   [
+    "Bamondanga",
+    "1233",
+    "1235"
+   ],
+   [
+    "Pirgachha",
+    "1253",
+    "1255"
+   ],
+   [
+    "Kaunia",
+    "1312",
+    "1315"
+   ],
+   [
+    "Tista",
+    "1322",
+    "1324"
+   ],
+   [
+    "Lalmonirhat",
+    "1340",
+    "1350"
+   ],
+   [
+    "Aditmari",
+    "1405",
+    "1407"
+   ],
+   [
+    "Kakina",
+    "1425",
+    "1427"
+   ],
+   [
+    "Tushbhandar",
+    "1434",
+    "1436"
+   ],
+   [
+    "Hatibandha",
+    "1502",
+    "1504"
+   ],
+   [
+    "Barakhata",
+    "1516",
+    "1518"
+   ],
+   [
+    "Baura",
+    "1527",
+    "1529"
+   ],
+   [
+    "Patgram",
+    "1544",
+    "1547"
+   ],
+   [
+    "Burimari",
+    "1600",
+    null
+   ]
+  ],
+  "minutes": 395
+ },
+ "714": {
+  "code": 714,
+  "name": "Karatoya Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Burimari",
+    null,
+    "1620"
+   ],
+   [
+    "Patgram",
+    "1633",
+    "1636"
+   ],
+   [
+    "Baura",
+    "1651",
+    "1653"
+   ],
+   [
+    "Barakhata",
+    "1702",
+    "1704"
+   ],
+   [
+    "Hatibandha",
+    "1716",
+    "1719"
+   ],
+   [
+    "Tushbhandar",
+    "1743",
+    "1745"
+   ],
+   [
+    "Kakina",
+    "1752",
+    "1754"
+   ],
+   [
+    "Aditmari",
+    "1808",
+    "1810"
+   ],
+   [
+    "Lalmonirhat",
+    "1825",
+    "1845"
+   ],
+   [
+    "Tista",
+    "1901",
+    "1903"
+   ],
+   [
+    "Kaunia",
+    "1910",
+    "1913"
+   ],
+   [
+    "Pirgachha",
+    "1928",
+    "1931"
+   ],
+   [
+    "Bamondanga",
+    "1948",
+    "1950"
+   ],
+   [
+    "Gaibandha",
+    "2020",
+    "2023"
+   ],
+   [
+    "Bonarpara",
+    "2045",
+    "2050"
+   ],
+   [
+    "Mohimaganj",
+    "2100",
+    "2102"
+   ],
+   [
+    "Sonatala",
+    "2111",
+    "2113"
+   ],
+   [
+    "Bogura",
+    "2145",
+    "2150"
+   ],
+   [
+    "Santahar",
+    "2240",
+    null
+   ]
+  ],
+  "minutes": 380
+ },
+ "715": {
+  "code": 715,
+  "name": "Kapotaksha Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "0645"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0718",
+    "0720"
+   ],
+   [
+    "Jashore",
+    "0748",
+    "0751"
+   ],
+   [
+    "Mobarakganj",
+    "0818",
+    "0820"
+   ],
+   [
+    "Kotchandpur",
+    "0831",
+    "0833"
+   ],
+   [
+    "Safdarpur",
+    "0842",
+    "0844"
+   ],
+   [
+    "Darshana Halt",
+    "0902",
+    "0905"
+   ],
+   [
+    "Chuadanga",
+    "0924",
+    "0927"
+   ],
+   [
+    "Alamdanga",
+    "0942",
+    "0944"
+   ],
+   [
+    "Poradaha",
+    "1000",
+    "1003"
+   ],
+   [
+    "Mirpur",
+    "1013",
+    "1015"
+   ],
+   [
+    "Bheramara",
+    "1025",
+    "1027"
+   ],
+   [
+    "Pakshi",
+    "1039",
+    "1041"
+   ],
+   [
+    "Ishwardi",
+    "1050",
+    "1110"
+   ],
+   [
+    "Azimnagar",
+    "1122",
+    "1124"
+   ],
+   [
+    "Rajshahi",
+    "1220",
+    null
+   ]
+  ],
+  "minutes": 335
+ },
+ "716": {
+  "code": 716,
+  "name": "Kapotaksha Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "1430"
+   ],
+   [
+    "Azimnagar",
+    "1516",
+    "1518"
+   ],
+   [
+    "Ishwardi",
+    "1530",
+    "1545"
+   ],
+   [
+    "Pakshi",
+    "1555",
+    "1557"
+   ],
+   [
+    "Bheramara",
+    "1609",
+    "1612"
+   ],
+   [
+    "Mirpur",
+    "1622",
+    "1624"
+   ],
+   [
+    "Poradaha",
+    "1634",
+    "1637"
+   ],
+   [
+    "Alamdanga",
+    "1653",
+    "1655"
+   ],
+   [
+    "Chuadanga",
+    "1711",
+    "1714"
+   ],
+   [
+    "Darshana Halt",
+    "1734",
+    "1737"
+   ],
+   [
+    "Safdarpur",
+    "1755",
+    "1758"
+   ],
+   [
+    "Kotchandpur",
+    "1814",
+    "1816"
+   ],
+   [
+    "Mobarakganj",
+    "1828",
+    "1830"
+   ],
+   [
+    "Jashore",
+    "1905",
+    "1910"
+   ],
+   [
+    "Noapara (Jashore)",
+    "1938",
+    "1941"
+   ],
+   [
+    "Khulna",
+    "2025",
+    null
+   ]
+  ],
+  "minutes": 355
+ },
+ "725": {
+  "code": 725,
+  "name": "Sundarban Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "2145"
+   ],
+   [
+    "Daulatpur",
+    "2157",
+    "2159"
+   ],
+   [
+    "Noapara (Jashore)",
+    "2222",
+    "2225"
+   ],
+   [
+    "Jashore",
+    "2253",
+    "2257"
+   ],
+   [
+    "Mobarakganj",
+    "2324",
+    "2326"
+   ],
+   [
+    "Kotchandpur",
+    "2338",
+    "2340"
+   ],
+   [
+    "Chuadanga",
+    "0021",
+    "0024"
+   ],
+   [
+    "Alamdanga",
+    "0040",
+    "0042"
+   ],
+   [
+    "Poradaha",
+    "0058",
+    "0100"
+   ],
+   [
+    "Kushtia Court",
+    "0112",
+    "0115"
+   ],
+   [
+    "Pangsha",
+    "0151",
+    "0153"
+   ],
+   [
+    "Rajbari",
+    "0230",
+    "0240"
+   ],
+   [
+    "Faridpur",
+    "0312",
+    "0315"
+   ],
+   [
+    "Bhanga",
+    "0345",
+    "0347"
+   ],
+   [
+    "Dhaka",
+    "0510",
+    null
+   ]
+  ],
+  "minutes": 445
+ },
+ "726": {
+  "code": 726,
+  "name": "Sundarban Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0800"
+   ],
+   [
+    "Bhanga",
+    "0907",
+    "0909"
+   ],
+   [
+    "Faridpur",
+    "0939",
+    "0942"
+   ],
+   [
+    "Rajbari",
+    "1015",
+    "1025"
+   ],
+   [
+    "Pangsha",
+    "1059",
+    "1101"
+   ],
+   [
+    "Kushtia Court",
+    "1135",
+    "1138"
+   ],
+   [
+    "Poradaha",
+    "1150",
+    "1153"
+   ],
+   [
+    "Alamdanga",
+    "1209",
+    "1211"
+   ],
+   [
+    "Chuadanga",
+    "1227",
+    "1230"
+   ],
+   [
+    "Darshana Halt",
+    "1250",
+    "1253"
+   ],
+   [
+    "Kotchandpur",
+    "1316",
+    "1318"
+   ],
+   [
+    "Mobarakganj",
+    "1330",
+    "1333"
+   ],
+   [
+    "Jashore",
+    "1404",
+    "1408"
+   ],
+   [
+    "Noapara (Jashore)",
+    "1441",
+    "1444"
+   ],
+   [
+    "Daulatpur",
+    "1508",
+    "1510"
+   ],
+   [
+    "Khulna",
+    "1540",
+    null
+   ]
+  ],
+  "minutes": 460
+ },
+ "727": {
+  "code": 727,
+  "name": "Rupsha Express",
+  "off_day": "Thursday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "0715"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0748",
+    "0751"
+   ],
+   [
+    "Jashore",
+    "0819",
+    "0823"
+   ],
+   [
+    "Mobarakganj",
+    "0850",
+    "0852"
+   ],
+   [
+    "Kotchandpur",
+    "0903",
+    "0905"
+   ],
+   [
+    "Darshana Halt",
+    "0941",
+    "0944"
+   ],
+   [
+    "Chuadanga",
+    "1003",
+    "1006"
+   ],
+   [
+    "Alamdanga",
+    "1021",
+    "1023"
+   ],
+   [
+    "Poradaha",
+    "1039",
+    "1042"
+   ],
+   [
+    "Bheramara",
+    "1059",
+    "1102"
+   ],
+   [
+    "Pakshi",
+    "1114",
+    "1116"
+   ],
+   [
+    "Ishwardi",
+    "1125",
+    "1140"
+   ],
+   [
+    "Natore",
+    "1213",
+    "1216"
+   ],
+   [
+    "Ahsanganj",
+    "1257",
+    "1300"
+   ],
+   [
+    "Santahar",
+    "1325",
+    "1330"
+   ],
+   [
+    "Akkelpur",
+    "1350",
+    "1352"
+   ],
+   [
+    "Joypurhat",
+    "1405",
+    "1408"
+   ],
+   [
+    "Birampur",
+    "1436",
+    "1438"
+   ],
+   [
+    "Phulbari",
+    "1449",
+    "1451"
+   ],
+   [
+    "Parbatipur",
+    "1510",
+    "1520"
+   ],
+   [
+    "Saidpur",
+    "1537",
+    "1542"
+   ],
+   [
+    "Nilphamari",
+    "1605",
+    "1608"
+   ],
+   [
+    "Domar",
+    "1624",
+    "1627"
+   ],
+   [
+    "Chilahati",
+    "1700",
+    null
+   ]
+  ],
+  "minutes": 585
+ },
+ "728": {
+  "code": 728,
+  "name": "Rupsha Express",
+  "off_day": "Thursday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "0830"
+   ],
+   [
+    "Domar",
+    "0848",
+    "0851"
+   ],
+   [
+    "Nilphamari",
+    "0907",
+    "0910"
+   ],
+   [
+    "Saidpur",
+    "0930",
+    "0935"
+   ],
+   [
+    "Parbatipur",
+    "0955",
+    "1015"
+   ],
+   [
+    "Phulbari",
+    "1036",
+    "1039"
+   ],
+   [
+    "Birampur",
+    "1050",
+    "1053"
+   ],
+   [
+    "Joypurhat",
+    "1122",
+    "1125"
+   ],
+   [
+    "Akkelpur",
+    "1139",
+    "1141"
+   ],
+   [
+    "Santahar",
+    "1200",
+    "1205"
+   ],
+   [
+    "Ahsanganj",
+    "1228",
+    "1231"
+   ],
+   [
+    "Natore",
+    "1255",
+    "1300"
+   ],
+   [
+    "Ishwardi",
+    "1340",
+    "1400"
+   ],
+   [
+    "Pakshi",
+    "1410",
+    "1412"
+   ],
+   [
+    "Bheramara",
+    "1424",
+    "1427"
+   ],
+   [
+    "Poradaha",
+    "1444",
+    "1447"
+   ],
+   [
+    "Alamdanga",
+    "1502",
+    "1504"
+   ],
+   [
+    "Chuadanga",
+    "1520",
+    "1523"
+   ],
+   [
+    "Darshana Halt",
+    "1545",
+    "1548"
+   ],
+   [
+    "Kotchandpur",
+    "1614",
+    "1616"
+   ],
+   [
+    "Mobarakganj",
+    "1628",
+    "1630"
+   ],
+   [
+    "Jashore",
+    "1658",
+    "1708"
+   ],
+   [
+    "Noapara (Jashore)",
+    "1736",
+    "1739"
+   ],
+   [
+    "Khulna",
+    "1825",
+    null
+   ]
+  ],
+  "minutes": 595
+ },
+ "731": {
+  "code": 731,
+  "name": "Barendra Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "1500"
+   ],
+   [
+    "Abdulpur",
+    "1540",
+    "1600"
+   ],
+   [
+    "Natore",
+    "1617",
+    "1620"
+   ],
+   [
+    "Ahsanganj",
+    "1641",
+    "1644"
+   ],
+   [
+    "Santahar",
+    "1720",
+    "1730"
+   ],
+   [
+    "Akkelpur",
+    "1750",
+    "1752"
+   ],
+   [
+    "Joypurhat",
+    "1807",
+    "1810"
+   ],
+   [
+    "Panchbibi",
+    "1828",
+    "1830"
+   ],
+   [
+    "Birampur",
+    "1850",
+    "1853"
+   ],
+   [
+    "Phulbari",
+    "1904",
+    "1907"
+   ],
+   [
+    "Parbatipur",
+    "1925",
+    "1945"
+   ],
+   [
+    "Saidpur",
+    "2011",
+    "2014"
+   ],
+   [
+    "Nilphamari",
+    "2033",
+    "2036"
+   ],
+   [
+    "Domar",
+    "2058",
+    "2101"
+   ],
+   [
+    "Chilahati",
+    "2130",
+    null
+   ]
+  ],
+  "minutes": 390
+ },
+ "732": {
+  "code": 732,
+  "name": "Barendra Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "0500"
+   ],
+   [
+    "Domar",
+    "0518",
+    "0521"
+   ],
+   [
+    "Nilphamari",
+    "0536",
+    "0539"
+   ],
+   [
+    "Saidpur",
+    "0604",
+    "0608"
+   ],
+   [
+    "Parbatipur",
+    "0625",
+    "0645"
+   ],
+   [
+    "Phulbari",
+    "0703",
+    "0706"
+   ],
+   [
+    "Birampur",
+    "0717",
+    "0720"
+   ],
+   [
+    "Hili",
+    "0733",
+    "0735"
+   ],
+   [
+    "Panchbibi",
+    "0745",
+    "0747"
+   ],
+   [
+    "Joypurhat",
+    "0758",
+    "0801"
+   ],
+   [
+    "Akkelpur",
+    "0815",
+    "0817"
+   ],
+   [
+    "Santahar",
+    "0840",
+    "0845"
+   ],
+   [
+    "Ahsanganj",
+    "0907",
+    "0910"
+   ],
+   [
+    "Natore",
+    "0932",
+    "0935"
+   ],
+   [
+    "Abdulpur",
+    "0955",
+    "1015"
+   ],
+   [
+    "Rajshahi",
+    "1110",
+    null
+   ]
+  ],
+  "minutes": 370
+ },
+ "733": {
+  "code": 733,
+  "name": "Titumir Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "0620"
+   ],
+   [
+    "Abdulpur",
+    "0700",
+    "0720"
+   ],
+   [
+    "Natore",
+    "0747",
+    "0751"
+   ],
+   [
+    "Madhnagar",
+    "0805",
+    "0807"
+   ],
+   [
+    "Ahsanganj",
+    "0816",
+    "0819"
+   ],
+   [
+    "Santahar",
+    "0845",
+    "0850"
+   ],
+   [
+    "Akkelpur",
+    "0910",
+    "0912"
+   ],
+   [
+    "Jamalganj",
+    "0920",
+    "0922"
+   ],
+   [
+    "Joypurhat",
+    "0930",
+    "0933"
+   ],
+   [
+    "Panchbibi",
+    "0944",
+    "0946"
+   ],
+   [
+    "Hili",
+    "0956",
+    "0958"
+   ],
+   [
+    "Birampur",
+    "1010",
+    "1013"
+   ],
+   [
+    "Phulbari",
+    "1031",
+    "1034"
+   ],
+   [
+    "Parbatipur",
+    "1110",
+    "1130"
+   ],
+   [
+    "Saidpur",
+    "1147",
+    "1152"
+   ],
+   [
+    "Nilphamari",
+    "1211",
+    "1214"
+   ],
+   [
+    "Domar",
+    "1230",
+    "1233"
+   ],
+   [
+    "Chilahati",
+    "1300",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "734": {
+  "code": 734,
+  "name": "Titumir Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "1500"
+   ],
+   [
+    "Domar",
+    "1521",
+    "1524"
+   ],
+   [
+    "Nilphamari",
+    "1541",
+    "1544"
+   ],
+   [
+    "Saidpur",
+    "1615",
+    "1619"
+   ],
+   [
+    "Parbatipur",
+    "1635",
+    "1655"
+   ],
+   [
+    "Phulbari",
+    "1713",
+    "1716"
+   ],
+   [
+    "Birampur",
+    "1727",
+    "1730"
+   ],
+   [
+    "Panchbibi",
+    "1759",
+    "1801"
+   ],
+   [
+    "Joypurhat",
+    "1812",
+    "1815"
+   ],
+   [
+    "Jamalganj",
+    "1823",
+    "1825"
+   ],
+   [
+    "Akkelpur",
+    "1833",
+    "1835"
+   ],
+   [
+    "Santahar",
+    "1855",
+    "1900"
+   ],
+   [
+    "Ahsanganj",
+    "1922",
+    "1924"
+   ],
+   [
+    "Madhnagar",
+    "1933",
+    "1935"
+   ],
+   [
+    "Natore",
+    "1950",
+    "1953"
+   ],
+   [
+    "Abdulpur",
+    "2010",
+    "2030"
+   ],
+   [
+    "Rajshahi",
+    "2130",
+    null
+   ]
+  ],
+  "minutes": 390
+ },
+ "747": {
+  "code": 747,
+  "name": "Simanta Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "2115"
+   ],
+   [
+    "Daulatpur",
+    "2127",
+    "2129"
+   ],
+   [
+    "Noapara (Jashore)",
+    "2152",
+    "2155"
+   ],
+   [
+    "Jashore",
+    "2223",
+    "2227"
+   ],
+   [
+    "Mobarakganj",
+    "2254",
+    "2256"
+   ],
+   [
+    "Kotchandpur",
+    "2308",
+    "2310"
+   ],
+   [
+    "Darshana Halt",
+    "2335",
+    "2338"
+   ],
+   [
+    "Chuadanga",
+    "2357",
+    "0000"
+   ],
+   [
+    "Alamdanga",
+    "0016",
+    "0018"
+   ],
+   [
+    "Poradaha",
+    "0034",
+    "0037"
+   ],
+   [
+    "Bheramara",
+    "0054",
+    "0057"
+   ],
+   [
+    "Ishwardi",
+    "0120",
+    "0130"
+   ],
+   [
+    "Natore",
+    "0205",
+    "0208"
+   ],
+   [
+    "Santahar",
+    "0305",
+    "0310"
+   ],
+   [
+    "Akkelpur",
+    "0330",
+    "0332"
+   ],
+   [
+    "Joypurhat",
+    "0346",
+    "0349"
+   ],
+   [
+    "Birampur",
+    "0417",
+    "0419"
+   ],
+   [
+    "Phulbari",
+    "0430",
+    "0432"
+   ],
+   [
+    "Parbatipur",
+    "0450",
+    "0500"
+   ],
+   [
+    "Saidpur",
+    "0517",
+    "0522"
+   ],
+   [
+    "Nilphamari",
+    "0541",
+    "0545"
+   ],
+   [
+    "Domar",
+    "0601",
+    "0623"
+   ],
+   [
+    "Chilahati",
+    "0645",
+    null
+   ]
+  ],
+  "minutes": 570
+ },
+ "748": {
+  "code": 748,
+  "name": "Simanta Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "1830"
+   ],
+   [
+    "Domar",
+    "1848",
+    "1851"
+   ],
+   [
+    "Nilphamari",
+    "1907",
+    "1910"
+   ],
+   [
+    "Saidpur",
+    "1929",
+    "1934"
+   ],
+   [
+    "Parbatipur",
+    "1950",
+    "2010"
+   ],
+   [
+    "Phulbari",
+    "2028",
+    "2031"
+   ],
+   [
+    "Birampur",
+    "2042",
+    "2045"
+   ],
+   [
+    "Joypurhat",
+    "2114",
+    "2117"
+   ],
+   [
+    "Akkelpur",
+    "2131",
+    "2133"
+   ],
+   [
+    "Santahar",
+    "2155",
+    "2200"
+   ],
+   [
+    "Natore",
+    "2240",
+    "2243"
+   ],
+   [
+    "Ishwardi",
+    "2320",
+    "2340"
+   ],
+   [
+    "Bheramara",
+    "0000",
+    "0003"
+   ],
+   [
+    "Poradaha",
+    "0021",
+    "0024"
+   ],
+   [
+    "Alamdanga",
+    "0040",
+    "0042"
+   ],
+   [
+    "Chuadanga",
+    "0100",
+    "0103"
+   ],
+   [
+    "Darshana Halt",
+    "0124",
+    "0126"
+   ],
+   [
+    "Kotchandpur",
+    "0150",
+    "0152"
+   ],
+   [
+    "Mobarakganj",
+    "0204",
+    "0206"
+   ],
+   [
+    "Jashore",
+    "0241",
+    "0245"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0313",
+    "0316"
+   ],
+   [
+    "Daulatpur",
+    "0341",
+    "0343"
+   ],
+   [
+    "Khulna",
+    "0410",
+    null
+   ]
+  ],
+  "minutes": 580
+ },
+ "751": {
+  "code": 751,
+  "name": "Lalmoni Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2145"
+   ],
+   [
+    "Dhaka Airport",
+    "2208",
+    "2213"
+   ],
+   [
+    "Joydebpur",
+    "2236",
+    "2238"
+   ],
+   [
+    "Tangail",
+    "2332",
+    "2334"
+   ],
+   [
+    "Ibrahimabad",
+    "2354",
+    "2356"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "0012",
+    "0014"
+   ],
+   [
+    "Ullapara",
+    "0031",
+    "0033"
+   ],
+   [
+    "Boral Bridge",
+    "0053",
+    "0055"
+   ],
+   [
+    "Azimnagar",
+    "0207",
+    "0209"
+   ],
+   [
+    "Natore",
+    "0235",
+    "0238"
+   ],
+   [
+    "Santahar",
+    "0335",
+    "0340"
+   ],
+   [
+    "Bogura",
+    "0420",
+    "0423"
+   ],
+   [
+    "Sonatala",
+    "0453",
+    "0455"
+   ],
+   [
+    "Bonarpara",
+    "0511",
+    "0514"
+   ],
+   [
+    "Gaibandha",
+    "0537",
+    "0540"
+   ],
+   [
+    "Bamondanga",
+    "0609",
+    "0611"
+   ],
+   [
+    "Pirgachha",
+    "0629",
+    "0631"
+   ],
+   [
+    "Kaunia",
+    "0648",
+    "0651"
+   ],
+   [
+    "Tista",
+    "0658",
+    "0700"
+   ],
+   [
+    "Lalmonirhat",
+    "0720",
+    null
+   ]
+  ],
+  "minutes": 575
+ },
+ "752": {
+  "code": 752,
+  "name": "Lalmoni Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Lalmonirhat",
+    null,
+    "0950"
+   ],
+   [
+    "Tista",
+    "1006",
+    "1008"
+   ],
+   [
+    "Kaunia",
+    "1015",
+    "1018"
+   ],
+   [
+    "Pirgachha",
+    "1034",
+    "1036"
+   ],
+   [
+    "Bamondanga",
+    "1052",
+    "1055"
+   ],
+   [
+    "Gaibandha",
+    "1124",
+    "1127"
+   ],
+   [
+    "Bonarpara",
+    "1149",
+    "1152"
+   ],
+   [
+    "Sonatala",
+    "1209",
+    "1211"
+   ],
+   [
+    "Bogura",
+    "1241",
+    "1244"
+   ],
+   [
+    "Santahar",
+    "1330",
+    "1335"
+   ],
+   [
+    "Natore",
+    "1418",
+    "1421"
+   ],
+   [
+    "Azimnagar",
+    "1448",
+    "1450"
+   ],
+   [
+    "Boral Bridge",
+    "1537",
+    "1539"
+   ],
+   [
+    "Ullapara",
+    "1559",
+    "1603"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1622",
+    "1625"
+   ],
+   [
+    "Ibrahimabad",
+    "1643",
+    "1650"
+   ],
+   [
+    "Tangail",
+    "1710",
+    "1718"
+   ],
+   [
+    "Joydebpur",
+    "1836",
+    "1840"
+   ],
+   [
+    "Dhaka Airport",
+    "1907",
+    "1910"
+   ],
+   [
+    "Dhaka",
+    "1945",
+    null
+   ]
+  ],
+  "minutes": 595
+ },
+ "753": {
+  "code": 753,
+  "name": "Silkcity Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1430"
+   ],
+   [
+    "Dhaka Airport",
+    "1453",
+    "1458"
+   ],
+   [
+    "Joydebpur",
+    "1521",
+    "1524"
+   ],
+   [
+    "Mirzapur",
+    "1557",
+    "1559"
+   ],
+   [
+    "Tangail",
+    "1626",
+    "1628"
+   ],
+   [
+    "Ibrahimabad",
+    "1648",
+    "1650"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1706",
+    "1709"
+   ],
+   [
+    "Jamtail",
+    "1717",
+    "1719"
+   ],
+   [
+    "Ullapara",
+    "1731",
+    "1734"
+   ],
+   [
+    "Boral Bridge",
+    "1806",
+    "1809"
+   ],
+   [
+    "Chatmohar",
+    "1823",
+    "1828"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1848",
+    "1851"
+   ],
+   [
+    "Abdulpur",
+    "1906",
+    "1909"
+   ],
+   [
+    "Rajshahi",
+    "2020",
+    null
+   ]
+  ],
+  "minutes": 350
+ },
+ "754": {
+  "code": 754,
+  "name": "Silkcity Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "0740"
+   ],
+   [
+    "Abdulpur",
+    "0820",
+    "0822"
+   ],
+   [
+    "Ishwardi Bypass",
+    "0837",
+    "0839"
+   ],
+   [
+    "Chatmohar",
+    "0858",
+    "0901"
+   ],
+   [
+    "Boral Bridge",
+    "0914",
+    "0917"
+   ],
+   [
+    "Ullapara",
+    "0936",
+    "0939"
+   ],
+   [
+    "Jamtail",
+    "0951",
+    "0953"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1001",
+    "1008"
+   ],
+   [
+    "Ibrahimabad",
+    "1020",
+    "1022"
+   ],
+   [
+    "Tangail",
+    "1042",
+    "1044"
+   ],
+   [
+    "Mirzapur",
+    "1108",
+    "1110"
+   ],
+   [
+    "Joydebpur",
+    "1205",
+    "1208"
+   ],
+   [
+    "Dhaka Airport",
+    "1234",
+    "1237"
+   ],
+   [
+    "Dhaka",
+    "1310",
+    null
+   ]
+  ],
+  "minutes": 330
+ },
+ "755": {
+  "code": 755,
+  "name": "Madhumati Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1500"
+   ],
+   [
+    "Mawa",
+    "1536",
+    "1538"
+   ],
+   [
+    "Padma",
+    "1551",
+    "1553"
+   ],
+   [
+    "Shibchar",
+    "1603",
+    "1605"
+   ],
+   [
+    "Bhanga",
+    "1628",
+    "1630"
+   ],
+   [
+    "Talma",
+    "1646",
+    "1648"
+   ],
+   [
+    "Faridpur",
+    "1703",
+    "1706"
+   ],
+   [
+    "Amirabad",
+    "1718",
+    "1720"
+   ],
+   [
+    "Pachuria",
+    "1735",
+    "1737"
+   ],
+   [
+    "Rajbari",
+    "1745",
+    "1800"
+   ],
+   [
+    "Kalukhali",
+    "1823",
+    "1825"
+   ],
+   [
+    "Pangsha",
+    "1835",
+    "1837"
+   ],
+   [
+    "Khoksa",
+    "1851",
+    "1853"
+   ],
+   [
+    "Kumarkhali",
+    "1903",
+    "1905"
+   ],
+   [
+    "Kushtia Court",
+    "1922",
+    "1925"
+   ],
+   [
+    "Poradaha",
+    "1945",
+    "2010"
+   ],
+   [
+    "Mirpur",
+    "2020",
+    "2022"
+   ],
+   [
+    "Bheramara",
+    "2032",
+    "2035"
+   ],
+   [
+    "Pakshi",
+    "2047",
+    "2049"
+   ],
+   [
+    "Ishwardi",
+    "2105",
+    "2125"
+   ],
+   [
+    "Rajshahi",
+    "2230",
+    null
+   ]
+  ],
+  "minutes": 450
+ },
+ "756": {
+  "code": 756,
+  "name": "Madhumati Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "0640"
+   ],
+   [
+    "Ishwardi",
+    "0740",
+    "0800"
+   ],
+   [
+    "Pakshi",
+    "0810",
+    "0812"
+   ],
+   [
+    "Bheramara",
+    "0824",
+    "0827"
+   ],
+   [
+    "Mirpur",
+    "0837",
+    "0839"
+   ],
+   [
+    "Poradaha",
+    "0850",
+    "0910"
+   ],
+   [
+    "Kushtia Court",
+    "0922",
+    "0925"
+   ],
+   [
+    "Kumarkhali",
+    "0942",
+    "0944"
+   ],
+   [
+    "Khoksa",
+    "1001",
+    "1003"
+   ],
+   [
+    "Pangsha",
+    "1018",
+    "1020"
+   ],
+   [
+    "Kalukhali",
+    "1029",
+    "1031"
+   ],
+   [
+    "Rajbari",
+    "1050",
+    "1105"
+   ],
+   [
+    "Pachuria",
+    "1114",
+    "1116"
+   ],
+   [
+    "Amirabad",
+    "1132",
+    "1134"
+   ],
+   [
+    "Faridpur",
+    "1147",
+    "1149"
+   ],
+   [
+    "Talma",
+    "1205",
+    "1207"
+   ],
+   [
+    "Bhanga",
+    "1224",
+    "1226"
+   ],
+   [
+    "Shibchar",
+    "1247",
+    "1249"
+   ],
+   [
+    "Padma",
+    "1259",
+    "1301"
+   ],
+   [
+    "Mawa",
+    "1314",
+    "1316"
+   ],
+   [
+    "Dhaka",
+    "1400",
+    null
+   ]
+  ],
+  "minutes": 440
+ },
+ "757": {
+  "code": 757,
+  "name": "Drutojan Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2045"
+   ],
+   [
+    "Dhaka Airport",
+    "2108",
+    "2113"
+   ],
+   [
+    "Joydebpur",
+    "2136",
+    "2138"
+   ],
+   [
+    "Tangail",
+    "2232",
+    "2234"
+   ],
+   [
+    "Ibrahimabad",
+    "2254",
+    "2256"
+   ],
+   [
+    "Jamtail",
+    "2317",
+    "2319"
+   ],
+   [
+    "Chatmohar",
+    "2356",
+    "2358"
+   ],
+   [
+    "Natore",
+    "0049",
+    "0052"
+   ],
+   [
+    "Ahsanganj",
+    "0113",
+    "0116"
+   ],
+   [
+    "Santahar",
+    "0145",
+    "0200"
+   ],
+   [
+    "Akkelpur",
+    "0220",
+    "0222"
+   ],
+   [
+    "Joypurhat",
+    "0237",
+    "0239"
+   ],
+   [
+    "Panchbibi",
+    "0250",
+    "0252"
+   ],
+   [
+    "Birampur",
+    "0312",
+    "0314"
+   ],
+   [
+    "Phulbari",
+    "0325",
+    "0327"
+   ],
+   [
+    "Parbatipur",
+    "0350",
+    "0410"
+   ],
+   [
+    "Chirirbandar",
+    "0425",
+    "0427"
+   ],
+   [
+    "Dinajpur",
+    "0445",
+    "0450"
+   ],
+   [
+    "Setabganj",
+    "0520",
+    "0522"
+   ],
+   [
+    "Pirganj",
+    "0536",
+    "0539"
+   ],
+   [
+    "Thakurgaon Road",
+    "0602",
+    "0605"
+   ],
+   [
+    "Ruhia",
+    "0622",
+    "0638"
+   ],
+   [
+    "Kismat",
+    "0647",
+    "0649"
+   ],
+   [
+    "Panchagarh",
+    "0710",
+    null
+   ]
+  ],
+  "minutes": 625
+ },
+ "758": {
+  "code": 758,
+  "name": "Drutojan Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Panchagarh",
+    null,
+    "0720"
+   ],
+   [
+    "Kismat",
+    "0736",
+    "0738"
+   ],
+   [
+    "Ruhia",
+    "0746",
+    "0748"
+   ],
+   [
+    "Thakurgaon Road",
+    "0802",
+    "0805"
+   ],
+   [
+    "Pirganj",
+    "0846",
+    "0848"
+   ],
+   [
+    "Setabganj",
+    "0902",
+    "0904"
+   ],
+   [
+    "Dinajpur",
+    "0936",
+    "0946"
+   ],
+   [
+    "Chirirbandar",
+    "1005",
+    "1007"
+   ],
+   [
+    "Parbatipur",
+    "1025",
+    "1045"
+   ],
+   [
+    "Phulbari",
+    "1103",
+    "1106"
+   ],
+   [
+    "Birampur",
+    "1117",
+    "1120"
+   ],
+   [
+    "Panchbibi",
+    "1140",
+    "1142"
+   ],
+   [
+    "Joypurhat",
+    "1153",
+    "1156"
+   ],
+   [
+    "Akkelpur",
+    "1209",
+    "1211"
+   ],
+   [
+    "Santahar",
+    "1235",
+    "1240"
+   ],
+   [
+    "Ahsanganj",
+    "1314",
+    "1316"
+   ],
+   [
+    "Natore",
+    "1338",
+    "1341"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1426",
+    "1428"
+   ],
+   [
+    "Chatmohar",
+    "1448",
+    "1451"
+   ],
+   [
+    "Jamtail",
+    "1528",
+    "1530"
+   ],
+   [
+    "Ibrahimabad",
+    "1556",
+    "1558"
+   ],
+   [
+    "Tangail",
+    "1618",
+    "1628"
+   ],
+   [
+    "Joydebpur",
+    "1748",
+    "1753"
+   ],
+   [
+    "Dhaka Airport",
+    "1820",
+    "1823"
+   ],
+   [
+    "Dhaka",
+    "1855",
+    null
+   ]
+  ],
+  "minutes": 695
+ },
+ "759": {
+  "code": 759,
+  "name": "Padma Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2245"
+   ],
+   [
+    "Dhaka Airport",
+    "2308",
+    "2313"
+   ],
+   [
+    "Joydebpur",
+    "2336",
+    "2338"
+   ],
+   [
+    "Tangail",
+    "0032",
+    "0034"
+   ],
+   [
+    "Ibrahimabad",
+    "0054",
+    "0056"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "0111",
+    "0114"
+   ],
+   [
+    "Ullapara",
+    "0130",
+    "0133"
+   ],
+   [
+    "Boral Bridge",
+    "0151",
+    "0153"
+   ],
+   [
+    "Chatmohar",
+    "0207",
+    "0210"
+   ],
+   [
+    "Ishwardi Bypass",
+    "0230",
+    "0233"
+   ],
+   [
+    "Abdulpur",
+    "0248",
+    "0250"
+   ],
+   [
+    "Sardah Road",
+    "0316",
+    "0318"
+   ],
+   [
+    "Rajshahi",
+    "0400",
+    null
+   ]
+  ],
+  "minutes": 315
+ },
+ "760": {
+  "code": 760,
+  "name": "Padma Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "1600"
+   ],
+   [
+    "Sardah Road",
+    "1617",
+    "1619"
+   ],
+   [
+    "Abdulpur",
+    "1645",
+    "1647"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1701",
+    "1703"
+   ],
+   [
+    "Chatmohar",
+    "1722",
+    "1725"
+   ],
+   [
+    "Boral Bridge",
+    "1738",
+    "1740"
+   ],
+   [
+    "Ullapara",
+    "1759",
+    "1802"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1818",
+    "1821"
+   ],
+   [
+    "Ibrahimabad",
+    "1838",
+    "1840"
+   ],
+   [
+    "Tangail",
+    "1900",
+    "1902"
+   ],
+   [
+    "Joydebpur",
+    "2014",
+    "2018"
+   ],
+   [
+    "Dhaka Airport",
+    "2045",
+    "2048"
+   ],
+   [
+    "Dhaka",
+    "2115",
+    null
+   ]
+  ],
+  "minutes": 315
+ },
+ "761": {
+  "code": 761,
+  "name": "Sagardari Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "1600"
+   ],
+   [
+    "Noapara (Jashore)",
+    "1633",
+    "1636"
+   ],
+   [
+    "Jashore",
+    "1703",
+    "1708"
+   ],
+   [
+    "Mobarakganj",
+    "1735",
+    "1737"
+   ],
+   [
+    "Kotchandpur",
+    "1749",
+    "1751"
+   ],
+   [
+    "Safdarpur",
+    "1800",
+    "1802"
+   ],
+   [
+    "Darshana Halt",
+    "1821",
+    "1824"
+   ],
+   [
+    "Chuadanga",
+    "1843",
+    "1846"
+   ],
+   [
+    "Alamdanga",
+    "1902",
+    "1904"
+   ],
+   [
+    "Poradaha",
+    "1920",
+    "1923"
+   ],
+   [
+    "Mirpur",
+    "1933",
+    "1935"
+   ],
+   [
+    "Bheramara",
+    "1945",
+    "1947"
+   ],
+   [
+    "Pakshi",
+    "1959",
+    "2001"
+   ],
+   [
+    "Ishwardi",
+    "2010",
+    "2030"
+   ],
+   [
+    "Azimnagar",
+    "2043",
+    "2045"
+   ],
+   [
+    "Abdulpur",
+    "2053",
+    "2056"
+   ],
+   [
+    "Rajshahi",
+    "2200",
+    null
+   ]
+  ],
+  "minutes": 360
+ },
+ "762": {
+  "code": 762,
+  "name": "Sagardari Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "0600"
+   ],
+   [
+    "Abdulpur",
+    "0640",
+    "0642"
+   ],
+   [
+    "Azimnagar",
+    "0651",
+    "0653"
+   ],
+   [
+    "Ishwardi",
+    "0710",
+    "0730"
+   ],
+   [
+    "Pakshi",
+    "0740",
+    "0742"
+   ],
+   [
+    "Bheramara",
+    "0754",
+    "0757"
+   ],
+   [
+    "Mirpur",
+    "0807",
+    "0809"
+   ],
+   [
+    "Poradaha",
+    "0819",
+    "0822"
+   ],
+   [
+    "Alamdanga",
+    "0838",
+    "0840"
+   ],
+   [
+    "Chuadanga",
+    "0856",
+    "0859"
+   ],
+   [
+    "Darshana Halt",
+    "0920",
+    "0923"
+   ],
+   [
+    "Safdarpur",
+    "0940",
+    "0942"
+   ],
+   [
+    "Kotchandpur",
+    "0951",
+    "0953"
+   ],
+   [
+    "Mobarakganj",
+    "1005",
+    "1007"
+   ],
+   [
+    "Jashore",
+    "1035",
+    "1039"
+   ],
+   [
+    "Noapara (Jashore)",
+    "1107",
+    "1110"
+   ],
+   [
+    "Khulna",
+    "1210",
+    null
+   ]
+  ],
+  "minutes": 370
+ },
+ "763": {
+  "code": 763,
+  "name": "Chitra Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "0900"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0933",
+    "0936"
+   ],
+   [
+    "Jashore",
+    "1004",
+    "1008"
+   ],
+   [
+    "Mobarakganj",
+    "1049",
+    "1051"
+   ],
+   [
+    "Kotchandpur",
+    "1102",
+    "1104"
+   ],
+   [
+    "Darshana Halt",
+    "1128",
+    "1131"
+   ],
+   [
+    "Chuadanga",
+    "1150",
+    "1153"
+   ],
+   [
+    "Alamdanga",
+    "1209",
+    "1211"
+   ],
+   [
+    "Poradaha",
+    "1227",
+    "1230"
+   ],
+   [
+    "Mirpur",
+    "1240",
+    "1242"
+   ],
+   [
+    "Bheramara",
+    "1252",
+    "1255"
+   ],
+   [
+    "Ishwardi",
+    "1315",
+    "1325"
+   ],
+   [
+    "Chatmohar",
+    "1348",
+    "1351"
+   ],
+   [
+    "Boral Bridge",
+    "1406",
+    "1409"
+   ],
+   [
+    "Ullapara",
+    "1427",
+    "1430"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1445",
+    "1448"
+   ],
+   [
+    "Ibrahimabad",
+    "1519",
+    "1532"
+   ],
+   [
+    "Tangail",
+    "1552",
+    "1554"
+   ],
+   [
+    "Joydebpur",
+    "1704",
+    "1707"
+   ],
+   [
+    "Dhaka Airport",
+    "1733",
+    "1736"
+   ],
+   [
+    "Dhaka",
+    "1805",
+    null
+   ]
+  ],
+  "minutes": 545
+ },
+ "764": {
+  "code": 764,
+  "name": "Chitra Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1930"
+   ],
+   [
+    "Dhaka Airport",
+    "1953",
+    "1958"
+   ],
+   [
+    "Joydebpur",
+    "2021",
+    "2023"
+   ],
+   [
+    "Tangail",
+    "2126",
+    "2128"
+   ],
+   [
+    "Ibrahimabad",
+    "2148",
+    "2150"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "2206",
+    "2209"
+   ],
+   [
+    "Ullapara",
+    "2226",
+    "2229"
+   ],
+   [
+    "Boral Bridge",
+    "2247",
+    "2250"
+   ],
+   [
+    "Chatmohar",
+    "2304",
+    "2307"
+   ],
+   [
+    "Ishwardi",
+    "2345",
+    "2355"
+   ],
+   [
+    "Bheramara",
+    "0025",
+    "0028"
+   ],
+   [
+    "Poradaha",
+    "0046",
+    "0049"
+   ],
+   [
+    "Alamdanga",
+    "0105",
+    "0107"
+   ],
+   [
+    "Chuadanga",
+    "0124",
+    "0127"
+   ],
+   [
+    "Kotchandpur",
+    "0216",
+    "0218"
+   ],
+   [
+    "Mobarakganj",
+    "0230",
+    "0232"
+   ],
+   [
+    "Jashore",
+    "0307",
+    "0312"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0340",
+    "0343"
+   ],
+   [
+    "Khulna",
+    "0440",
+    null
+   ]
+  ],
+  "minutes": 550
+ },
+ "765": {
+  "code": 765,
+  "name": "Nilsagar Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0645"
+   ],
+   [
+    "Dhaka Airport",
+    "0708",
+    "0713"
+   ],
+   [
+    "Joydebpur",
+    "0736",
+    "0739"
+   ],
+   [
+    "Ibrahimabad",
+    "0854",
+    "0903"
+   ],
+   [
+    "Muladuli",
+    "1016",
+    "1018"
+   ],
+   [
+    "Natore",
+    "1057",
+    "1100"
+   ],
+   [
+    "Ahsanganj",
+    "1120",
+    "1122"
+   ],
+   [
+    "Santahar",
+    "1155",
+    "1205"
+   ],
+   [
+    "Akkelpur",
+    "1238",
+    "1240"
+   ],
+   [
+    "Joypurhat",
+    "1254",
+    "1257"
+   ],
+   [
+    "Birampur",
+    "1325",
+    "1328"
+   ],
+   [
+    "Phulbari",
+    "1339",
+    "1342"
+   ],
+   [
+    "Parbatipur",
+    "1400",
+    "1410"
+   ],
+   [
+    "Saidpur",
+    "1427",
+    "1431"
+   ],
+   [
+    "Nilphamari",
+    "1450",
+    "1455"
+   ],
+   [
+    "Domar",
+    "1516",
+    "1526"
+   ],
+   [
+    "Chilahati",
+    "1600",
+    null
+   ]
+  ],
+  "minutes": 555
+ },
+ "766": {
+  "code": 766,
+  "name": "Nilsagar Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "2000"
+   ],
+   [
+    "Domar",
+    "2018",
+    "2021"
+   ],
+   [
+    "Nilphamari",
+    "2037",
+    "2040"
+   ],
+   [
+    "Saidpur",
+    "2059",
+    "2104"
+   ],
+   [
+    "Parbatipur",
+    "2120",
+    "2140"
+   ],
+   [
+    "Phulbari",
+    "2158",
+    "2200"
+   ],
+   [
+    "Birampur",
+    "2211",
+    "2214"
+   ],
+   [
+    "Joypurhat",
+    "2243",
+    "2246"
+   ],
+   [
+    "Akkelpur",
+    "2300",
+    "2302"
+   ],
+   [
+    "Santahar",
+    "2320",
+    "2325"
+   ],
+   [
+    "Ahsanganj",
+    "2347",
+    "2349"
+   ],
+   [
+    "Natore",
+    "0010",
+    "0013"
+   ],
+   [
+    "Muladuli",
+    "0112",
+    "0114"
+   ],
+   [
+    "Ibrahimabad",
+    "0246",
+    "0249"
+   ],
+   [
+    "Joydebpur",
+    "0411",
+    "0415"
+   ],
+   [
+    "Dhaka Airport",
+    "0445",
+    "0448"
+   ],
+   [
+    "Dhaka",
+    "0525",
+    null
+   ]
+  ],
+  "minutes": 565
+ },
+ "767": {
+  "code": 767,
+  "name": "Dolonchapa Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Santahar",
+    null,
+    "1100"
+   ],
+   [
+    "Talora",
+    "1128",
+    "1130"
+   ],
+   [
+    "Bogura",
+    "1153",
+    "1201"
+   ],
+   [
+    "Sonatala",
+    "1250",
+    "1252"
+   ],
+   [
+    "Mohimaganj",
+    "1302",
+    "1304"
+   ],
+   [
+    "Bonarpara",
+    "1313",
+    "1318"
+   ],
+   [
+    "Badiakhali Road",
+    "1328",
+    "1330"
+   ],
+   [
+    "Gaibandha",
+    "1345",
+    "1350"
+   ],
+   [
+    "Bamondanga",
+    "1421",
+    "1424"
+   ],
+   [
+    "Pirgachha",
+    "1442",
+    "1445"
+   ],
+   [
+    "Kaunia",
+    "1505",
+    "1525"
+   ],
+   [
+    "Rangpur",
+    "1548",
+    "1558"
+   ],
+   [
+    "Badarganj",
+    "1626",
+    "1629"
+   ],
+   [
+    "Kholahati",
+    "1640",
+    "1642"
+   ],
+   [
+    "Parbatipur",
+    "1655",
+    "1720"
+   ],
+   [
+    "Chirirbandar",
+    "1740",
+    "1743"
+   ],
+   [
+    "Dinajpur",
+    "1805",
+    "1813"
+   ],
+   [
+    "Setabganj",
+    "1848",
+    "1850"
+   ],
+   [
+    "Pirganj",
+    "1906",
+    "1908"
+   ],
+   [
+    "Bhomradaha",
+    "1918",
+    "1920"
+   ],
+   [
+    "Thakurgaon Road",
+    "1938",
+    "1941"
+   ],
+   [
+    "Ruhia",
+    "2000",
+    "2002"
+   ],
+   [
+    "Kismat",
+    "2012",
+    "2014"
+   ],
+   [
+    "Nayanibhuruj",
+    "2025",
+    "2027"
+   ],
+   [
+    "Panchagarh",
+    "2040",
+    null
+   ]
+  ],
+  "minutes": 580
+ },
+ "768": {
+  "code": 768,
+  "name": "Dolonchapa Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Panchagarh",
+    null,
+    "0600"
+   ],
+   [
+    "Nayanibhuruj",
+    "0610",
+    "0612"
+   ],
+   [
+    "Kismat",
+    "0621",
+    "0623"
+   ],
+   [
+    "Ruhia",
+    "0633",
+    "0635"
+   ],
+   [
+    "Thakurgaon Road",
+    "0651",
+    "0654"
+   ],
+   [
+    "Bhomradaha",
+    "0713",
+    "0715"
+   ],
+   [
+    "Pirganj",
+    "0725",
+    "0727"
+   ],
+   [
+    "Setabganj",
+    "0743",
+    "0746"
+   ],
+   [
+    "Dinajpur",
+    "0821",
+    "0831"
+   ],
+   [
+    "Chirirbandar",
+    "0850",
+    "0852"
+   ],
+   [
+    "Parbatipur",
+    "0915",
+    "0940"
+   ],
+   [
+    "Kholahati",
+    "0952",
+    "0954"
+   ],
+   [
+    "Badarganj",
+    "1005",
+    "1008"
+   ],
+   [
+    "Rangpur",
+    "1035",
+    "1040"
+   ],
+   [
+    "Kaunia",
+    "1105",
+    "1125"
+   ],
+   [
+    "Pirgachha",
+    "1142",
+    "1145"
+   ],
+   [
+    "Bamondanga",
+    "1204",
+    "1207"
+   ],
+   [
+    "Gaibandha",
+    "1252",
+    "1257"
+   ],
+   [
+    "Badiakhali Road",
+    "1313",
+    "1333"
+   ],
+   [
+    "Bonarpara",
+    "1343",
+    "1348"
+   ],
+   [
+    "Mohimaganj",
+    "1357",
+    "1359"
+   ],
+   [
+    "Sonatala",
+    "1410",
+    "1412"
+   ],
+   [
+    "Bogura",
+    "1449",
+    "1505"
+   ],
+   [
+    "Talora",
+    "1543",
+    "1545"
+   ],
+   [
+    "Santahar",
+    "1615",
+    null
+   ]
+  ],
+  "minutes": 615
+ },
+ "769": {
+  "code": 769,
+  "name": "Dhumketu Express",
+  "off_day": "Thursday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0600"
+   ],
+   [
+    "Dhaka Airport",
+    "0623",
+    "0628"
+   ],
+   [
+    "Joydebpur",
+    "0651",
+    "0653"
+   ],
+   [
+    "Tangail",
+    "0747",
+    "0749"
+   ],
+   [
+    "Ibrahimabad",
+    "0809",
+    "0811"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "0827",
+    "0830"
+   ],
+   [
+    "Jamtail",
+    "0838",
+    "0844"
+   ],
+   [
+    "Ullapara",
+    "0856",
+    "0859"
+   ],
+   [
+    "Boral Bridge",
+    "0928",
+    "0931"
+   ],
+   [
+    "Chatmohar",
+    "0944",
+    "0947"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1012",
+    "1015"
+   ],
+   [
+    "Abdulpur",
+    "1033",
+    "1036"
+   ],
+   [
+    "Arani",
+    "1047",
+    "1049"
+   ],
+   [
+    "Rajshahi",
+    "1140",
+    null
+   ]
+  ],
+  "minutes": 340
+ },
+ "770": {
+  "code": 770,
+  "name": "Dhumketu Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "2320"
+   ],
+   [
+    "Arani",
+    "2351",
+    "2353"
+   ],
+   [
+    "Abdulpur",
+    "0005",
+    "0007"
+   ],
+   [
+    "Ishwardi Bypass",
+    "0022",
+    "0025"
+   ],
+   [
+    "Chatmohar",
+    "0045",
+    "0048"
+   ],
+   [
+    "Boral Bridge",
+    "0105",
+    "0108"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "0157",
+    "0159"
+   ],
+   [
+    "Ibrahimabad",
+    "0216",
+    "0218"
+   ],
+   [
+    "Joydebpur",
+    "0332",
+    "0335"
+   ],
+   [
+    "Dhaka Airport",
+    "0402",
+    "0405"
+   ],
+   [
+    "Dhaka",
+    "0440",
+    null
+   ]
+  ],
+  "minutes": 320
+ },
+ "771": {
+  "code": 771,
+  "name": "Rangpur Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0910"
+   ],
+   [
+    "Dhaka Airport",
+    "0933",
+    "0938"
+   ],
+   [
+    "Ibrahimabad",
+    "1133",
+    "1135"
+   ],
+   [
+    "Chatmohar",
+    "1231",
+    "1234"
+   ],
+   [
+    "Natore",
+    "1343",
+    "1346"
+   ],
+   [
+    "Santahar",
+    "1445",
+    "1450"
+   ],
+   [
+    "Talora",
+    "1513",
+    "1515"
+   ],
+   [
+    "Bogura",
+    "1536",
+    "1541"
+   ],
+   [
+    "Sonatala",
+    "1611",
+    "1613"
+   ],
+   [
+    "Bonarpara",
+    "1630",
+    "1640"
+   ],
+   [
+    "Gaibandha",
+    "1703",
+    "1708"
+   ],
+   [
+    "Bamondanga",
+    "1737",
+    "1740"
+   ],
+   [
+    "Pirgachha",
+    "1758",
+    "1800"
+   ],
+   [
+    "Kaunia",
+    "1816",
+    "1836"
+   ],
+   [
+    "Rangpur",
+    "1900",
+    null
+   ]
+  ],
+  "minutes": 590
+ },
+ "772": {
+  "code": 772,
+  "name": "Rangpur Express",
+  "off_day": "Sunday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rangpur",
+    null,
+    "2000"
+   ],
+   [
+    "Kaunia",
+    "2020",
+    "2040"
+   ],
+   [
+    "Pirgachha",
+    "2056",
+    "2058"
+   ],
+   [
+    "Bamondanga",
+    "2115",
+    "2118"
+   ],
+   [
+    "Gaibandha",
+    "2147",
+    "2152"
+   ],
+   [
+    "Bonarpara",
+    "2215",
+    "2225"
+   ],
+   [
+    "Sonatala",
+    "2242",
+    "2244"
+   ],
+   [
+    "Bogura",
+    "2315",
+    "2320"
+   ],
+   [
+    "Talora",
+    "2340",
+    "2342"
+   ],
+   [
+    "Santahar",
+    "0010",
+    "0015"
+   ],
+   [
+    "Natore",
+    "0125",
+    "0128"
+   ],
+   [
+    "Ibrahimabad",
+    "0334",
+    "0336"
+   ],
+   [
+    "Dhaka Airport",
+    "0525",
+    "0528"
+   ],
+   [
+    "Dhaka",
+    "0600",
+    null
+   ]
+  ],
+  "minutes": 600
+ },
+ "775": {
+  "code": 775,
+  "name": "Sirajganj Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Sirajganj Bazar",
+    null,
+    "0600"
+   ],
+   [
+    "Sirajganj Raipur",
+    "0608",
+    "0610"
+   ],
+   [
+    "Jamtail",
+    "0625",
+    "0645"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "0653",
+    "0656"
+   ],
+   [
+    "Saidabad",
+    "0703",
+    "0706"
+   ],
+   [
+    "Ibrahimabad",
+    "0718",
+    "0720"
+   ],
+   [
+    "Tangail",
+    "0740",
+    "0748"
+   ],
+   [
+    "Mirzapur",
+    "0812",
+    "0816"
+   ],
+   [
+    "Hi-Tech City",
+    "0831",
+    "0833"
+   ],
+   [
+    "Joydebpur",
+    "0914",
+    "0917"
+   ],
+   [
+    "Dhaka Airport",
+    "0943",
+    "0946"
+   ],
+   [
+    "Dhaka",
+    "1015",
+    null
+   ]
+  ],
+  "minutes": 255
+ },
+ "776": {
+  "code": 776,
+  "name": "Sirajganj Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1615"
+   ],
+   [
+    "Dhaka Airport",
+    "1638",
+    "1643"
+   ],
+   [
+    "Joydebpur",
+    "1706",
+    "1709"
+   ],
+   [
+    "Mirzapur",
+    "1742",
+    "1746"
+   ],
+   [
+    "Tangail",
+    "1811",
+    "1813"
+   ],
+   [
+    "Ibrahimabad",
+    "1833",
+    "1839"
+   ],
+   [
+    "Shahid M Monsur Ali",
+    "1855",
+    "1857"
+   ],
+   [
+    "Jamtail",
+    "1905",
+    "1930"
+   ],
+   [
+    "Sirajganj Raipur",
+    "1943",
+    "1945"
+   ],
+   [
+    "Sirajganj Bazar",
+    "2010",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "779": {
+  "code": 779,
+  "name": "Dhalarchar Express",
+  "off_day": "Thursday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhalarchar",
+    null,
+    "0630"
+   ],
+   [
+    "Badherhat",
+    "0641",
+    "0643"
+   ],
+   [
+    "Kashinathpur",
+    "0657",
+    "0659"
+   ],
+   [
+    "Sathia Rajapur",
+    "0713",
+    "0715"
+   ],
+   [
+    "Tatibandha",
+    "0726",
+    "0728"
+   ],
+   [
+    "Dubalia",
+    "0736",
+    "0738"
+   ],
+   [
+    "Raghabpur",
+    "0747",
+    "0749"
+   ],
+   [
+    "Pabna",
+    "0801",
+    "0804"
+   ],
+   [
+    "Tebunia",
+    "0816",
+    "0818"
+   ],
+   [
+    "Dashuria",
+    "0830",
+    "0832"
+   ],
+   [
+    "Majhgram",
+    "0843",
+    "0845"
+   ],
+   [
+    "Ishwardi Bypass",
+    "0900",
+    "0903"
+   ],
+   [
+    "Azimnagar",
+    "0912",
+    "0915"
+   ],
+   [
+    "Abdulpur",
+    "0924",
+    "0927"
+   ],
+   [
+    "Arani",
+    "0938",
+    "0940"
+   ],
+   [
+    "Sardah Road",
+    "0956",
+    "0958"
+   ],
+   [
+    "Rajshahi",
+    "1025",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "780": {
+  "code": 780,
+  "name": "Dhalarchar Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "1720"
+   ],
+   [
+    "Sardah Road",
+    "1737",
+    "1739"
+   ],
+   [
+    "Arani",
+    "1755",
+    "1757"
+   ],
+   [
+    "Abdulpur",
+    "1809",
+    "1811"
+   ],
+   [
+    "Azimnagar",
+    "1819",
+    "1821"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1830",
+    "1832"
+   ],
+   [
+    "Majhgram",
+    "1838",
+    "1840"
+   ],
+   [
+    "Dashuria",
+    "1852",
+    "1854"
+   ],
+   [
+    "Tebunia",
+    "1908",
+    "1910"
+   ],
+   [
+    "Pabna",
+    "1923",
+    "1925"
+   ],
+   [
+    "Raghabpur",
+    "1935",
+    "1938"
+   ],
+   [
+    "Dubalia",
+    "1949",
+    "1951"
+   ],
+   [
+    "Tatibandha",
+    "1958",
+    "2000"
+   ],
+   [
+    "Sathia Rajapur",
+    "2012",
+    "2014"
+   ],
+   [
+    "Kashinathpur",
+    "2030",
+    "2032"
+   ],
+   [
+    "Badherhat",
+    "2048",
+    "2050"
+   ],
+   [
+    "Dhalarchar",
+    "2115",
+    null
+   ]
+  ],
+  "minutes": 235
+ },
+ "783": {
+  "code": 783,
+  "name": "Tungipara Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Gobra",
+    null,
+    "0630"
+   ],
+   [
+    "Khatra",
+    "0639",
+    "0641"
+   ],
+   [
+    "Gopalganj",
+    "0650",
+    "0653"
+   ],
+   [
+    "Chandradighalia",
+    "0705",
+    "0707"
+   ],
+   [
+    "Chhotobahirbag",
+    "0718",
+    "0720"
+   ],
+   [
+    "Chapta",
+    "0732",
+    "0734"
+   ],
+   [
+    "Kashiani",
+    "0744",
+    "0747"
+   ],
+   [
+    "Boalmari",
+    "0809",
+    "0811"
+   ],
+   [
+    "Madhukhali",
+    "0830",
+    "0832"
+   ],
+   [
+    "Naliagram",
+    "0841",
+    "0843"
+   ],
+   [
+    "Baharpur",
+    "0855",
+    "0857"
+   ],
+   [
+    "Kalukhali",
+    "0910",
+    "0912"
+   ],
+   [
+    "Pangsha",
+    "0921",
+    "0923"
+   ],
+   [
+    "Khoksa",
+    "0936",
+    "0938"
+   ],
+   [
+    "Kumarkhali",
+    "0947",
+    "0949"
+   ],
+   [
+    "Kushtia Court",
+    "1006",
+    "1009"
+   ],
+   [
+    "Poradaha",
+    "1030",
+    "1100"
+   ],
+   [
+    "Bheramara",
+    "1117",
+    "1120"
+   ],
+   [
+    "Ishwardi",
+    "1140",
+    "1200"
+   ],
+   [
+    "Rajshahi",
+    "1315",
+    null
+   ]
+  ],
+  "minutes": 405
+ },
+ "784": {
+  "code": 784,
+  "name": "Tungipara Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "1530"
+   ],
+   [
+    "Ishwardi",
+    "1630",
+    "1640"
+   ],
+   [
+    "Bheramara",
+    "1700",
+    "1703"
+   ],
+   [
+    "Poradaha",
+    "1720",
+    "1745"
+   ],
+   [
+    "Kushtia Court",
+    "1757",
+    "1800"
+   ],
+   [
+    "Kumarkhali",
+    "1818",
+    "1820"
+   ],
+   [
+    "Khoksa",
+    "1830",
+    "1832"
+   ],
+   [
+    "Pangsha",
+    "1858",
+    "1900"
+   ],
+   [
+    "Kalukhali",
+    "1910",
+    "1912"
+   ],
+   [
+    "Baharpur",
+    "1926",
+    "1928"
+   ],
+   [
+    "Naliagram",
+    "1940",
+    "1942"
+   ],
+   [
+    "Madhukhali",
+    "1951",
+    "1954"
+   ],
+   [
+    "Boalmari",
+    "2014",
+    "2016"
+   ],
+   [
+    "Kashiani",
+    "2040",
+    "2043"
+   ],
+   [
+    "Chapta",
+    "2052",
+    "2054"
+   ],
+   [
+    "Chhotobahirbag",
+    "2106",
+    "2108"
+   ],
+   [
+    "Chandradighalia",
+    "2119",
+    "2121"
+   ],
+   [
+    "Gopalganj",
+    "2133",
+    "2138"
+   ],
+   [
+    "Khatra",
+    "2149",
+    "2151"
+   ],
+   [
+    "Gobra",
+    "2210",
+    null
+   ]
+  ],
+  "minutes": 400
+ },
+ "791": {
+  "code": 791,
+  "name": "Banalata Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1330"
+   ],
+   [
+    "Dhaka Airport",
+    "1353",
+    "1358"
+   ],
+   [
+    "Rajshahi",
+    "1745",
+    "1805"
+   ],
+   [
+    "Chapainawabganj",
+    "1915",
+    null
+   ]
+  ],
+  "minutes": 345
+ },
+ "792": {
+  "code": 792,
+  "name": "Banalata Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chapainawabganj",
+    null,
+    "0600"
+   ],
+   [
+    "Rajshahi",
+    "0650",
+    "0700"
+   ],
+   [
+    "Dhaka Airport",
+    "1106",
+    "1109"
+   ],
+   [
+    "Dhaka",
+    "1135",
+    null
+   ]
+  ],
+  "minutes": 335
+ },
+ "793": {
+  "code": 793,
+  "name": "Panchagarh Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2330"
+   ],
+   [
+    "Dhaka Airport",
+    "2353",
+    "2358"
+   ],
+   [
+    "Natore",
+    "0327",
+    "0330"
+   ],
+   [
+    "Santahar",
+    "0425",
+    "0430"
+   ],
+   [
+    "Joypurhat",
+    "0501",
+    "0504"
+   ],
+   [
+    "Parbatipur",
+    "0605",
+    "0625"
+   ],
+   [
+    "Dinajpur",
+    "0658",
+    "0703"
+   ],
+   [
+    "Pirganj",
+    "0805",
+    "0808"
+   ],
+   [
+    "Thakurgaon Road",
+    "0833",
+    "0836"
+   ],
+   [
+    "Panchagarh",
+    "0950",
+    null
+   ]
+  ],
+  "minutes": 620
+ },
+ "794": {
+  "code": 794,
+  "name": "Panchagarh Express",
+  "off_day": null,
+  "zone": "west",
+  "stops": [
+   [
+    "Panchagarh",
+    null,
+    "1210"
+   ],
+   [
+    "Thakurgaon Road",
+    "1250",
+    "1255"
+   ],
+   [
+    "Pirganj",
+    "1320",
+    "1323"
+   ],
+   [
+    "Dinajpur",
+    "1412",
+    "1420"
+   ],
+   [
+    "Parbatipur",
+    "1500",
+    "1520"
+   ],
+   [
+    "Joypurhat",
+    "1613",
+    "1616"
+   ],
+   [
+    "Santahar",
+    "1650",
+    "1655"
+   ],
+   [
+    "Natore",
+    "1736",
+    "1739"
+   ],
+   [
+    "Dhaka Airport",
+    "2137",
+    "2140"
+   ],
+   [
+    "Dhaka",
+    "2210",
+    null
+   ]
+  ],
+  "minutes": 600
+ },
+ "795": {
+  "code": 795,
+  "name": "Benapole Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Benapole",
+    null,
+    "1225"
+   ],
+   [
+    "Jhikargachha",
+    "1255",
+    "1257"
+   ],
+   [
+    "Jashore",
+    "1320",
+    "1340"
+   ],
+   [
+    "Mobarakganj",
+    "1419",
+    "1421"
+   ],
+   [
+    "Kotchandpur",
+    "1433",
+    "1435"
+   ],
+   [
+    "Darshana Halt",
+    "1459",
+    "1502"
+   ],
+   [
+    "Chuadanga",
+    "1526",
+    "1529"
+   ],
+   [
+    "Poradaha",
+    "1557",
+    "1600"
+   ],
+   [
+    "Kushtia Court",
+    "1612",
+    "1615"
+   ],
+   [
+    "Khoksa",
+    "1649",
+    "1651"
+   ],
+   [
+    "Rajbari",
+    "1730",
+    "1750"
+   ],
+   [
+    "Faridpur",
+    "1822",
+    "1825"
+   ],
+   [
+    "Bhanga",
+    "1856",
+    "1858"
+   ],
+   [
+    "Dhaka",
+    "2030",
+    null
+   ]
+  ],
+  "minutes": 485
+ },
+ "796": {
+  "code": 796,
+  "name": "Benapole Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2330"
+   ],
+   [
+    "Bhanga",
+    "0040",
+    "0042"
+   ],
+   [
+    "Faridpur",
+    "0113",
+    "0116"
+   ],
+   [
+    "Rajbari",
+    "0150",
+    "0200"
+   ],
+   [
+    "Khoksa",
+    "0236",
+    "0238"
+   ],
+   [
+    "Kushtia Court",
+    "0301",
+    "0304"
+   ],
+   [
+    "Poradaha",
+    "0320",
+    "0323"
+   ],
+   [
+    "Chuadanga",
+    "0352",
+    "0355"
+   ],
+   [
+    "Darshana Halt",
+    "0416",
+    "0419"
+   ],
+   [
+    "Kotchandpur",
+    "0444",
+    "0446"
+   ],
+   [
+    "Mobarakganj",
+    "0458",
+    "0500"
+   ],
+   [
+    "Jashore",
+    "0535",
+    "0600"
+   ],
+   [
+    "Jhikargachha",
+    "0619",
+    "0621"
+   ],
+   [
+    "Benapole",
+    "0700",
+    null
+   ]
+  ],
+  "minutes": 450
+ },
+ "797": {
+  "code": 797,
+  "name": "Kurigram Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2000"
+   ],
+   [
+    "Dhaka Airport",
+    "2023",
+    "2028"
+   ],
+   [
+    "Natore",
+    "0015",
+    "0017"
+   ],
+   [
+    "Madhnagar",
+    "0031",
+    "0033"
+   ],
+   [
+    "Santahar",
+    "0105",
+    "0110"
+   ],
+   [
+    "Joypurhat",
+    "0155",
+    "0158"
+   ],
+   [
+    "Parbatipur",
+    "0300",
+    "0310"
+   ],
+   [
+    "Badarganj",
+    "0329",
+    "0331"
+   ],
+   [
+    "Rangpur",
+    "0358",
+    "0403"
+   ],
+   [
+    "Kaunia",
+    "0425",
+    "0428"
+   ],
+   [
+    "Kurigram",
+    "0510",
+    null
+   ]
+  ],
+  "minutes": 550
+ },
+ "798": {
+  "code": 798,
+  "name": "Kurigram Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Kurigram",
+    null,
+    "0710"
+   ],
+   [
+    "Kaunia",
+    "0750",
+    "0753"
+   ],
+   [
+    "Rangpur",
+    "0813",
+    "0823"
+   ],
+   [
+    "Badarganj",
+    "0851",
+    "0854"
+   ],
+   [
+    "Parbatipur",
+    "0925",
+    "0945"
+   ],
+   [
+    "Joypurhat",
+    "1042",
+    "1045"
+   ],
+   [
+    "Santahar",
+    "1120",
+    "1130"
+   ],
+   [
+    "Madhnagar",
+    "1202",
+    "1204"
+   ],
+   [
+    "Natore",
+    "1219",
+    "1222"
+   ],
+   [
+    "Dhaka Airport",
+    "1632",
+    "1635"
+   ],
+   [
+    "Dhaka",
+    "1705",
+    null
+   ]
+  ],
+  "minutes": 595
+ },
+ "803": {
+  "code": 803,
+  "name": "Banglabandha Express",
+  "off_day": "Friday",
+  "zone": "west",
+  "stops": [
+   [
+    "Rajshahi",
+    null,
+    "2100"
+   ],
+   [
+    "Abdulpur",
+    "2140",
+    "2200"
+   ],
+   [
+    "Natore",
+    "2217",
+    "2220"
+   ],
+   [
+    "Madhnagar",
+    "2246",
+    "2248"
+   ],
+   [
+    "Ahsanganj",
+    "2257",
+    "2259"
+   ],
+   [
+    "Santahar",
+    "2321",
+    "2325"
+   ],
+   [
+    "Akkelpur",
+    "2345",
+    "2347"
+   ],
+   [
+    "Joypurhat",
+    "0002",
+    "0004"
+   ],
+   [
+    "Panchbibi",
+    "0015",
+    "0017"
+   ],
+   [
+    "Birampur",
+    "0037",
+    "0040"
+   ],
+   [
+    "Phulbari",
+    "0058",
+    "0101"
+   ],
+   [
+    "Parbatipur",
+    "0130",
+    "0150"
+   ],
+   [
+    "Chirirbandar",
+    "0205",
+    "0207"
+   ],
+   [
+    "Dinajpur",
+    "0225",
+    "0230"
+   ],
+   [
+    "Setabganj",
+    "0301",
+    "0303"
+   ],
+   [
+    "Pirganj",
+    "0317",
+    "0319"
+   ],
+   [
+    "Shibganj (Thakurgaon)",
+    "0334",
+    "0336"
+   ],
+   [
+    "Thakurgaon Road",
+    "0343",
+    "0347"
+   ],
+   [
+    "Ruhia",
+    "0402",
+    "0404"
+   ],
+   [
+    "Kismat",
+    "0415",
+    "0417"
+   ],
+   [
+    "Panchagarh",
+    "0440",
+    null
+   ]
+  ],
+  "minutes": 460
+ },
+ "804": {
+  "code": 804,
+  "name": "Banglabandha Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Panchagarh",
+    null,
+    "0900"
+   ],
+   [
+    "Kismat",
+    "0918",
+    "0920"
+   ],
+   [
+    "Ruhia",
+    "0929",
+    "0931"
+   ],
+   [
+    "Thakurgaon Road",
+    "0947",
+    "0950"
+   ],
+   [
+    "Shibganj (Thakurgaon)",
+    "0957",
+    "0959"
+   ],
+   [
+    "Pirganj",
+    "1015",
+    "1017"
+   ],
+   [
+    "Setabganj",
+    "1034",
+    "1036"
+   ],
+   [
+    "Dinajpur",
+    "1107",
+    "1115"
+   ],
+   [
+    "Chirirbandar",
+    "1134",
+    "1136"
+   ],
+   [
+    "Parbatipur",
+    "1200",
+    "1220"
+   ],
+   [
+    "Phulbari",
+    "1238",
+    "1241"
+   ],
+   [
+    "Birampur",
+    "1252",
+    "1255"
+   ],
+   [
+    "Panchbibi",
+    "1330",
+    "1332"
+   ],
+   [
+    "Joypurhat",
+    "1343",
+    "1346"
+   ],
+   [
+    "Akkelpur",
+    "1412",
+    "1414"
+   ],
+   [
+    "Santahar",
+    "1440",
+    "1445"
+   ],
+   [
+    "Ahsanganj",
+    "1507",
+    "1509"
+   ],
+   [
+    "Madhnagar",
+    "1518",
+    "1520"
+   ],
+   [
+    "Natore",
+    "1535",
+    "1537"
+   ],
+   [
+    "Abdulpur",
+    "1555",
+    "1615"
+   ],
+   [
+    "Rajshahi",
+    "1715",
+    null
+   ]
+  ],
+  "minutes": 495
+ },
+ "805": {
+  "code": 805,
+  "name": "Chilahati Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1700"
+   ],
+   [
+    "Dhaka Airport",
+    "1723",
+    "1728"
+   ],
+   [
+    "Joydebpur",
+    "1751",
+    "1754"
+   ],
+   [
+    "Ishwardi Bypass",
+    "2055",
+    "2057"
+   ],
+   [
+    "Natore",
+    "2127",
+    "2130"
+   ],
+   [
+    "Santahar",
+    "2230",
+    "2235"
+   ],
+   [
+    "Joypurhat",
+    "2319",
+    "2322"
+   ],
+   [
+    "Birampur",
+    "2351",
+    "2353"
+   ],
+   [
+    "Phulbari",
+    "0004",
+    "0006"
+   ],
+   [
+    "Parbatipur",
+    "0040",
+    "0100"
+   ],
+   [
+    "Saidpur",
+    "0117",
+    "0122"
+   ],
+   [
+    "Nilphamari",
+    "0141",
+    "0144"
+   ],
+   [
+    "Domar",
+    "0200",
+    "0203"
+   ],
+   [
+    "Chilahati",
+    "0245",
+    null
+   ]
+  ],
+  "minutes": 585
+ },
+ "806": {
+  "code": 806,
+  "name": "Chilahati Express",
+  "off_day": "Saturday",
+  "zone": "west",
+  "stops": [
+   [
+    "Chilahati",
+    null,
+    "0600"
+   ],
+   [
+    "Domar",
+    "0618",
+    "0621"
+   ],
+   [
+    "Nilphamari",
+    "0637",
+    "0640"
+   ],
+   [
+    "Saidpur",
+    "0659",
+    "0704"
+   ],
+   [
+    "Parbatipur",
+    "0720",
+    "0730"
+   ],
+   [
+    "Phulbari",
+    "0748",
+    "0750"
+   ],
+   [
+    "Birampur",
+    "0801",
+    "0803"
+   ],
+   [
+    "Joypurhat",
+    "0832",
+    "0835"
+   ],
+   [
+    "Santahar",
+    "0915",
+    "0920"
+   ],
+   [
+    "Natore",
+    "1001",
+    "1004"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1034",
+    "1036"
+   ],
+   [
+    "Joydebpur",
+    "1352",
+    "1355"
+   ],
+   [
+    "Dhaka Airport",
+    "1422",
+    "1425"
+   ],
+   [
+    "Dhaka",
+    "1455",
+    null
+   ]
+  ],
+  "minutes": 535
+ },
+ "809": {
+  "code": 809,
+  "name": "Burimari Express",
+  "off_day": "Wednesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "0830"
+   ],
+   [
+    "Dhaka Airport",
+    "0853",
+    "0858"
+   ],
+   [
+    "Ishwardi Bypass",
+    "1230",
+    "1232"
+   ],
+   [
+    "Natore",
+    "1302",
+    "1305"
+   ],
+   [
+    "Santahar",
+    "1415",
+    "1420"
+   ],
+   [
+    "Bogura",
+    "1500",
+    "1505"
+   ],
+   [
+    "Mohimaganj",
+    "1546",
+    "1548"
+   ],
+   [
+    "Bonarpara",
+    "1558",
+    "1603"
+   ],
+   [
+    "Gaibandha",
+    "1628",
+    "1633"
+   ],
+   [
+    "Kaunia",
+    "1743",
+    "1746"
+   ],
+   [
+    "Lalmonirhat",
+    "1810",
+    "1830"
+   ],
+   [
+    "Kakina",
+    "1855",
+    "1857"
+   ],
+   [
+    "Hatibandha",
+    "1924",
+    "1926"
+   ],
+   [
+    "Patgram",
+    "2000",
+    "2003"
+   ],
+   [
+    "Burimari",
+    "2020",
+    null
+   ]
+  ],
+  "minutes": 710
+ },
+ "810": {
+  "code": 810,
+  "name": "Burimari Express",
+  "off_day": "Tuesday",
+  "zone": "west",
+  "stops": [
+   [
+    "Burimari",
+    null,
+    "2120"
+   ],
+   [
+    "Patgram",
+    "2135",
+    "2138"
+   ],
+   [
+    "Hatibandha",
+    "2211",
+    "2213"
+   ],
+   [
+    "Kakina",
+    "2243",
+    "2245"
+   ],
+   [
+    "Lalmonirhat",
+    "2310",
+    "2320"
+   ],
+   [
+    "Kaunia",
+    "2343",
+    "2346"
+   ],
+   [
+    "Gaibandha",
+    "0052",
+    "0055"
+   ],
+   [
+    "Bonarpara",
+    "0117",
+    "0120"
+   ],
+   [
+    "Mohimaganj",
+    "0130",
+    "0132"
+   ],
+   [
+    "Bogura",
+    "0213",
+    "0216"
+   ],
+   [
+    "Santahar",
+    "0300",
+    "0305"
+   ],
+   [
+    "Natore",
+    "0401",
+    "0404"
+   ],
+   [
+    "Dhaka Airport",
+    "0810",
+    "0813"
+   ],
+   [
+    "Dhaka",
+    "0850",
+    null
+   ]
+  ],
+  "minutes": 690
+ },
+ "825": {
+  "code": 825,
+  "name": "Jahanabad Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Khulna",
+    null,
+    "0600"
+   ],
+   [
+    "Noapara (Jashore)",
+    "0633",
+    "0636"
+   ],
+   [
+    "Singia",
+    "0651",
+    "0653"
+   ],
+   [
+    "Narail",
+    "0713",
+    "0716"
+   ],
+   [
+    "Lohagara",
+    "0729",
+    "0731"
+   ],
+   [
+    "Kashiani",
+    "0741",
+    "0744"
+   ],
+   [
+    "Bhanga",
+    "0813",
+    "0816"
+   ],
+   [
+    "Dhaka",
+    "0945",
+    null
+   ]
+  ],
+  "minutes": 225
+ },
+ "826": {
+  "code": 826,
+  "name": "Jahanabad Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "2000"
+   ],
+   [
+    "Bhanga",
+    "2103",
+    "2106"
+   ],
+   [
+    "Kashiani",
+    "2134",
+    "2137"
+   ],
+   [
+    "Lohagara",
+    "2148",
+    "2150"
+   ],
+   [
+    "Narail",
+    "2203",
+    "2206"
+   ],
+   [
+    "Singia",
+    "2234",
+    "2240"
+   ],
+   [
+    "Noapara (Jashore)",
+    "2254",
+    "2256"
+   ],
+   [
+    "Khulna",
+    "2345",
+    null
+   ]
+  ],
+  "minutes": 225
+ },
+ "827": {
+  "code": 827,
+  "name": "Rupashi Bangla Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Benapole",
+    null,
+    "1525"
+   ],
+   [
+    "Jashore",
+    "1612",
+    "1615"
+   ],
+   [
+    "Narail",
+    "1643",
+    "1646"
+   ],
+   [
+    "Kashiani",
+    "1708",
+    "1711"
+   ],
+   [
+    "Bhanga",
+    "1744",
+    "1747"
+   ],
+   [
+    "Dhaka",
+    "1900",
+    null
+   ]
+  ],
+  "minutes": 215
+ },
+ "828": {
+  "code": 828,
+  "name": "Rupashi Bangla Express",
+  "off_day": "Monday",
+  "zone": "west",
+  "stops": [
+   [
+    "Dhaka",
+    null,
+    "1045"
+   ],
+   [
+    "Bhanga",
+    "1147",
+    "1150"
+   ],
+   [
+    "Kashiani",
+    "1219",
+    "1222"
+   ],
+   [
+    "Narail",
+    "1242",
+    "1245"
+   ],
+   [
+    "Jashore",
+    "1315",
+    "1325"
+   ],
+   [
+    "Benapole",
+    "1425",
+    null
+   ]
+  ],
+  "minutes": 220
+ }
+}

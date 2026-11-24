@@ -106,7 +106,7 @@ export const Modal = ({ open, onClose, title, icon, tone, children, footer, size
         aria-label={typeof title === 'string' ? title : undefined}
         tabIndex={-1}
         ref={ref}
-        style={size === 'lg' ? { maxWidth: 600 } : undefined}
+        style={size === 'xl' ? { maxWidth: 1040 } : size === 'lg' ? { maxWidth: 600 } : undefined}
       >
         <div className="modal-head">
           <div className="stack-sm">

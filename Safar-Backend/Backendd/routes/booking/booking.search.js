@@ -58,10 +58,17 @@ router.post('/', async (req, res) => {
     const allTrains = [];
     for (const route of filteredRoutes) {
       const trainRes = await client.query(
-        `SELECT TRAIN_CODE, NAME FROM TRAIN WHERE ROUTE_ID = $1;`,
+        `SELECT TRAIN_CODE, NAME, OFF_DAY FROM TRAIN WHERE ROUTE_ID = $1;`,
         [route.route_id]
       );
       allTrains.push(...trainRes.rows);
+    }
+
+    // Skip trains on their weekly off day (off_day is e.g. "Monday", or "NONE")
+    const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const journeyDay = WEEKDAYS[new Date(`${doj}T12:00:00Z`).getUTCDay()];
+    for (let i = allTrains.length - 1; i >= 0; i--) {
+      if (String(allTrains[i].off_day || '').toLowerCase() === journeyDay) allTrains.splice(i, 1);
     }
 
     const trainResult = [];

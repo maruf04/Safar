@@ -4,6 +4,8 @@ import SearchForm from '../components/SearchForm';
 import { Icon } from '../components/ui';
 import { useT } from '../i18n';
 import { num } from '../lib/format';
+import { PopularRoutes, DepartureBoard, NetworkSection, TravelFaq } from '../components/HomeSections';
+import { useNetwork } from '../lib/network';
 
 const FEATURES = [
   { icon: 'seat', title: 'Pick your exact seat', text: 'See the coach layout, which seats are free, and choose up to 4 seats together.' },
@@ -14,6 +16,9 @@ const FEATURES = [
 const Homepage = () => {
   const navigate = useNavigate();
   const { t } = useT();
+  const { trains } = useNetwork();
+  const stationCount = trains ? new Set(trains.flatMap((tr) => tr.stops.map((s) => s.station))).size : 206;
+  const trainCount = trains ? trains.length : 120;
 
   const handleSearch = ({ from, to, date }) => {
     const params = new URLSearchParams({ from, to, date });
@@ -22,7 +27,7 @@ const Homepage = () => {
 
   return (
     <>
-      <section className="band band-tall">
+      <section className="band band-tall band-photo" style={{ '--band-img': `url(${process.env.PUBLIC_URL}/images/hero-steam-train.jpg)` }}>
         <div className="container">
           <p className="eyebrow" style={{ marginBottom: 12 }}>{t('Train tickets · Bangladesh')}</p>
           <h1 className="hero-title">{t('Book a train seat in under a minute.')}</h1>
@@ -30,8 +35,8 @@ const Homepage = () => {
             {t('Safar khoobsurat hain manzil se bhi! Find your train, choose your seat and travel.')}
           </p>
           <div className="stat-strip" aria-label={t('Network size')}>
-            <div><strong>{num(46)}</strong><span>{t('stations')}</span></div>
-            <div><strong>{num(89)}</strong><span>{t('trains')}</span></div>
+            <div><strong>{num(stationCount)}</strong><span>{t('stations')}</span></div>
+            <div><strong>{num(trainCount)}</strong><span>{t('trains')}</span></div>
             <div><strong>{num(10)}</strong><span>{t('days of advance booking')}</span></div>
           </div>
         </div>
@@ -39,6 +44,11 @@ const Homepage = () => {
 
       <div className="container overlap">
         <SearchForm onSubmit={handleSearch} />
+      </div>
+
+      <div className="section container stack-xl">
+        <PopularRoutes />
+        <DepartureBoard />
       </div>
 
       <section className="section container stack-lg" aria-labelledby="how-title">
@@ -62,8 +72,14 @@ const Homepage = () => {
           ))}
         </div>
 
-        <div className="card card-pad row-between">
-          <div className="stack-sm">
+        <div className="card card-pad row-between cta-photo">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/bangladesh-railway-locomotive.jpg`}
+            alt={t('A Bangladesh Railway diesel locomotive crossing a red steel bridge')}
+            width="120"
+            height="111"
+          />
+          <div className="stack-sm" style={{ flex: 1 }}>
             <h3 className="h3">{t('Looking for a train’s timetable?')}</h3>
             <p className="muted small">{t('See every stop, arrival and departure for both directions.')}</p>
           </div>
@@ -72,6 +88,11 @@ const Homepage = () => {
           </Link>
         </div>
       </section>
+
+      <div className="section container stack-xl">
+        <NetworkSection />
+        <TravelFaq />
+      </div>
     </>
   );
 };

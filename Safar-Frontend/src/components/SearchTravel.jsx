@@ -3,7 +3,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useData } from './AppContext';
 import { fetchWithAuth, API_URL } from './utils';
 import SearchForm from './SearchForm';
-import { Alert, EmptyState, Icon } from './ui';
+import { Alert, EmptyState, Icon, Modal } from './ui';
+import RoutePanel, { useTrainDetails } from './RoutePanel';
 import { formatDate, formatDuration, formatTime, durationMinutes, hourOf, taka, num, stationName } from '../lib/format';
 import { useT } from '../i18n';
 
@@ -26,7 +27,34 @@ const cheapestFare = (train) => {
   return fares.length ? Math.min(...fares) : null;
 };
 
-const TrainCard = ({ train, from, to, date }) => {
+// Popup with the train's real route map and stop-by-stop timetable.
+// Closes with the Cancel button, the X, Escape, or a click outside the popup.
+const RouteModal = ({ train, from, to, onClose }) => {
+  const { t } = useT();
+  const { data, loading, error } = useTrainDetails(train?.train_name);
+  const highlight = useMemo(() => ({ from, to }), [from, to]);
+
+  return (
+    <Modal
+      open={!!train}
+      onClose={onClose}
+      size="xl"
+      title={train ? `${train.train_name} · ${t('Route & stops')}` : ''}
+      footer={<button type="button" className="btn btn-ghost" onClick={onClose}>{t('Cancel')}</button>}
+    >
+      {train && (
+        <p className="small muted" style={{ marginTop: -8 }}>
+          {t('Train #{code}', { code: num(train.train_code) })} · {t('Your journey: {from} → {to}', { from: stationName(from), to: stationName(to) })}
+        </p>
+      )}
+      {loading && <div className="skeleton" style={{ height: 380 }} aria-label={t('Loading timetable')} />}
+      {error && !loading && <Alert tone="danger">{error}</Alert>}
+      {data && !loading && <RoutePanel data={data} highlight={highlight} mapHeight={440} />}
+    </Modal>
+  );
+};
+
+const TrainCard = ({ train, from, to, date, onShowRoute }) => {
   const { t } = useT();
   const dep = train.from_station_departure;
   const arr = train.to_station_arrival;
@@ -62,6 +90,12 @@ const TrainCard = ({ train, from, to, date }) => {
         </div>
       </div>
 
+      <div className="row" style={{ justifyContent: 'flex-start' }}>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={() => onShowRoute(train)}>
+          <Icon name="route" size={16} /> {t('Route & stops')}
+        </button>
+      </div>
+
       <div className="class-grid">
         {(train.classes || []).map((cls) => {
           const left = seatsLeft(cls);
@@ -76,14 +110,14 @@ const TrainCard = ({ train, from, to, date }) => {
             seat_cost: cls.seat_cost,
           });
           return (
-            <div key={cls.class_code ?? cls.class_name} className={`class-tile${left === 0 ? ' soldout' : ''}`}>
+            <div key={cls.class_code ?? cls.class_name} className={`class-tile${left === 0 ? ' soldout' : left <= 10 ? ' low' : ''}`}>
               <div className="ct-row">
                 <span className="ct-name">{cls.class_name}</span>
                 {!Number.isNaN(cost) && <span className="price">{taka(cost)}</span>}
               </div>
               <div className="ct-row">
                 {left === 0 ? (
-                  <span className="badge badge-danger">{t('Sold out')}</span>
+                  <span className="badge badge-soldout"><Icon name="close" size={13} /> {t('Sold out')}</span>
                 ) : (
                   <span className={`badge ${left <= 10 ? 'badge-warn' : ''}`}>
                     {t('{left} of {total} seats left', { left, total: cls.total_seat })}
@@ -121,6 +155,7 @@ const SearchTravel = () => {
   const [searched, setSearched] = useState(false);
   const [timeFilter, setTimeFilter] = useState('all');
   const [sort, setSort] = useState('departure');
+  const [routeTrain, setRouteTrain] = useState(null);
 
   // Run the search whenever the URL has a complete query
   useEffect(() => {
@@ -262,7 +297,7 @@ const SearchTravel = () => {
               </div>
             )}
             {visible.map((train) => (
-              <TrainCard key={train.train_code} train={train} from={from} to={to} date={date} />
+              <TrainCard key={train.train_code} train={train} from={from} to={to} date={date} onShowRoute={setRouteTrain} />
             ))}
           </>
         )}
@@ -273,6 +308,8 @@ const SearchTravel = () => {
           </p>
         )}
       </section>
+
+      <RouteModal train={routeTrain} from={from} to={to} onClose={() => setRouteTrain(null)} />
     </>
   );
 };

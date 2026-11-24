@@ -9,6 +9,8 @@ const refund=require('../routes/booking/booking.refund.js');
 const trainDetails=require('../routes/booking/booking.trainDetails.js');
 const allTrainNames=require('../routes/booking/booking.allTrainNames.js');
 const getStations = require('../routes/booking/booking.getStations.js');
+const network = require('../routes/booking/booking.network.js');
+const routesList = require('../routes/booking/booking.routes.js');
 
 app.use('/search',search);
 app.use('/reserve',reserve);
@@ -18,5 +20,7 @@ app.use('/refund',refund);
 app.use('/trainDetails',trainDetails);
 app.use('/allTrainNames',allTrainNames);
 app.use('/getStations', getStations);
+app.use('/network', network);
+app.use('/routes', routesList);
 
 module.exports=app;

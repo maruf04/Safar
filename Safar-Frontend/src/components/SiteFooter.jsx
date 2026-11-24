@@ -11,8 +11,8 @@ const SiteFooter = () => {
         <div className="footer-grid">
           <div className="stack-sm">
             <span className="brand" style={{ fontSize: 22 }}>
-              <img src={`${process.env.PUBLIC_URL}/safar-mark-light.svg`} alt="" width="32" height="32" />
-              safar<span className="brand-dot">.</span>
+              <img src={`${process.env.PUBLIC_URL}/safar-clock.svg`} alt="" width="40" height="40" />
+              SAFAR<span className="brand-dot">.</span>
             </span>
             <p className="small" style={{ maxWidth: 280 }}>
               {t('Search trains, pick your seat and pay with bKash or Nagad, all in one place.')}
