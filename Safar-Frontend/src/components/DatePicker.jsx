@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Icon } from './ui';
 import { toISODate, formatDate, formatMonth, num } from '../lib/format';
 import { useT } from '../i18n';
@@ -28,6 +28,8 @@ const DatePicker = ({ id, value, min, max, onChange }) => {
   const [focused, setFocused] = useState(value || min);
   const rootRef = useRef(null);
   const triggerRef = useRef(null);
+  const popRef = useRef(null);
+  const [popTop, setPopTop] = useState(null); // px from the field's top
   const dayRefs = useRef({});
 
   const today = toISODate(new Date());
@@ -43,9 +45,32 @@ const DatePicker = ({ id, value, min, max, onChange }) => {
     return () => document.removeEventListener('mousedown', onDown);
   }, [open]);
 
-  // Move keyboard focus to the focused day
+  // Keep the calendar on screen: below the field, above it if there is no room below,
+  // otherwise as close as the window allows (never under the sticky navbar)
+  useLayoutEffect(() => {
+    if (!open) return undefined;
+    const place = () => {
+      if (!popRef.current || !triggerRef.current) return;
+      const field = triggerRef.current.getBoundingClientRect();
+      const header = document.querySelector('header');
+      const h = popRef.current.offsetHeight;
+      const min = (header ? Math.max(0, header.getBoundingClientRect().bottom) : 0) + 8;
+      const max = window.innerHeight - h - 8;
+      const below = field.bottom + 10;
+      const above = field.top - 10 - h;
+      let top = Math.max(min, Math.min(below, max));
+      if (below <= max) top = below;
+      else if (above >= min) top = above;
+      setPopTop(top - rootRef.current.getBoundingClientRect().top);
+    };
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [open]);
+
+  // Move keyboard focus to the focused day, without letting the browser scroll the page
   useEffect(() => {
-    if (open && dayRefs.current[focused]) dayRefs.current[focused].focus();
+    if (open && dayRefs.current[focused]) dayRefs.current[focused].focus({ preventScroll: true });
   }, [open, focused, view]);
 
   const openPicker = () => {
@@ -59,7 +84,7 @@ const DatePicker = ({ id, value, min, max, onChange }) => {
     if (!inRange(iso)) return;
     onChange(iso);
     setOpen(false);
-    if (triggerRef.current) triggerRef.current.focus();
+    if (triggerRef.current) triggerRef.current.focus({ preventScroll: true });
   };
 
   const moveFocus = (delta) => {
@@ -77,7 +102,7 @@ const DatePicker = ({ id, value, min, max, onChange }) => {
     } else if (e.key === 'Escape') {
       e.preventDefault();
       setOpen(false);
-      if (triggerRef.current) triggerRef.current.focus();
+      if (triggerRef.current) triggerRef.current.focus({ preventScroll: true });
     }
   };
 
@@ -121,7 +146,7 @@ const DatePicker = ({ id, value, min, max, onChange }) => {
       </button>
 
       {open && (
-        <div className="dp-pop" role="dialog" aria-label={t('Choose journey date')}>
+        <div className="dp-pop" ref={popRef} style={popTop === null ? undefined : { top: popTop }} role="dialog" aria-label={t('Choose journey date')}>
           <div className="dp-head">
             <button type="button" className="dp-nav" onClick={() => shiftMonth(-1)} disabled={prevDisabled} aria-label={t('Previous month')}>
               <Icon name="arrowLeft" size={16} />

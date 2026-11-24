@@ -377,8 +377,10 @@ html[lang="bn"] .eyebrow, html[lang="bn"] .searchbar .sb-field label { letter-sp
   background: var(--surface); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 14px; animation: rise .16s ease-out;
+  max-height: calc(100vh - 92px); overflow-y: auto;
 }
-@media (min-width: 900px) { .dp-pop { left: 50%; transform: translateX(-50%); } }
+/* Right edge on the date field, so the Search button beside it is never covered */
+@media (min-width: 900px) { .dp-pop { left: auto; right: 0; } }
 .dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .dp-month { font-weight: 700; font-size: 15px; }
 .dp-nav {
@@ -391,7 +393,7 @@ html[lang="bn"] .eyebrow, html[lang="bn"] .searchbar .sb-field label { letter-sp
 .dp-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
 .dp-wd { text-align: center; font-size: 11px; font-weight: 700; color: var(--subtle); padding: 6px 0; letter-spacing: .04em; }
 .dp-day {
-  position: relative; aspect-ratio: 1; min-height: 36px;
+  position: relative; height: 36px;
   border: 0; border-radius: 50%; background: transparent;
   font: 500 14px var(--font); color: #B7C2BD; cursor: default;
   font-variant-numeric: tabular-nums;
